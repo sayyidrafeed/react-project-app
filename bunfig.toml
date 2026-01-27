@@ -1,0 +1,7 @@
+[test]
+# Preload setup file before running tests
+preload = ["./src/__tests__/setup.ts"]
+
+# Enable coverage reporting
+coverage = true
+coverageDir = "coverage"
