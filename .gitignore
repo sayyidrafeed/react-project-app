@@ -52,7 +52,8 @@ bun.lock
 # Testing
 __snapshots__/
 junit.xml
-__tests__/
+test-results/
+playwright-report/
 
 # Misc
 .vercel
