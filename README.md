@@ -35,6 +35,28 @@ bun dev
 bun run build
 ```
 
+### Testing
+
+Run the test suite to ensure code quality and prevent regressions:
+
+```bash
+# Run all unit tests
+bun test
+
+# Run unit tests with coverage report
+bun test --coverage
+
+# Run E2E tests with Playwright
+bunx playwright test
+
+# Run E2E tests in UI mode (visual debugging)
+bunx playwright test --ui
+```
+
+**Test Coverage:** 89.36% (140 passing unit tests, 8 passing E2E tests)
+
+See the test suite documentation for more details on writing and running tests.
+
 ## Recommended Folder Structure
 
 To maintain a clean and scalable codebase, we follow this folder structure:
