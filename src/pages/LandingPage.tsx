@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import BenefitsSection from '../components/BenefitsSection';
+import TestimonialSection from '../components/TestimonialSection';
+import NewsSection from '../components/NewsSection';
 
 const LandingPage = () => {
     const fadeIn = {
@@ -77,6 +80,9 @@ const LandingPage = () => {
                 </div>
             </section>
 
+            {/* Benefits Section */}
+            <BenefitsSection />
+
             {/* Core Values Section */}
             <section className="relative py-24 bg-white/50 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,6 +127,12 @@ const LandingPage = () => {
                     </motion.div>
                 </div>
             </section>
+
+            {/* Testimonial Section */}
+            <TestimonialSection />
+
+            {/* News Section */}
+            <NewsSection />
         </div>
     );
 };
