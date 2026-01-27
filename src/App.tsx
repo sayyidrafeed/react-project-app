@@ -8,6 +8,7 @@ import MentorTasks from './pages/MentorTasks';
 import TaskCatalog from './pages/TaskCatalog';
 import PresencePage from './pages/PresencePage';
 import AdminUsers from './pages/AdminUsers';
+import AdminEvents from './pages/AdminEvents';
 import LandingPage from './pages/LandingPage';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/admin">
                         <Route index element={<ProtectedRoute allowedRoles={['admin']}><AdminHome /></ProtectedRoute>} />
                         <Route path="users" element={<ProtectedRoute allowedRoles={['admin']}><AdminUsers /></ProtectedRoute>} />
+                        <Route path="events" element={<ProtectedRoute allowedRoles={['admin']}><AdminEvents /></ProtectedRoute>} />
                     </Route>
 
                     {/* Fallback */}

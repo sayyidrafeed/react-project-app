@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface AuthLayoutProps {
     children: React.ReactNode;
@@ -13,7 +14,9 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
 
             <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-2xl relative z-10 border border-white/20">
                 <div className="text-center">
-                    <h2 className="text-3xl font-extrabold text-upn-green">SIERA</h2>
+                    <Link to="/" className="inline-block hover:scale-105 transition-transform">
+                        <h2 className="text-3xl font-extrabold text-upn-green">SIERA</h2>
+                    </Link>
                     <p className="mt-2 text-sm text-slate-500 font-medium tracking-wide border-t border-slate-100 pt-2 uppercase">
                         Sistem Informasi <span className="text-upn-gold font-bold">PATRIBERA</span>
                     </p>

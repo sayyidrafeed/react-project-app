@@ -11,7 +11,34 @@ const MOCK_USERS = [
 ];
 
 const AdminUsers: React.FC = () => {
-    const [users] = useState(MOCK_USERS);
+    const [users, setUsers] = useState(MOCK_USERS);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingUser, setEditingUser] = useState<{ id?: string, name: string, email: string, role: string, status: string } | null>(null);
+
+    const handleOpenModal = (user?: typeof MOCK_USERS[0]) => {
+        if (user) {
+            setEditingUser(user);
+        } else {
+            setEditingUser({ name: '', email: '', role: 'mentee', status: 'Active' });
+        }
+        setIsModalOpen(true);
+    };
+
+    const handleSaveUser = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingUser) return;
+
+        if (editingUser.id) {
+            // Edit existing
+            setUsers(users.map(u => u.id === editingUser.id ? { ...u, ...editingUser } as any : u));
+        } else {
+            // Add new
+            const newUser = { ...editingUser, id: Math.random().toString(36).substr(2, 9) };
+            setUsers([...users, newUser as any]);
+        }
+        setIsModalOpen(false);
+        setEditingUser(null);
+    };
 
     return (
         <DashboardLayout>
@@ -21,7 +48,7 @@ const AdminUsers: React.FC = () => {
                         <h1 className="text-3xl font-black text-upn-green">Manajemen User</h1>
                         <p className="text-slate-500 font-medium">Kendalikan akses dan peran seluruh pengguna sistem SIERA.</p>
                     </div>
-                    <button className="btn-primary py-3 px-8 text-sm font-black">TAMBAH USER BARU</button>
+                    <button onClick={() => handleOpenModal()} className="btn-primary py-3 px-8 text-sm font-black">TAMBAH USER BARU</button>
                 </div>
 
                 <div className="card bg-white p-0 overflow-hidden shadow-2xl shadow-slate-200/40">
@@ -81,7 +108,7 @@ const AdminUsers: React.FC = () => {
                                         </td>
                                         <td className="px-8 py-6 text-right">
                                             <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-upn-green transition-all" title="Edit Role"><UserCog size={18} /></button>
+                                                <button onClick={() => handleOpenModal(user)} className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-upn-green transition-all" title="Edit Role"><UserCog size={18} /></button>
                                                 <button className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-red-500 transition-all" title="Delete User"><UserMinus size={18} /></button>
                                                 <button className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-slate-600 transition-all"><MoreVertical size={18} /></button>
                                             </div>
@@ -93,13 +120,72 @@ const AdminUsers: React.FC = () => {
                     </div>
 
                     <div className="p-6 bg-slate-50/50 border-t border-slate-50 flex items-center justify-between">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Showing 4 of 48 users total</p>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Showing {users.length} users total</p>
                         <div className="flex gap-2">
                             <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-400 hover:text-upn-green disabled:opacity-50" disabled>PREVIOUS</button>
                             <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-500 hover:text-upn-green">NEXT PAGE</button>
                         </div>
                     </div>
                 </div>
+
+                {isModalOpen && editingUser && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
+                        <div className="bg-white w-full max-w-md rounded-2xl p-8 relative z-10 shadow-xl">
+                            <h2 className="text-2xl font-black text-slate-800 mb-6">{editingUser.id ? 'Edit User' : 'Tambah User Baru'}</h2>
+                            <form onSubmit={handleSaveUser} className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 mb-1">Nama Lengkap</label>
+                                    <input
+                                        required
+                                        className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-upn-green outline-none"
+                                        value={editingUser.name}
+                                        onChange={e => setEditingUser({ ...editingUser, name: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 mb-1">Email</label>
+                                    <input
+                                        required
+                                        type="email"
+                                        className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-upn-green outline-none"
+                                        value={editingUser.email}
+                                        onChange={e => setEditingUser({ ...editingUser, email: e.target.value })}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-500 mb-1">Role</label>
+                                        <select
+                                            className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-upn-green outline-none bg-white"
+                                            value={editingUser.role}
+                                            onChange={e => setEditingUser({ ...editingUser, role: e.target.value })}
+                                        >
+                                            <option value="mentee">Mentee</option>
+                                            <option value="mentor">Mentor</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-500 mb-1">Status</label>
+                                        <select
+                                            className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-upn-green outline-none bg-white"
+                                            value={editingUser.status}
+                                            onChange={e => setEditingUser({ ...editingUser, status: e.target.value })}
+                                        >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="pt-4 flex gap-3">
+                                    <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 text-slate-500 font-bold hover:bg-slate-50 rounded-xl transition-colors">BATAL</button>
+                                    <button type="submit" className="flex-1 py-3 bg-upn-green text-white font-bold rounded-xl hover:bg-green-900 transition-colors shadow-lg shadow-upn-green/20">SIMPAN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
             </div>
         </DashboardLayout>
     );

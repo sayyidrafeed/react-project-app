@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, UserRole } from '../context/AuthContext';
 import AuthLayout from '../layouts/AuthLayout';
-import { Mail, Lock, LogIn, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Mail, Lock, LogIn, ShieldCheck } from 'lucide-react';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -10,18 +10,6 @@ const LoginPage: React.FC = () => {
     const [role, setRole] = useState<UserRole>('mentee');
     const { login, isLoading } = useAuth();
     const navigate = useNavigate();
-
-    // Auto-generate random credentials on mount
-    useEffect(() => {
-        generateCredentials();
-    }, []);
-
-    const generateCredentials = () => {
-        const randomId = Math.random().toString(36).substring(2, 8);
-        const randomPass = Math.random().toString(36).substring(2, 10);
-        setEmail(`user_${randomId}@siera.upnvj.ac.id`);
-        setPassword(`pass_${randomPass}`);
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,8 +29,8 @@ const LoginPage: React.FC = () => {
                                 type="button"
                                 onClick={() => setRole(r)}
                                 className={`py-2 text-xs font-bold rounded-md transition-all ${role === r
-                                        ? 'bg-upn-green text-upn-gold shadow-sm'
-                                        : 'text-slate-500 hover:text-upn-green'
+                                    ? 'bg-upn-green text-upn-gold shadow-sm'
+                                    : 'text-slate-500 hover:text-upn-green'
                                     }`}
                             >
                                 {r.toUpperCase()}
@@ -62,17 +50,9 @@ const LoginPage: React.FC = () => {
                             placeholder="Email Mahasiswa / Admin"
                             className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50"
                             value={email}
-                            readOnly
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <button
-                            type="button"
-                            onClick={generateCredentials}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-upn-green transition-colors"
-                            title="Generate New Credentials"
-                        >
-                            <RefreshCw size={16} />
-                        </button>
                     </div>
 
                     <div className="relative">
@@ -82,7 +62,7 @@ const LoginPage: React.FC = () => {
                             placeholder="Kata Sandi"
                             className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50"
                             value={password}
-                            readOnly
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>

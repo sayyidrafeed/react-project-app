@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
     const fadeIn = {
@@ -65,19 +66,13 @@ const LandingPage = () => {
                         transition={{ duration: 0.8, delay: 0.6 }}
                         className="flex flex-col sm:flex-row justify-center gap-4"
                     >
-                        <a
-                            href="/register"
-                            className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-upn-green font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-upn-green hover:bg-green-800 hover:scale-105 shadow-xl shadow-green-900/20"
-                        >
-                            Daftar Sekarang
-                            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </a>
-                        <a
-                            href="/login"
-                            className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-slate-900 transition-all duration-200 bg-white border-2 border-slate-200 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-200 hover:bg-slate-50 hover:border-slate-300 hover:scale-105"
+                        <Link
+                            to="/login"
+                            className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-upn-green font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-upn-green hover:bg-green-800 hover:scale-105 shadow-xl shadow-green-900/20"
                         >
                             Masuk Portal
-                        </a>
+                            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
                     </motion.div>
                 </div>
             </section>

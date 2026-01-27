@@ -21,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
         ],
         mentor: [
             { name: 'Statistik Grup', icon: LayoutDashboard, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: Users, path: '/mentor/group' },
+            { name: 'Daftar Mentee', icon: Users, path: '/mentor' },
             { name: 'Validasi Tugas', icon: CheckSquare, path: '/mentor/tasks' },
         ],
         mentee: [
@@ -56,8 +56,8 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                             key={item.name}
                             to={item.path}
                             className={`flex items-center gap-4 p-3 rounded-xl transition-all group ${isActive
-                                    ? 'bg-upn-green text-upn-gold shadow-md'
-                                    : 'text-slate-500 hover:bg-slate-50 hover:text-upn-green'
+                                ? 'bg-upn-green text-upn-gold shadow-md'
+                                : 'text-slate-500 hover:bg-slate-50 hover:text-upn-green'
                                 }`}
                         >
                             <item.icon size={20} className={isActive ? 'text-upn-gold' : 'text-slate-400 group-hover:text-upn-green'} />

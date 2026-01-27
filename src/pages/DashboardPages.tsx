@@ -44,9 +44,8 @@ export const MenteeHome: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     <StatsCard title="Total Tugas" value={`${completedTasks.length}/${tasks.length}`} icon={CheckSquare} description="Update terakhir hari ini" />
-                    <StatsCard title="Presensi" value="0%" icon={Calendar} description="6 Sesi tersisa" />
                     <StatsCard title="Rata-rata Grade" value={`${averageGrade}`} icon={Star} description={`Peringkat #${averageGrade >= 80 ? '1' : averageGrade >= 60 ? '2' : '3'}`} variant="gold" />
                     <StatsCard title="Notifikasi" value="0" icon={Bell} description="Tidak ada pesan baru" />
                 </div>
@@ -124,8 +123,8 @@ export const MentorHome: React.FC = () => {
                         <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Kelompok 21 - PATRIBERA</p>
                     </div>
                     <div className="flex gap-2">
-                        <button className="btn-secondary text-xs">UNDUH LAPORAN</button>
-                        <button className="btn-primary text-xs">BROADCAST PESAN</button>
+                        <button onClick={() => alert('Fitur Unduh Laporan akan segera tersedia!')} className="btn-secondary text-xs">UNDUH LAPORAN</button>
+                        <button onClick={() => alert('Fitur Broadcast Pesan akan segera tersedia!')} className="btn-primary text-xs">BROADCAST PESAN</button>
                     </div>
                 </div>
 

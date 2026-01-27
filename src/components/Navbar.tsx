@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -16,12 +17,12 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/" className="text-slate-700 hover:text-upn-green font-medium transition-colors text-sm uppercase tracking-wide">Beranda</a>
-                        <a href="/jadwal" className="text-slate-700 hover:text-upn-green font-medium transition-colors text-sm uppercase tracking-wide">Jadwal</a>
-                        <a href="/tentang" className="text-slate-700 hover:text-upn-green font-medium transition-colors text-sm uppercase tracking-wide">Tentang</a>
-                        <button className="bg-upn-green text-white px-6 py-2.5 rounded-full font-bold hover:bg-green-900 transition-all transform hover:scale-105 shadow-lg shadow-green-900/20 text-sm">
+                        <Link to="/" className="text-slate-700 hover:text-upn-green font-medium transition-colors text-sm uppercase tracking-wide">Beranda</Link>
+                        <Link to="/jadwal" className="text-slate-700 hover:text-upn-green font-medium transition-colors text-sm uppercase tracking-wide">Jadwal</Link>
+                        <Link to="/tentang" className="text-slate-700 hover:text-upn-green font-medium transition-colors text-sm uppercase tracking-wide">Tentang</Link>
+                        <Link to="/login" className="bg-upn-green text-white px-6 py-2.5 rounded-full font-bold hover:bg-green-900 transition-all transform hover:scale-105 shadow-lg shadow-green-900/20 text-sm">
                             Masuk Portal
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="md:hidden flex items-center">
@@ -34,13 +35,13 @@ const Navbar = () => {
 
             {isOpen && (
                 <div className="md:hidden bg-white/90 backdrop-blur-xl border-t border-slate-200 px-4 pt-2 pb-6 space-y-2 absolute w-full shadow-2xl">
-                    <a href="/" className="block py-3 px-4 rounded-xl hover:bg-slate-50 text-slate-800 font-medium">Beranda</a>
-                    <a href="/jadwal" className="block py-3 px-4 rounded-xl hover:bg-slate-50 text-slate-800 font-medium">Jadwal</a>
-                    <a href="/tentang" className="block py-3 px-4 rounded-xl hover:bg-slate-50 text-slate-800 font-medium">Tentang</a>
+                    <Link to="/" className="block py-3 px-4 rounded-xl hover:bg-slate-50 text-slate-800 font-medium">Beranda</Link>
+                    <Link to="/jadwal" className="block py-3 px-4 rounded-xl hover:bg-slate-50 text-slate-800 font-medium">Jadwal</Link>
+                    <Link to="/tentang" className="block py-3 px-4 rounded-xl hover:bg-slate-50 text-slate-800 font-medium">Tentang</Link>
                     <div className="pt-4 mt-2 border-t border-slate-100">
-                        <button className="w-full bg-upn-green text-white py-3 rounded-xl font-bold shadow-lg shadow-upn-green/30">
+                        <Link to="/login" className="block text-center w-full bg-upn-green text-white py-3 rounded-xl font-bold shadow-lg shadow-upn-green/30">
                             Masuk Portal
-                        </button>
+                        </Link>
                     </div>
                 </div>
             )}
