@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { render, RenderOptions } from '@testing-library/react';
+import { render, RenderOptions, cleanup } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthContext';
 
@@ -27,6 +27,7 @@ export const AllProviders: React.FC<AllProvidersProps> = ({
 
 /**
  * Custom render function that wraps components with providers
+ * Includes automatic cleanup to prevent DOM pollution between tests
  */
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   initialEntries?: string[];
@@ -36,6 +37,9 @@ export function renderWithProviders(
   ui: ReactElement,
   { initialEntries = ['/'], ...renderOptions }: CustomRenderOptions = {}
 ) {
+  // Clean up any previous renders to prevent DOM pollution
+  cleanup();
+  
   return render(ui, {
     wrapper: ({ children }) => (
       <AllProviders initialEntries={initialEntries}>

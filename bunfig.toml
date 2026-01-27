@@ -5,3 +5,6 @@ preload = ["./src/__tests__/setup.ts"]
 # Enable coverage reporting
 coverage = true
 coverageDir = "coverage"
+smol = true
+# Use happy-dom for tests
+testEnvironment = "happy-dom"

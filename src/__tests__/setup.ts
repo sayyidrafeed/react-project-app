@@ -1,10 +1,22 @@
 // @ts-ignore - Bun test types not available in tsc
 import { beforeAll, afterEach } from 'bun:test';
 import '@testing-library/jest-dom';
+import { Window } from 'happy-dom';
 
-// Configure happy-dom environment
-// @ts-ignore - Bun test runtime globals
-globalThis.happyDOM = true;
+// Initialize happy-dom environment
+const window = new Window();
+// @ts-ignore
+globalThis.window = window;
+// @ts-ignore
+globalThis.document = window.document;
+// @ts-ignore
+globalThis.navigator = window.navigator;
+// @ts-ignore
+globalThis.HTMLElement = window.HTMLElement;
+// @ts-ignore
+globalThis.HTMLButtonElement = window.HTMLButtonElement;
+// @ts-ignore
+globalThis.SVGElement = window.SVGElement;
 
 // Mock framer-motion globally (CRITICAL for preventing flaky tests)
 // framer-motion uses requestAnimationFrame and other animation APIs
