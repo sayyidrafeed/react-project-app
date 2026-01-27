@@ -3,6 +3,7 @@ import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BenefitsSection from '../components/BenefitsSection';
 import TestimonialSection from '../components/TestimonialSection';
+import NewsSection from '../components/NewsSection';
 
 const LandingPage = () => {
     const fadeIn = {
@@ -129,6 +130,9 @@ const LandingPage = () => {
 
             {/* Testimonial Section */}
             <TestimonialSection />
+
+            {/* News Section */}
+            <NewsSection />
         </div>
     );
 };
