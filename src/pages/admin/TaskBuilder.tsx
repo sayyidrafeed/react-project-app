@@ -129,8 +129,8 @@ const TaskBuilderPage: React.FC = () => {
                                         type="button"
                                         onClick={() => handleAddFileType(type)}
                                         className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${fileTypes.includes(type)
-                                                ? 'bg-upn-green text-upn-gold border-2 border-upn-green dark:border-upn-gold'
-                                                : 'bg-slate-100 dark:bg-dark-bg text-slate-600 dark:text-dark-text-muted border-2 border-slate-200 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-border'
+                                            ? 'bg-upn-green text-upn-gold border-2 border-upn-green dark:border-upn-gold'
+                                            : 'bg-slate-100 dark:bg-dark-bg text-slate-600 dark:text-dark-text-muted border-2 border-slate-200 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-border'
                                             }`}
                                     >
                                         {type}
@@ -166,46 +166,45 @@ const TaskBuilderPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Preview Card */}
-            {isPublished && (
-                <div className="card p-4 sm:p-6 bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green/20 dark:border-upn-gold">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text flex items-center gap-2">
-                            <FileText size={18} className="text-upn-green dark:text-upn-gold" />
-                            Template Disimpan
-                        </h3>
-                        <button
-                            onClick={() => setIsPublished(false)}
-                            className="p-1.5 hover:bg-upn-green/20 dark:hover:bg-upn-gold/30 rounded-lg transition-colors text-upn-green dark:text-upn-gold"
-                            title="Tutup"
-                        >
-                            <X size={16} />
-                        </button>
-                    </div>
-                    <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
-                                <FileText size={20} />
-                            </div>
-                            <div className="flex-grow">
-                                <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{title}</p>
-                                <p className="text-xs text-slate-500 dark:text-dark-text-muted">{description}</p>
-                                <div className="flex items-center gap-2 mt-2">
-                                    <span className="text-xs font-semibold text-upn-green dark:text-upn-gold">
-                                        {taskType === 'individual' ? 'Individu' : 'Kelompok'}
-                                    </span>
+                {/* Preview Card */}
+                {isPublished && (
+                    <div className="card p-4 sm:p-6 bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green/20 dark:border-upn-gold">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text flex items-center gap-2">
+                                <FileText size={18} className="text-upn-green dark:text-upn-gold" />
+                                Template Disimpan
+                            </h3>
+                            <button
+                                onClick={() => setIsPublished(false)}
+                                className="p-1.5 hover:bg-upn-green/20 dark:hover:bg-upn-gold/30 rounded-lg transition-colors text-upn-green dark:text-upn-gold"
+                                title="Tutup"
+                            >
+                                <X size={16} />
+                            </button>
+                        </div>
+                        <div className="space-y-3">
+                            <div className="flex items-start gap-3">
+                                <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                                    <FileText size={20} />
                                 </div>
-                                <div className="text-xs text-slate-500 dark:text-dark-text-muted">
-                                    {fileTypes.join(', ')}
+                                <div className="flex-grow">
+                                    <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{title}</p>
+                                    <p className="text-xs text-slate-500 dark:text-dark-text-muted">{description}</p>
+                                    <div className="flex items-center gap-2 mt-2">
+                                        <span className="text-xs font-semibold text-upn-green dark:text-upn-gold">
+                                            {taskType === 'individual' ? 'Individu' : 'Kelompok'}
+                                        </span>
+                                    </div>
+                                    <div className="text-xs text-slate-500 dark:text-dark-text-muted">
+                                        {fileTypes.join(', ')}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                </div>
-            </div >
+                )}
+            </div>
         </DashboardLayout >
     );
 };

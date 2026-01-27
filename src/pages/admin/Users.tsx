@@ -214,32 +214,33 @@ const UsersPage: React.FC = () => {
 
                     {/* Table Body - Desktop Table */}
                     <div className="hidden sm:block overflow-x-auto">
-                        {filteredUsers.map(user => (
-                            <div
-                                key={user.id}
-                                className={`flex items-center gap-4 px-4 py-3 border-b border-slate-100 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-bg transition-colors ${selectedUsers.has(user.id) ? 'bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green dark:border-upn-gold' : ''
-                                    }`}
-                            >
-                                <input
-                                    type="checkbox"
-                                    checked={selectedUsers.has(user.id)}
-                                    onChange={() => handleUserSelect(user.id)}
-                                    className="accent-upn-green w-4 h-4"
-                                />
-                                <div className="flex-grow min-w-0">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
-                                            {user.role === 'admin' ? (
-                                                <GraduationCap size={18} />
-                                            ) : user.role === 'mentor' ? (
-                                                <Users size={18} />
-                                            ) : (
-                                                <Users size={18} />
-                                            )}
-                                        </div>
-                                        <div className="flex-grow">
-                                            <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{user.name}</p>
-                                            <p className="text-xs text-slate-500 dark:text-dark-text-muted">{user.email}</p>
+                        <div className="min-w-full">
+                            {filteredUsers.map(user => (
+                                <div
+                                    key={user.id}
+                                    className={`flex items-center gap-4 px-4 py-3 border-b border-slate-100 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-bg transition-colors ${selectedUsers.has(user.id) ? 'bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green dark:border-upn-gold' : ''}`}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedUsers.has(user.id)}
+                                        onChange={() => handleUserSelect(user.id)}
+                                        className="accent-upn-green w-4 h-4"
+                                    />
+                                    <div className="flex-grow min-w-0">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                                                {user.role === 'admin' ? (
+                                                    <GraduationCap size={18} />
+                                                ) : user.role === 'mentor' ? (
+                                                    <Users size={18} />
+                                                ) : (
+                                                    <Users size={18} />
+                                                )}
+                                            </div>
+                                            <div className="flex-grow">
+                                                <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{user.name}</p>
+                                                <p className="text-xs text-slate-500 dark:text-dark-text-muted">{user.email}</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3 shrink-0">
@@ -254,8 +255,8 @@ const UsersPage: React.FC = () => {
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -272,97 +273,96 @@ const UsersPage: React.FC = () => {
                                     <XCircle size={20} />
                                 </button>
                             </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            {/* Avatar and Basic Info */}
-                            <div className="flex items-start gap-4">
-                                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-upn-green/10 rounded-xl flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
-                                    {selectedUser.role === 'admin' ? (
-                                        <GraduationCap size={32} />
-                                    ) : selectedUser.role === 'mentor' ? (
-                                        <Users size={32} />
-                                    ) : (
-                                        <Users size={32} />
-                                    )}
-                                </div>
-                                <div className="flex-grow">
-                                    <h4 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-dark-text">
-                                        {selectedUser.name}
-                                    </h4>
-                                    <p className="text-sm text-slate-500 dark:text-dark-text-muted mt-1">
-                                        {selectedUser.email}
-                                    </p>
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${getStatusBg(selectedUser.status)} ${getStatusColor(selectedUser.status)}`}>
-                                            {selectedUser.role}
-                                        </span>
-                                        {selectedUser.status === 'Active' ? (
-                                            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400">
-                                                Aktif
-                                            </span>
+                            
+                            <div className="space-y-4">
+                                {/* Avatar and Basic Info */}
+                                <div className="flex items-start gap-4">
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-upn-green/10 rounded-xl flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                                        {selectedUser.role === 'admin' ? (
+                                            <GraduationCap size={32} />
+                                        ) : selectedUser.role === 'mentor' ? (
+                                            <Users size={32} />
                                         ) : (
-                                            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400">
-                                                Inaktif
-                                            </span>
+                                            <Users size={32} />
                                         )}
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h4 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-dark-text">
+                                            {selectedUser.name}
+                                        </h4>
+                                        <p className="text-sm text-slate-500 dark:text-dark-text-muted mt-1">
+                                            {selectedUser.email}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${getStatusBg(selectedUser.status)} ${getStatusColor(selectedUser.status)}`}>
+                                                {selectedUser.role}
+                                            </span>
+                                            {selectedUser.status === 'Active' ? (
+                                                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400">
+                                                    Aktif
+                                                </span>
+                                            ) : (
+                                                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400">
+                                                    Inaktif
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Contact Info */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <InfoCard
-                                title="NIM"
-                                value={selectedUser.nim || '-'}
-                                icon={Phone}
-                            />
-                            <InfoCard
-                                title="Fakultas"
-                                value={selectedUser.faculty || '-'}
-                                icon={GraduationCap}
-                            />
-                            <InfoCard
-                                title="Program Studi"
-                                value={selectedUser.major || '-'}
-                                icon={GraduationCap}
-                            />
-                        </div>
+                            {/* Contact Info */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <InfoCard
+                                    title="NIM"
+                                    value={selectedUser.nim || '-'}
+                                    icon={Phone}
+                                />
+                                <InfoCard
+                                    title="Fakultas"
+                                    value={selectedUser.faculty || '-'}
+                                    icon={GraduationCap}
+                                />
+                                <InfoCard
+                                    title="Program Studi"
+                                    value={selectedUser.major || '-'}
+                                    icon={GraduationCap}
+                                />
+                            </div>
 
-                        {/* Account Info */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <InfoCard
-                                title="Status Akun"
-                                value={selectedUser.status}
-                                icon={selectedUser.status === 'Active' ? CheckCircle : XCircle}
-                            />
-                            <InfoCard
-                                title="Dibuat Pada"
-                                value={selectedUser.createdAt || '-'}
-                                icon={CalendarIcon}
-                            />
-                            <InfoCard
-                                title="Login Terakhir"
-                                value={selectedUser.lastLogin || '-'}
-                                icon={CalendarIcon}
-                            />
-                        </div>
+                            {/* Account Info */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <InfoCard
+                                    title="Status Akun"
+                                    value={selectedUser.status}
+                                    icon={selectedUser.status === 'Active' ? CheckCircle : XCircle}
+                                />
+                                <InfoCard
+                                    title="Dibuat Pada"
+                                    value={selectedUser.createdAt || '-'}
+                                    icon={CalendarIcon}
+                                />
+                                <InfoCard
+                                    title="Login Terakhir"
+                                    value={selectedUser.lastLogin || '-'}
+                                    icon={CalendarIcon}
+                                />
+                            </div>
 
-                        {/* Actions */}
-                        <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-dark-border">
-                            <button className="flex-1 btn-primary py-3 rounded-xl text-sm sm:text-base font-semibold">
-                                Simpan Perubahan
-                            </button>
-                            <button className="flex-1 py-3 px-4 border-2 border-slate-300 dark:border-dark-border rounded-xl text-sm sm:text-base font-semibold text-slate-600 dark:text-dark-text-muted hover:bg-slate-100 dark:hover:bg-dark-border transition-all">
-                                Kirim Email Reset
-                            </button>
+                            {/* Actions */}
+                            <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-dark-border">
+                                <button className="flex-1 btn-primary py-3 rounded-xl text-sm sm:text-base font-semibold">
+                                    Simpan Perubahan
+                                </button>
+                                <button className="flex-1 py-3 px-4 border-2 border-slate-300 dark:border-dark-border rounded-xl text-sm sm:text-base font-semibold text-slate-600 dark:text-dark-text-muted hover:bg-slate-100 dark:hover:bg-dark-border transition-all">
+                                    Kirim Email Reset
+                                </button>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 )}
-        </div>
-        </DashboardLayout >
+            </div>
+        </DashboardLayout>
     );
 };
 
@@ -455,24 +455,25 @@ const UserCard: React.FC<{
                     </div>
                 </div>
             </div>
-            );
+        </div>
+    );
 };
 
-            // Info Card Component
-            const InfoCard: React.FC<{
+// Info Card Component
+const InfoCard: React.FC<{
     title: string;
-            value: string;
-            icon: React.ElementType;
-}> = ({title, value, icon: Icon }) => {
+    value: string;
+    icon: React.ElementType;
+}> = ({ title, value, icon: Icon }) => {
     return (
-            <div className="bg-slate-50 dark:bg-dark-bg rounded-xl p-3 sm:p-4">
-                <div className="flex items-center gap-2 mb-2">
-                    <Icon size={18} className="text-slate-400 dark:text-dark-text-muted" />
-                    <span className="text-xs font-bold text-slate-600 dark:text-dark-text-muted uppercase">{title}</span>
-                </div>
-                <p className="text-sm sm:text-base font-semibold text-slate-800 dark:text-dark-text">{value}</p>
+        <div className="bg-slate-50 dark:bg-dark-bg rounded-xl p-3 sm:p-4">
+            <div className="flex items-center gap-2 mb-2">
+                <Icon size={18} className="text-slate-400 dark:text-dark-text-muted" />
+                <span className="text-xs font-bold text-slate-600 dark:text-dark-text-muted uppercase">{title}</span>
             </div>
-            );
+            <p className="text-sm sm:text-base font-semibold text-slate-800 dark:text-dark-text">{value}</p>
+        </div>
+    );
 };
 
-            export default UsersPage;
+export default UsersPage;

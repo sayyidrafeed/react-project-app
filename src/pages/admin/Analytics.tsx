@@ -133,99 +133,100 @@ const AnalyticsPage: React.FC = () => {
                             Penyelesaian Tugas (Minggu Ini)
                         </h3>
                         <div className="space-y-3">
-                            {taskCompletionData.map((item: any, index: number) => (
-                                <div key={index} className="flex items-center gap-3">
-                                    <span className="text-xs sm:text-sm text-slate-600 dark:text-dark-text-muted w-12">
-                                        {item.label}
-                                    </span>
-                                    <div className="flex-grow h-8 sm:h-10 bg-slate-100 dark:bg-dark-border rounded-lg overflow-hidden">
-                                        <div
-                                            className="h-full bg-gradient-to-r from-upn-green to-upn-gold transition-all duration-1000"
-                                            style={{ width: `${item.value}%` }}
-                                        />
+                            {taskCompletionData.map((item, index) => (
+                                <div key={index} className="space-y-1">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-xs sm:text-sm text-slate-600 dark:text-dark-text-muted w-12">
+                                            {item.label}
+                                        </span>
+                                        <div className="flex-grow h-8 sm:h-10 bg-slate-100 dark:bg-dark-border rounded-lg overflow-hidden">
+                                            <div
+                                                className="h-full bg-gradient-to-r from-upn-green to-upn-gold transition-all duration-1000"
+                                                style={{ width: `${item.value}%` }}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-dark-text">
-                                    {item.value}%
-                                </span>
+                                    <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-dark-text">
+                                        {item.value}%
+                                    </span>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* User Activity Chart */}
+                    <div className="card p-4 sm:p-6">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text mb-4 flex items-center gap-2">
+                            <Activity size={18} className="text-upn-green dark:text-upn-gold" />
+                            Aktivitas Pengguna
+                        </h3>
+                        <div className="space-y-3">
+                            {userActivityData.map((item: any, index: number) => (
+                                <div key={index} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-dark-bg rounded-xl">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-dark-text">
+                                            {item.label}
+                                        </span>
+                                        <span className="text-base sm:text-lg font-black text-slate-800 dark:text-dark-text">
+                                            {item.value}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        {item.isUp ? (
+                                            <ArrowUp size={16} className="text-green-600 dark:text-green-400" />
+                                        ) : (
+                                            <ArrowDown size={16} className="text-red-600 dark:text-red-400" />
+                                        )}
+                                        <span className={`text-xs sm:text-sm font-bold ${item.isUp ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                            {item.isUp ? '+' : ''}{item.change}%
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                {/* User Activity Chart */}
+                {/* Recent Activity */}
                 <div className="card p-4 sm:p-6">
-                    <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text mb-4 flex items-center gap-2">
-                        <Activity size={18} className="text-upn-green dark:text-upn-gold" />
-                        Aktivitas Pengguna
-                    </h3>
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text flex items-center gap-2">
+                            <Activity size={18} className="text-upn-green dark:text-upn-gold" />
+                            Aktivitas Terbaru
+                        </h3>
+                        <button className="text-xs sm:text-sm font-bold text-upn-green dark:text-upn-gold hover:underline">
+                            Lihat Semua
+                        </button>
+                    </div>
                     <div className="space-y-3">
-                        {userActivityData.map((item: any, index: number) => (
-                            <div key={index} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-dark-bg rounded-xl">
-                                <div className="flex items-center gap-3">
-                                    <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-dark-text">
-                                        {item.label}
-                                    </span>
-                                    <span className="text-base sm:text-lg font-black text-slate-800 dark:text-dark-text">
-                                        {item.value}
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    {item.isUp ? (
-                                        <ArrowUp size={16} className="text-green-600 dark:text-green-400" />
-                                    ) : (
-                                        <ArrowDown size={16} className="text-red-600 dark:text-red-400" />
-                                    )}
-                                    <span className={`text-xs sm:text-sm font-bold ${item.isUp ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                                        {item.isUp ? '+' : ''}{item.change}%
-                                    </span>
-                                </div>
-                            </div>
+                        {recentActivities.slice(0, 5).map((activity: any) => (
+                            <ActivityItem key={activity.id} activity={activity} />
                         ))}
                     </div>
                 </div>
-            </div>
 
-            {/* Recent Activity */}
-            <div className="card p-4 sm:p-6">
-                <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text flex items-center gap-2">
-                        <Activity size={18} className="text-upn-green dark:text-upn-gold" />
-                        Aktivitas Terbaru
-                    </h3>
-                    <button className="text-xs sm:text-sm font-bold text-upn-green dark:text-upn-gold hover:underline">
-                        Lihat Semua
-                    </button>
-                </div>
-                <div className="space-y-3">
-                    {recentActivities.slice(0, 5).map((activity: any) => (
-                        <ActivityItem key={activity.id} activity={activity} />
-                    ))}
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <QuickActionCard
+                        title="Kelola Pengguna"
+                        description="Tambah, edit, atau hapus user"
+                        icon={Users}
+                        color="blue"
+                    />
+                    <QuickActionCard
+                        title="Broadcast Pesan"
+                        description="Kirim notifikasi ke semua user"
+                        icon={Activity}
+                        color="gold"
+                    />
+                    <QuickActionCard
+                        title="Laporan Detail"
+                        description="Unduh laporan lengkap"
+                        icon={BarChart3}
+                        color="green"
+                    />
                 </div>
             </div>
-
-            {/* Quick Actions */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                <QuickActionCard
-                    title="Kelola Pengguna"
-                    description="Tambah, edit, atau hapus user"
-                    icon={Users}
-                    color="blue"
-                />
-                <QuickActionCard
-                    title="Broadcast Pesan"
-                    description="Kirim notifikasi ke semua user"
-                    icon={Activity}
-                    color="gold"
-                />
-                <QuickActionCard
-                    title="Laporan Detail"
-                    description="Unduh laporan lengkap"
-                    icon={BarChart3}
-                    color="green"
-                />
-            </div>
-        </div>
         </DashboardLayout >
     );
 };
@@ -330,8 +331,8 @@ const TimeRangeButton: React.FC<{
         <button
             onClick={onClick}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${active
-                    ? 'bg-upn-green text-upn-gold'
-                    : 'bg-slate-100 dark:bg-dark-border text-slate-600 dark:text-dark-text-muted hover:bg-slate-200 dark:hover:bg-dark-surface'
+                ? 'bg-upn-green text-upn-gold'
+                : 'bg-slate-100 dark:bg-dark-border text-slate-600 dark:text-dark-text-muted hover:bg-slate-200 dark:hover:bg-dark-surface'
                 }`}
         >
             {label}

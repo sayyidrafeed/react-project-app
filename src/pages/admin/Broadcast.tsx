@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { AlertTriangle, Send, Bell, Clock, CheckCircle, XCircle, Radio as RadioIcon, X } from 'lucide-react';
+import { AlertTriangle, Send, Bell, Clock, X } from 'lucide-react';
+
+interface Alert {
+    id: number;
+    title: string;
+    message: string;
+    priority: 'low' | 'medium' | 'high';
+    time: string;
+    active: boolean;
+}
 
 const BroadcastPage: React.FC = () => {
     const [message, setMessage] = useState('');
     const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
     const [targetAudience, setTargetAudience] = useState<'all' | 'mentee' | 'mentor' | 'admin'>('all');
     const [isSending, setIsSending] = useState(false);
-    const [activeAlerts, setActiveAlerts] = useState([
+    const [activeAlerts, setActiveAlerts] = useState<Alert[]>([
         { id: 1, title: 'Jadwal Tambahan', message: 'Jadwal kegiatan PKKMB Day 2 telah diperbarui', priority: 'medium', time: '5 menit yang lalu', active: true },
         { id: 2, title: 'Peringatan Deadline', message: 'Tugas Day 1 akan berakhir dalam 24 jam', priority: 'high', time: '1 jam yang lalu', active: true },
         { id: 3, title: 'Kegiatan Baru', message: 'Workshop Kepemimpinan ditambahkan ke jadwal', priority: 'low', time: '30 menit yang lalu', active: true },
@@ -221,17 +230,19 @@ const BroadcastPage: React.FC = () => {
 };
 
 // Alert Card Component
-const AlertCard: React.FC<{
-    alert: any;
+interface AlertCardProps {
+    alert: Alert;
     onDelete: () => void;
-}> = ({ alert, onDelete }) => {
-    const priorityColors = {
+}
+
+const AlertCard: React.FC<AlertCardProps> = ({ alert, onDelete }) => {
+    const priorityColors: Record<'low' | 'medium' | 'high', string> = {
         high: 'border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20',
         medium: 'border-yellow-300 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20',
         low: 'border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20',
     };
 
-    const priorityIconColors = {
+    const priorityIconColors: Record<'low' | 'medium' | 'high', string> = {
         high: 'text-red-600 dark:text-red-400',
         medium: 'text-yellow-600 dark:text-yellow-400',
         low: 'text-blue-600 dark:text-blue-400',
