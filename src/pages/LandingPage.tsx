@@ -2,8 +2,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BenefitsSection from '../components/BenefitsSection';
+import TimelineSection from '../components/TimelineSection';
 import TestimonialSection from '../components/TestimonialSection';
 import NewsSection from '../components/NewsSection';
+import FAQSection from '../components/FAQSection';
 
 const LandingPage = () => {
     const fadeIn = {
@@ -26,7 +28,7 @@ const LandingPage = () => {
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                 <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-upn-green/10 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob"></div>
                 <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-upn-gold/10 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-2000"></div>
-                <div className="absolute top-[20%] left-[20%] w-[400px] h-[400px] bg-sky-200/20 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-4000"></div>
+                <div className="absolute top-[20%] left-[20%] w-[400px] h-[400px] bg-upn-gold/10 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-4000"></div>
             </div>
 
             {/* Hero Section */}
@@ -83,6 +85,9 @@ const LandingPage = () => {
             {/* Benefits Section */}
             <BenefitsSection />
 
+            {/* Timeline Section */}
+            <TimelineSection />
+
             {/* Core Values Section */}
             <section className="relative py-24 bg-white/50 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,12 +120,12 @@ const LandingPage = () => {
                             description="Berpikir kreatif dan adaptif untuk menciptakan solusi bagi kemajuan bangsa."
                         />
                         <ValueCard
-                            icon={<Shield className="w-8 h-8 text-sky-600" />}
+                            icon={<Shield className="w-8 h-8 text-upn-gold" />}
                             title="Integritas"
                             description="Menjunjung tinggi kejujuran dan etika dalam setiap langkah akademik."
                         />
                         <ValueCard
-                            icon={<Users className="w-8 h-8 text-rose-500" />}
+                            icon={<Users className="w-8 h-8 text-upn-green" />}
                             title="Kolaborasi"
                             description="Membangun sinergi dan kerjasama tim yang solid antar mahasiswa."
                         />
@@ -133,6 +138,9 @@ const LandingPage = () => {
 
             {/* News Section */}
             <NewsSection />
+
+            {/* FAQ Section */}
+            <FAQSection />
         </div>
     );
 };

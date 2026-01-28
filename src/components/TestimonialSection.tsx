@@ -80,7 +80,7 @@ const TestimonialSection = () => {
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20 -mr-4 lg:-mr-16">
                         <button
                             onClick={nextTestimonial}
-                            className="w-12 h-12 rounded-full bg-blue-600 hover:bg-upn-green text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
+                            className="w-12 h-12 rounded-full bg-upn-green text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
                             aria-label="Next testimonial"
                         >
                             <ChevronRight className="w-6 h-6" />
@@ -134,8 +134,8 @@ const TestimonialSection = () => {
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
                                 className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                        ? 'bg-upn-green w-8'
-                                        : 'bg-slate-300 hover:bg-slate-400'
+                                    ? 'bg-upn-green w-8'
+                                    : 'bg-slate-300 hover:bg-slate-400'
                                     }`}
                                 aria-label={`Go to testimonial ${index + 1}`}
                             />
