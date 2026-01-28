@@ -61,11 +61,11 @@ const UsersPage: React.FC = () => {
     };
 
     const getStatusColor = (status: string) => {
-        return status === 'Active' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
+        return status === 'Active' ? 'text-green-600' : 'text-red-600';
     };
 
     const getStatusBg = (status: string) => {
-        return status === 'Active' ? 'bg-green-100 dark:bg-green-900/20' : 'bg-red-100 dark:bg-red-900/20';
+        return status === 'Active' ? 'bg-green-100' : 'bg-red-100';
     };
 
     return (
@@ -74,8 +74,8 @@ const UsersPage: React.FC = () => {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">Manajemen User</h1>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800">Manajemen User</h1>
+                        <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
                             Kelola pengguna, role, dan akses platform
                         </p>
                     </div>
@@ -93,11 +93,11 @@ const UsersPage: React.FC = () => {
                 {/* Search and Filter */}
                 <div className="flex flex-col sm:flex-row gap-3">
                     <div className="relative flex-grow">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-dark-text-muted" size={18} />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input
                             type="text"
                             placeholder="Cari nama, email, atau NIM..."
-                            className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted"
+                            className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 text-slate-800 placeholder:text-slate-400"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -135,16 +135,16 @@ const UsersPage: React.FC = () => {
 
                 {/* Bulk Action Bar */}
                 {selectedUsers.size > 0 && (
-                    <div className="card p-3 sm:p-4 bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green/20 dark:border-upn-green/30">
+                    <div className="card p-3 sm:p-4 bg-upn-green/5 border-2 border-upn-green/20">
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
-                                <CheckCircle size={20} className="text-upn-green dark:text-upn-gold" />
-                                <span className="text-sm sm:text-base font-semibold text-slate-800 dark:text-dark-text">
+                                <CheckCircle size={20} className="text-upn-green" />
+                                <span className="text-sm sm:text-base font-semibold text-slate-800">
                                     {selectedUsers.size} user dipilih
                                 </span>
                             </div>
                             <div className="flex gap-2">
-                                <button className="px-3 py-2 bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-lg text-xs sm:text-sm font-semibold text-slate-700 dark:text-dark-text-muted hover:bg-slate-50 dark:hover:bg-dark-border transition-all">
+                                <button className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-all">
                                     Kirim Notifikasi
                                 </button>
                                 <button className="px-3 py-2 btn-primary rounded-lg text-xs sm:text-sm font-semibold">
@@ -159,8 +159,8 @@ const UsersPage: React.FC = () => {
                 <div className="card p-4 sm:p-6 overflow-hidden">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-3">
-                            <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-dark-text">Daftar Pengguna</h3>
-                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-dark-text-muted cursor-pointer">
+                            <h3 className="text-sm sm:text-base font-bold text-slate-800">Daftar Pengguna</h3>
+                            <label className="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
                                 <input
                                     type="checkbox"
                                     checked={selectedUsers.size === filteredUsers.length}
@@ -171,14 +171,14 @@ const UsersPage: React.FC = () => {
                             </label>
                         </div>
                         <div className="flex gap-2">
-                            <span className="text-xs text-slate-500 dark:text-dark-text-muted">
+                            <span className="text-xs text-slate-500">
                                 Menampilkan {filteredUsers.length} dari {MOCK_USERS.length} user
                             </span>
                         </div>
                     </div>
 
                     {/* Table Header */}
-                    <div className="hidden sm:grid grid-cols-12 gap-4 px-4 py-3 bg-slate-50 dark:bg-dark-bg text-xs font-semibold text-slate-600 dark:text-dark-text-muted uppercase tracking-wider">
+                    <div className="hidden sm:grid grid-cols-12 gap-4 px-4 py-3 bg-slate-50 text-xs font-semibold text-slate-600 uppercase tracking-wider">
                         <div className="flex items-center gap-2">
                             <input
                                 type="checkbox"
@@ -218,7 +218,7 @@ const UsersPage: React.FC = () => {
                             {filteredUsers.map(user => (
                                 <div
                                     key={user.id}
-                                    className={`flex items-center gap-4 px-4 py-3 border-b border-slate-100 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-bg transition-colors ${selectedUsers.has(user.id) ? 'bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green dark:border-upn-gold' : ''}`}
+                                    className={`flex items-center gap-4 px-4 py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors ${selectedUsers.has(user.id) ? 'bg-upn-green/5 border-2 border-upn-green' : ''}`}
                                 >
                                     <input
                                         type="checkbox"
@@ -228,7 +228,7 @@ const UsersPage: React.FC = () => {
                                     />
                                     <div className="flex-grow min-w-0">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                                            <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green shrink-0">
                                                 {user.role === 'admin' ? (
                                                     <GraduationCap size={18} />
                                                 ) : user.role === 'mentor' ? (
@@ -238,19 +238,19 @@ const UsersPage: React.FC = () => {
                                                 )}
                                             </div>
                                             <div className="flex-grow">
-                                                <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{user.name}</p>
-                                                <p className="text-xs text-slate-500 dark:text-dark-text-muted">{user.email}</p>
+                                                <p className="font-bold text-slate-800 text-sm">{user.name}</p>
+                                                <p className="text-xs text-slate-500">{user.email}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3 shrink-0">
                                         <button
                                             onClick={() => openUserModal(user)}
-                                            className="p-2 hover:bg-slate-100 dark:hover:bg-dark-border rounded-lg transition-colors"
+                                            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                                         >
-                                            <Edit size={16} className="text-slate-400 dark:text-dark-text-muted" />
+                                            <Edit size={16} className="text-slate-400" />
                                         </button>
-                                        <button className="p-2 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg transition-colors text-red-600 dark:text-red-400">
+                                        <button className="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-600">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>
@@ -263,21 +263,21 @@ const UsersPage: React.FC = () => {
                 {/* User Detail Modal */}
                 {isModalOpen && selectedUser && (
                     <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                        <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4">
-                            <div className="flex items-start justify-between mb-4 pb-4 border-b border-slate-200 dark:border-dark-border">
-                                <h3 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-dark-text">Detail Pengguna</h3>
+                        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4">
+                            <div className="flex items-start justify-between mb-4 pb-4 border-b border-slate-200">
+                                <h3 className="text-lg sm:text-xl font-bold text-slate-800">Detail Pengguna</h3>
                                 <button
                                     onClick={closeUserModal}
-                                    className="p-2 hover:bg-slate-100 dark:hover:bg-dark-border rounded-lg transition-colors"
+                                    className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                                 >
                                     <XCircle size={20} />
                                 </button>
                             </div>
-                            
+
                             <div className="space-y-4">
                                 {/* Avatar and Basic Info */}
                                 <div className="flex items-start gap-4">
-                                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-upn-green/10 rounded-xl flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-upn-green/10 rounded-xl flex items-center justify-center text-upn-green shrink-0">
                                         {selectedUser.role === 'admin' ? (
                                             <GraduationCap size={32} />
                                         ) : selectedUser.role === 'mentor' ? (
@@ -287,10 +287,10 @@ const UsersPage: React.FC = () => {
                                         )}
                                     </div>
                                     <div className="flex-grow">
-                                        <h4 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-dark-text">
+                                        <h4 className="text-xl sm:text-2xl font-bold text-slate-800">
                                             {selectedUser.name}
                                         </h4>
-                                        <p className="text-sm text-slate-500 dark:text-dark-text-muted mt-1">
+                                        <p className="text-sm text-slate-500 mt-1">
                                             {selectedUser.email}
                                         </p>
                                         <div className="flex flex-wrap gap-2 mt-2">
@@ -298,11 +298,11 @@ const UsersPage: React.FC = () => {
                                                 {selectedUser.role}
                                             </span>
                                             {selectedUser.status === 'Active' ? (
-                                                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400">
+                                                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600">
                                                     Aktif
                                                 </span>
                                             ) : (
-                                                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400">
+                                                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 text-red-600">
                                                     Inaktif
                                                 </span>
                                             )}
@@ -350,11 +350,11 @@ const UsersPage: React.FC = () => {
                             </div>
 
                             {/* Actions */}
-                            <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-dark-border">
+                            <div className="flex gap-3 pt-4 border-t border-slate-200">
                                 <button className="flex-1 btn-primary py-3 rounded-xl text-sm sm:text-base font-semibold">
                                     Simpan Perubahan
                                 </button>
-                                <button className="flex-1 py-3 px-4 border-2 border-slate-300 dark:border-dark-border rounded-xl text-sm sm:text-base font-semibold text-slate-600 dark:text-dark-text-muted hover:bg-slate-100 dark:hover:bg-dark-border transition-all">
+                                <button className="flex-1 py-3 px-4 border-2 border-slate-300 rounded-xl text-sm sm:text-base font-semibold text-slate-600 hover:bg-slate-100 transition-all">
                                     Kirim Email Reset
                                 </button>
                             </div>
@@ -388,12 +388,12 @@ const FilterButton: React.FC<{
     const getInactiveClass = () => {
         if (color) {
             return {
-                blue: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30',
-                gold: 'bg-upn-gold/10 text-upn-gold hover:bg-upn-gold/20 dark:hover:bg-upn-gold/30',
-                green: 'bg-upn-green/10 text-upn-green hover:bg-upn-green/20 dark:hover:bg-upn-green/30',
+                blue: 'bg-blue-50 text-blue-600 hover:bg-blue-100',
+                gold: 'bg-upn-gold/10 text-upn-gold hover:bg-upn-gold/20',
+                green: 'bg-upn-green/10 text-upn-green hover:bg-upn-green/20',
             }[color];
         }
-        return 'bg-slate-100 dark:bg-dark-border text-slate-600 dark:text-dark-text-muted hover:bg-slate-200 dark:hover:bg-dark-surface';
+        return 'bg-slate-100 text-slate-600 hover:bg-slate-200';
     };
 
     return (
@@ -418,7 +418,7 @@ const UserCard: React.FC<{
     onEdit: () => void;
 }> = ({ user, isSelected, onSelect, onEdit }) => {
     return (
-        <div className={`card p-4 hover:shadow-md transition-shadow ${isSelected ? 'border-2 border-upn-green dark:border-upn-gold' : 'border-2 border-transparent'}`}>
+        <div className={`card p-4 hover:shadow-md transition-shadow ${isSelected ? 'border-2 border-upn-green' : 'border-2 border-transparent'}`}>
             <div className="flex items-start gap-3">
                 <input
                     type="checkbox"
@@ -428,7 +428,7 @@ const UserCard: React.FC<{
                 />
                 <div className="flex-grow">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-12 h-12 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                        <div className="w-12 h-12 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green shrink-0">
                             {user.role === 'admin' ? (
                                 <GraduationCap size={20} />
                             ) : user.role === 'mentor' ? (
@@ -438,18 +438,18 @@ const UserCard: React.FC<{
                             )}
                         </div>
                         <div>
-                            <h4 className="font-bold text-slate-800 dark:text-dark-text text-base">{user.name}</h4>
-                            <p className="text-xs text-slate-500 dark:text-dark-text-muted">{user.email}</p>
+                            <h4 className="font-bold text-slate-800 text-base">{user.name}</h4>
+                            <p className="text-xs text-slate-500">{user.email}</p>
                         </div>
                     </div>
                     <div className="flex gap-2">
                         <button
                             onClick={onEdit}
-                            className="p-2 hover:bg-slate-100 dark:hover:bg-dark-border rounded-lg transition-colors"
+                            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                         >
-                            <Edit size={16} className="text-slate-400 dark:text-dark-text-muted" />
+                            <Edit size={16} className="text-slate-400" />
                         </button>
-                        <button className="p-2 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg transition-colors text-red-600 dark:text-red-400">
+                        <button className="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-600">
                             <Trash2 size={16} />
                         </button>
                     </div>
@@ -466,12 +466,12 @@ const InfoCard: React.FC<{
     icon: React.ElementType;
 }> = ({ title, value, icon: Icon }) => {
     return (
-        <div className="bg-slate-50 dark:bg-dark-bg rounded-xl p-3 sm:p-4">
+        <div className="bg-slate-50 rounded-xl p-3 sm:p-4">
             <div className="flex items-center gap-2 mb-2">
-                <Icon size={18} className="text-slate-400 dark:text-dark-text-muted" />
-                <span className="text-xs font-bold text-slate-600 dark:text-dark-text-muted uppercase">{title}</span>
+                <Icon size={18} className="text-slate-400" />
+                <span className="text-xs font-bold text-slate-600 uppercase">{title}</span>
             </div>
-            <p className="text-sm sm:text-base font-semibold text-slate-800 dark:text-dark-text">{value}</p>
+            <p className="text-sm sm:text-base font-semibold text-slate-800">{value}</p>
         </div>
     );
 };

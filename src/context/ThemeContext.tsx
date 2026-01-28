@@ -1,42 +1,27 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 
-type Theme = 'light' | 'dark';
+type Theme = 'light';
 
 interface ThemeContextType {
     theme: Theme;
-    toggleTheme: () => void;
-    setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [theme, setThemeState] = useState<Theme>(() => {
-        const savedTheme = localStorage.getItem('siera_theme') as Theme;
-        if (savedTheme) return savedTheme;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    });
+    // Enforce light mode only - dark mode is disabled
+    const theme: Theme = 'light';
 
     useEffect(() => {
         const root = document.documentElement;
-        if (theme === 'dark') {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
-        localStorage.setItem('siera_theme', theme);
-    }, [theme]);
-
-    const toggleTheme = () => {
-        setThemeState(prev => prev === 'light' ? 'dark' : 'light');
-    };
-
-    const setTheme = (newTheme: Theme) => {
-        setThemeState(newTheme);
-    };
+        // Always remove dark class to enforce light mode
+        root.classList.remove('dark');
+        // Set light mode in localStorage
+        localStorage.setItem('siera_theme', 'light');
+    }, []);
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+        <ThemeContext.Provider value={{ theme }}>
             {children}
         </ThemeContext.Provider>
     );

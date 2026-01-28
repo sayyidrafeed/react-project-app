@@ -1,0 +1,354 @@
+/**
+ * Validation Framework CSS
+ * Responsive styles for validation components with mobile-first approach
+ * Optimized for touch interactions and accessibility
+ */
+
+/* Base input field styles */
+.input-field {
+    @apply bg-white dark:bg-dark-surface border-2 border-slate-200 dark:border-dark-border rounded-xl text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted outline-none transition-all duration-200 focus:ring-0;
+}
+
+/* Error state */
+.input-error {
+    @apply border-semantic-error bg-red-50 dark:bg-red-900/10 text-semantic-error placeholder:text-red-300 dark:placeholder:text-red-400/50;
+}
+
+.input-error:focus {
+    @apply ring-2 ring-semantic-error/20 border-semantic-error;
+}
+
+/* Disabled state */
+.input-field:disabled {
+    @apply bg-slate-100 dark:bg-dark-bg text-slate-400 dark:text-dark-text-muted cursor-not-allowed border-slate-200 dark:border-dark-border;
+}
+
+/* Touch-optimized tap targets */
+@media (pointer: coarse) {
+
+    .input-field,
+    .btn-primary,
+    .btn-secondary,
+    button {
+        @apply min-h-[44px];
+    }
+}
+
+/* Focus visible for keyboard navigation */
+.input-field:focus-visible,
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    @apply ring-2 ring-upn-green/50 dark:ring-upn-gold/50 outline-none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .input-field {
+        @apply border-3;
+    }
+
+    .input-error {
+        @apply border-semantic-error border-3;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+    .input-field,
+    button,
+    .card {
+        @apply transition-none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .input-field {
+        @apply border border-slate-300;
+    }
+
+    .input-error {
+        @apply border-red-500;
+    }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+    .input-field {
+        @apply text-base;
+        /* Prevents iOS zoom on focus */
+    }
+
+    textarea.input-field {
+        @apply min-h-[120px];
+    }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .input-field {
+        @apply text-sm;
+    }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1025px) {
+    .input-field {
+        @apply text-sm;
+    }
+}
+
+/* Dark mode transitions */
+@media (prefers-color-scheme: dark) {
+    .input-field {
+        @apply transition-colors duration-200;
+    }
+}
+
+/* Loading state animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.input-loading {
+    @apply relative overflow-hidden;
+}
+
+.input-loading::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite];
+}
+
+/* Success animation */
+@keyframes success-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.input-success {
+    @apply ring-2 ring-green-500/20 border-green-500/30;
+}
+
+.input-success:focus {
+    @apply ring-green-500/40;
+}
+
+/* Error shake animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+.input-shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+/* Form layout utilities */
+.form-grid {
+    @apply grid gap-4 sm:gap-6;
+}
+
+.form-grid-1 {
+    @apply grid-cols-1;
+}
+
+.form-grid-2 {
+    @apply grid-cols-1 sm:grid-cols-2;
+}
+
+.form-grid-3 {
+    @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.form-grid-4 {
+    @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+/* Form section styles */
+.form-section {
+    @apply space-y-4 sm:space-y-6;
+}
+
+.form-section-title {
+    @apply text-lg sm:text-xl font-bold text-slate-800 dark:text-dark-text;
+}
+
+.form-section-description {
+    @apply text-sm text-slate-600 dark:text-dark-text-muted;
+}
+
+/* Form actions */
+.form-actions {
+    @apply flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200 dark:border-dark-border;
+}
+
+.form-actions-left {
+    @apply justify-start;
+}
+
+.form-actions-center {
+    @apply justify-center;
+}
+
+.form-actions-right {
+    @apply justify-end;
+}
+
+.form-actions-between {
+    @apply justify-between;
+}
+
+/* Progress bar styles */
+.progress-bar {
+    @apply w-full bg-slate-200 dark:bg-dark-border rounded-full overflow-hidden;
+}
+
+.progress-fill {
+    @apply h-full transition-all duration-500 ease-out rounded-full;
+}
+
+/* Validation message styles */
+.validation-message {
+    @apply text-sm font-medium animate-in slide-in-from-top-2 fade-in duration-200;
+}
+
+.validation-error {
+    @apply text-semantic-error;
+}
+
+.validation-warning {
+    @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.validation-success {
+    @apply text-green-600 dark:text-green-400;
+}
+
+.validation-info {
+    @apply text-blue-600 dark:text-blue-400;
+}
+
+/* Inline validation */
+.inline-validation {
+    @apply flex items-center gap-2 px-3 py-1.5 rounded-lg border border-transparent transition-all duration-200 animate-in slide-in-from-top-2 fade-in;
+}
+
+/* Character count */
+.character-count {
+    @apply text-xs font-medium text-slate-400 dark:text-dark-text-muted;
+}
+
+.character-count-warning {
+    @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.character-count-error {
+    @apply text-semantic-error;
+}
+
+/* Touch feedback */
+@media (hover: none) and (pointer: coarse) {
+
+    button:active,
+    .input-field:active {
+        @apply transform scale-98 transition-transform duration-100;
+    }
+}
+
+/* Focus trap for modals */
+.focus-trap {
+    @apply focus:outline-none focus:ring-2 focus:ring-upn-green/50;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-upn-green focus:text-white focus:rounded-lg;
+}
+
+/* Screen reader only */
+.sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+}
+
+/* Visible focus indicators */
+*:focus-visible {
+    @apply outline-none ring-2 ring-upn-green/50 dark:ring-upn-gold/50 ring-offset-2 dark:ring-offset-dark-surface;
+}
+
+/* Form validation states */
+.form-valid {
+    @apply border-green-500/30 ring-2 ring-green-500/20;
+}
+
+.form-invalid {
+    @apply border-semantic-error ring-2 ring-semantic-error/20;
+}
+
+.form-pending {
+    @apply border-yellow-500/30 ring-2 ring-yellow-500/20;
+}
+
+/* Responsive spacing */
+.responsive-spacing-sm {
+    @apply space-y-2 sm:space-y-3;
+}
+
+.responsive-spacing-md {
+    @apply space-y-3 sm:space-y-4 lg:space-y-5;
+}
+
+.responsive-spacing-lg {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+}
+
+/* Responsive padding */
+.responsive-padding-sm {
+    @apply p-3 sm:p-4 lg:p-5;
+}
+
+.responsive-padding-md {
+    @apply p-4 sm:p-6 lg:p-8;
+}
+
+.responsive-padding-lg {
+    @apply p-6 sm:p-8 lg:p-10;
+}
+
+/* Responsive text sizes */
+.responsive-text-sm {
+    @apply text-sm sm:text-base lg:text-lg;
+}
+
+.responsive-text-md {
+    @apply text-base sm:text-lg lg:text-xl;
+}
+
+.responsive-text-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+}

@@ -50,8 +50,8 @@ const AnalyticsPage: React.FC = () => {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">Macro Analytics</h1>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800">Macro Analytics</h1>
+                        <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
                             Pantau performa seluruh platform PKKMB-U
                         </p>
                     </div>
@@ -111,10 +111,10 @@ const AnalyticsPage: React.FC = () => {
                 </div>
 
                 {/* Bottleneck Alerts */}
-                <div className="card p-4 sm:p-6 border-2 border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10">
+                <div className="card p-4 sm:p-6 border-2 border-red-200 bg-red-50/50">
                     <div className="flex items-center gap-2 mb-4">
-                        <AlertTriangle size={20} className="text-red-600 dark:text-red-400" />
-                        <h3 className="text-base sm:text-lg font-bold text-red-800 dark:text-red-400">
+                        <AlertTriangle size={20} className="text-red-600" />
+                        <h3 className="text-base sm:text-lg font-bold text-red-800">
                             Peringatan Bottleneck
                         </h3>
                     </div>
@@ -128,25 +128,25 @@ const AnalyticsPage: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     {/* Task Completion Chart */}
                     <div className="card p-4 sm:p-6">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text mb-4 flex items-center gap-2">
-                            <BarChart3 size={18} className="text-upn-green dark:text-upn-gold" />
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <BarChart3 size={18} className="text-upn-green" />
                             Penyelesaian Tugas (Minggu Ini)
                         </h3>
                         <div className="space-y-3">
                             {taskCompletionData.map((item, index) => (
                                 <div key={index} className="space-y-1">
                                     <div className="flex items-center gap-3">
-                                        <span className="text-xs sm:text-sm text-slate-600 dark:text-dark-text-muted w-12">
+                                        <span className="text-xs sm:text-sm text-slate-600 w-12">
                                             {item.label}
                                         </span>
-                                        <div className="flex-grow h-8 sm:h-10 bg-slate-100 dark:bg-dark-border rounded-lg overflow-hidden">
+                                        <div className="flex-grow h-8 sm:h-10 bg-slate-100 rounded-lg overflow-hidden">
                                             <div
                                                 className="h-full bg-gradient-to-r from-upn-green to-upn-gold transition-all duration-1000"
                                                 style={{ width: `${item.value}%` }}
                                             />
                                         </div>
                                     </div>
-                                    <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-dark-text">
+                                    <span className="text-xs sm:text-sm font-bold text-slate-800">
                                         {item.value}%
                                     </span>
                                 </div>
@@ -156,28 +156,28 @@ const AnalyticsPage: React.FC = () => {
 
                     {/* User Activity Chart */}
                     <div className="card p-4 sm:p-6">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text mb-4 flex items-center gap-2">
-                            <Activity size={18} className="text-upn-green dark:text-upn-gold" />
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <Activity size={18} className="text-upn-green" />
                             Aktivitas Pengguna
                         </h3>
                         <div className="space-y-3">
                             {userActivityData.map((item: any, index: number) => (
-                                <div key={index} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-dark-bg rounded-xl">
+                                <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
                                     <div className="flex items-center gap-3">
-                                        <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-dark-text">
+                                        <span className="text-xs sm:text-sm font-semibold text-slate-700">
                                             {item.label}
                                         </span>
-                                        <span className="text-base sm:text-lg font-black text-slate-800 dark:text-dark-text">
+                                        <span className="text-base sm:text-lg font-black text-slate-800">
                                             {item.value}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-1">
                                         {item.isUp ? (
-                                            <ArrowUp size={16} className="text-green-600 dark:text-green-400" />
+                                            <ArrowUp size={16} className="text-green-600" />
                                         ) : (
-                                            <ArrowDown size={16} className="text-red-600 dark:text-red-400" />
+                                            <ArrowDown size={16} className="text-red-600" />
                                         )}
-                                        <span className={`text-xs sm:text-sm font-bold ${item.isUp ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                        <span className={`text-xs sm:text-sm font-bold ${item.isUp ? 'text-green-600' : 'text-red-600'}`}>
                                             {item.isUp ? '+' : ''}{item.change}%
                                         </span>
                                     </div>
@@ -190,11 +190,11 @@ const AnalyticsPage: React.FC = () => {
                 {/* Recent Activity */}
                 <div className="card p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text flex items-center gap-2">
-                            <Activity size={18} className="text-upn-green dark:text-upn-gold" />
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <Activity size={18} className="text-upn-green" />
                             Aktivitas Terbaru
                         </h3>
-                        <button className="text-xs sm:text-sm font-bold text-upn-green dark:text-upn-gold hover:underline">
+                        <button className="text-xs sm:text-sm font-bold text-upn-green hover:underline">
                             Lihat Semua
                         </button>
                     </div>
@@ -242,9 +242,9 @@ const StatCard: React.FC<{
 }> = ({ title, value, icon: Icon, description, trend, color }) => {
     const colorClasses = {
         blue: 'bg-primary-blue/10 text-primary-blue',
-        green: 'bg-upn-green/10 text-upn-green dark:text-upn-gold',
+        green: 'bg-upn-green/10 text-upn-green',
         gold: 'bg-upn-gold/10 text-upn-gold',
-        purple: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+        purple: 'bg-purple-500/10 text-purple-600',
     };
 
     return (
@@ -254,15 +254,15 @@ const StatCard: React.FC<{
                     <Icon size={18} className="sm:size-20" />
                 </div>
                 {trend && (
-                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold ${trend.isUp ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold ${trend.isUp ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
                         }`}>
                         {trend.isUp ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
                         <span>{Math.abs(trend.value)}%</span>
                     </div>
                 )}
             </div>
-            <p className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">{value}</p>
-            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-dark-text-muted font-medium mt-1">{description}</p>
+            <p className="text-2xl sm:text-3xl font-black text-slate-800">{value}</p>
+            <p className="text-[10px] sm:text-xs text-slate-500 font-medium mt-1">{description}</p>
         </div>
     );
 };
@@ -270,28 +270,28 @@ const StatCard: React.FC<{
 // Bottleneck Alert Component
 const BottleneckAlert: React.FC<{ alert: any }> = ({ alert }) => {
     const severityClasses = {
-        high: 'border-red-300 dark:border-red-700 bg-red-100 dark:bg-red-900/30',
-        medium: 'border-yellow-300 dark:border-yellow-700 bg-yellow-100 dark:bg-yellow-900/30',
+        high: 'border-red-300 bg-red-100',
+        medium: 'border-yellow-300 bg-yellow-100',
     };
 
     const iconClasses = {
-        high: 'text-red-600 dark:text-red-400',
-        medium: 'text-yellow-600 dark:text-yellow-400',
+        high: 'text-red-600',
+        medium: 'text-yellow-600',
     };
 
     return (
         <div className={`flex items-start gap-3 p-3 rounded-xl border-2 ${severityClasses[alert.severity as keyof typeof severityClasses]}`}>
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white dark:bg-dark-surface shrink-0">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white shrink-0">
                 <AlertTriangle size={18} className={iconClasses[alert.severity as keyof typeof iconClasses]} />
             </div>
             <div className="flex-grow">
                 <div className="flex items-center justify-between mb-1">
-                    <h4 className="font-bold text-slate-800 dark:text-dark-text text-sm">{alert.type}</h4>
-                    <span className="px-2 py-0.5 bg-slate-200 dark:bg-dark-border rounded-full text-[10px] font-bold text-slate-700 dark:text-dark-text-muted">
+                    <h4 className="font-bold text-slate-800 text-sm">{alert.type}</h4>
+                    <span className="px-2 py-0.5 bg-slate-200 rounded-full text-[10px] font-bold text-slate-700">
                         {alert.count} kasus
                     </span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-dark-text-muted">{alert.description}</p>
+                <p className="text-xs sm:text-sm text-slate-600">{alert.description}</p>
             </div>
         </div>
     );
@@ -300,22 +300,22 @@ const BottleneckAlert: React.FC<{ alert: any }> = ({ alert }) => {
 // Activity Item Component
 const ActivityItem: React.FC<{ activity: any }> = ({ activity }) => {
     const typeColors = {
-        user: 'bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400',
-        task: 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400',
-        presence: 'bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400',
+        user: 'bg-blue-100 text-blue-600',
+        task: 'bg-green-100 text-green-600',
+        presence: 'bg-purple-100 text-purple-600',
         grade: 'bg-upn-gold/10 text-upn-gold',
-        event: 'bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400',
+        event: 'bg-pink-100 text-pink-600',
     };
 
     return (
-        <div className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-dark-bg rounded-xl">
+        <div className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${typeColors[activity.type as keyof typeof typeColors]}`}>
                 <Activity size={18} />
             </div>
             <div className="flex-grow">
-                <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{activity.action}</p>
-                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-dark-text-muted">{activity.detail}</p>
-                <p className="text-[10px] sm:text-xs text-slate-400 dark:text-dark-text-muted mt-1">{activity.time}</p>
+                <p className="font-bold text-slate-800 text-sm">{activity.action}</p>
+                <p className="text-[10px] sm:text-xs text-slate-500">{activity.detail}</p>
+                <p className="text-[10px] sm:text-xs text-slate-400 mt-1">{activity.time}</p>
             </div>
         </div>
     );
@@ -332,7 +332,7 @@ const TimeRangeButton: React.FC<{
             onClick={onClick}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${active
                 ? 'bg-upn-green text-upn-gold'
-                : 'bg-slate-100 dark:bg-dark-border text-slate-600 dark:text-dark-text-muted hover:bg-slate-200 dark:hover:bg-dark-surface'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
         >
             {label}
@@ -350,7 +350,7 @@ const QuickActionCard: React.FC<{
     const colorClasses = {
         blue: 'bg-primary-blue/10 text-primary-blue',
         gold: 'bg-upn-gold/10 text-upn-gold',
-        green: 'bg-upn-green/10 text-upn-green dark:text-upn-gold',
+        green: 'bg-upn-green/10 text-upn-green',
     };
 
     return (
@@ -358,10 +358,10 @@ const QuickActionCard: React.FC<{
             <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-3 ${colorClasses[color]}`}>
                 <Icon size={24} />
             </div>
-            <h4 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text mb-1 group-hover:text-upn-green dark:group-hover:text-upn-gold transition-colors">
+            <h4 className="text-base sm:text-lg font-bold text-slate-800 mb-1 group-hover:text-upn-green transition-colors">
                 {title}
             </h4>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted">
+            <p className="text-xs sm:text-sm text-slate-500">
                 {description}
             </p>
         </button>
