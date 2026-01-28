@@ -38,8 +38,8 @@ const TaskBuilderPage: React.FC = () => {
             <div className="space-y-4 sm:space-y-6">
                 {/* Header */}
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">Template Builder</h1>
-                    <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
+                    <h1 className="text-2xl sm:text-3xl font-black text-slate-800">Template Builder</h1>
+                    <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
                         Buat template tugas baru untuk PKKMB-U
                     </p>
                 </div>
@@ -48,13 +48,13 @@ const TaskBuilderPage: React.FC = () => {
                     <div className="space-y-4 sm:space-y-6">
                         {/* Title */}
                         <div>
-                            <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-dark-text mb-2">
+                            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
                                 Judul Tugas
                             </label>
                             <input
                                 type="text"
                                 placeholder="Masukkan judul tugas..."
-                                className="w-full px-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted"
+                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 text-slate-800 placeholder:text-slate-400"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
@@ -62,12 +62,12 @@ const TaskBuilderPage: React.FC = () => {
 
                         {/* Description */}
                         <div>
-                            <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-dark-text mb-2">
+                            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
                                 Deskripsi
                             </label>
                             <textarea
                                 placeholder="Jelaskan tugas secara singkat..."
-                                className="w-full px-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted resize-none"
+                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 text-slate-800 placeholder:text-slate-400 resize-none"
                                 rows={4}
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
@@ -76,7 +76,7 @@ const TaskBuilderPage: React.FC = () => {
 
                         {/* Task Type */}
                         <div>
-                            <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-dark-text mb-2">
+                            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
                                 Jenis Tugas
                             </label>
                             <div className="flex gap-4">
@@ -88,7 +88,7 @@ const TaskBuilderPage: React.FC = () => {
                                         onChange={() => setTaskType('individual')}
                                         className="accent-upn-green w-4 h-4"
                                     />
-                                    <span className="text-sm font-semibold text-slate-700 dark:text-dark-text">Individu</span>
+                                    <span className="text-sm font-semibold text-slate-700">Individu</span>
                                 </label>
                                 <label className="flex items-center gap-2 cursor-pointer">
                                     <input
@@ -98,20 +98,20 @@ const TaskBuilderPage: React.FC = () => {
                                         onChange={() => setTaskType('group')}
                                         className="accent-upn-green w-4 h-4"
                                     />
-                                    <span className="text-sm font-semibold text-slate-700 dark:text-dark-text">Kelompok</span>
+                                    <span className="text-sm font-semibold text-slate-700">Kelompok</span>
                                 </label>
                             </div>
                         </div>
 
                         {/* Deadline */}
                         <div>
-                            <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-dark-text mb-2">
+                            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
                                 Deadline
                             </label>
                             <input
                                 type="date"
                                 placeholder="Pilih tanggal deadline..."
-                                className="w-full px-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted"
+                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 text-slate-800 placeholder:text-slate-400"
                                 value={deadline}
                                 onChange={(e) => setDeadline(e.target.value)}
                             />
@@ -119,7 +119,7 @@ const TaskBuilderPage: React.FC = () => {
 
                         {/* File Types */}
                         <div>
-                            <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-dark-text mb-2">
+                            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
                                 Jenis File yang Diterima
                             </label>
                             <div className="flex flex flex-wrap gap-2">
@@ -129,8 +129,8 @@ const TaskBuilderPage: React.FC = () => {
                                         type="button"
                                         onClick={() => handleAddFileType(type)}
                                         className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${fileTypes.includes(type)
-                                            ? 'bg-upn-green text-upn-gold border-2 border-upn-green dark:border-upn-gold'
-                                            : 'bg-slate-100 dark:bg-dark-bg text-slate-600 dark:text-dark-text-muted border-2 border-slate-200 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-border'
+                                            ? 'bg-upn-green text-upn-gold border-2 border-upn-green'
+                                            : 'bg-slate-100 text-slate-600 border-2 border-slate-200 hover:bg-slate-50'
                                             }`}
                                     >
                                         {type}
@@ -140,7 +140,7 @@ const TaskBuilderPage: React.FC = () => {
                         </div>
 
                         {/* Actions */}
-                        <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-dark-border">
+                        <div className="flex gap-3 pt-4 border-t border-slate-200">
                             <button
                                 onClick={handleSave}
                                 disabled={!title.trim() || isSaving}
@@ -169,15 +169,15 @@ const TaskBuilderPage: React.FC = () => {
 
                 {/* Preview Card */}
                 {isPublished && (
-                    <div className="card p-4 sm:p-6 bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green/20 dark:border-upn-gold">
+                    <div className="card p-4 sm:p-6 bg-upn-green/5 border-2 border-upn-green/20">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-dark-text flex items-center gap-2">
-                                <FileText size={18} className="text-upn-green dark:text-upn-gold" />
+                            <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+                                <FileText size={18} className="text-upn-green" />
                                 Template Disimpan
                             </h3>
                             <button
                                 onClick={() => setIsPublished(false)}
-                                className="p-1.5 hover:bg-upn-green/20 dark:hover:bg-upn-gold/30 rounded-lg transition-colors text-upn-green dark:text-upn-gold"
+                                className="p-1.5 hover:bg-upn-green/20 rounded-lg transition-colors text-upn-green"
                                 title="Tutup"
                             >
                                 <X size={16} />
@@ -185,18 +185,18 @@ const TaskBuilderPage: React.FC = () => {
                         </div>
                         <div className="space-y-3">
                             <div className="flex items-start gap-3">
-                                <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green dark:text-upn-gold shrink-0">
+                                <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green shrink-0">
                                     <FileText size={20} />
                                 </div>
                                 <div className="flex-grow">
-                                    <p className="font-bold text-slate-800 dark:text-dark-text text-sm">{title}</p>
-                                    <p className="text-xs text-slate-500 dark:text-dark-text-muted">{description}</p>
+                                    <p className="font-bold text-slate-800 text-sm">{title}</p>
+                                    <p className="text-xs text-slate-500">{description}</p>
                                     <div className="flex items-center gap-2 mt-2">
-                                        <span className="text-xs font-semibold text-upn-green dark:text-upn-gold">
+                                        <span className="text-xs font-semibold text-upn-green">
                                             {taskType === 'individual' ? 'Individu' : 'Kelompok'}
                                         </span>
                                     </div>
-                                    <div className="text-xs text-slate-500 dark:text-dark-text-muted">
+                                    <div className="text-xs text-slate-500">
                                         {fileTypes.join(', ')}
                                     </div>
                                 </div>
