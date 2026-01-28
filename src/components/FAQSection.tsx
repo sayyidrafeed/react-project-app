@@ -107,7 +107,7 @@ const FAQItem = ({ faq, isExpanded, onToggle }: FAQItemProps) => {
                 <h3 className="text-lg lg:text-xl font-bold text-slate-900 pr-4 group-hover:text-upn-green transition-colors">
                     {faq.question}
                 </h3>
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white group-hover:bg-upn-green transition-colors">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-upn-green flex items-center justify-center text-white transition-colors">
                     <motion.div
                         initial={false}
                         animate={{ rotate: isExpanded ? 180 : 0 }}

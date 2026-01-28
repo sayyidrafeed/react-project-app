@@ -27,7 +27,7 @@ const LandingPage = () => {
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                 <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-upn-green/10 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob"></div>
                 <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-upn-gold/10 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-2000"></div>
-                <div className="absolute top-[20%] left-[20%] w-[400px] h-[400px] bg-sky-200/20 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-4000"></div>
+                <div className="absolute top-[20%] left-[20%] w-[400px] h-[400px] bg-upn-gold/10 rounded-full blur-3xl mix-blend-multiply filter opacity-70 animate-blob animation-delay-4000"></div>
             </div>
 
             {/* Hero Section */}
@@ -116,12 +116,12 @@ const LandingPage = () => {
                             description="Berpikir kreatif dan adaptif untuk menciptakan solusi bagi kemajuan bangsa."
                         />
                         <ValueCard
-                            icon={<Shield className="w-8 h-8 text-sky-600" />}
+                            icon={<Shield className="w-8 h-8 text-upn-gold" />}
                             title="Integritas"
                             description="Menjunjung tinggi kejujuran dan etika dalam setiap langkah akademik."
                         />
                         <ValueCard
-                            icon={<Users className="w-8 h-8 text-rose-500" />}
+                            icon={<Users className="w-8 h-8 text-upn-green" />}
                             title="Kolaborasi"
                             description="Membangun sinergi dan kerjasama tim yang solid antar mahasiswa."
                         />
