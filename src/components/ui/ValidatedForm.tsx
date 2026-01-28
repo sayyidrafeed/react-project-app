@@ -6,6 +6,7 @@
  */
 
 import React, { ReactNode, forwardRef } from 'react';
+import { LucideIcon } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useFormValidation } from '../../hooks/useFormValidation';
@@ -164,7 +165,7 @@ export interface FormFieldProps {
     autoResize?: boolean;
     minHeight?: string;
     maxHeight?: string;
-    icon?: React.ElementType<any>;
+    icon?: LucideIcon;
     // Form context props (injected by ValidatedForm)
     values?: Record<string, any>;
     errors?: Record<string, string>;
