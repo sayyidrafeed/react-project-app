@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BenefitsSection from '../components/BenefitsSection';
+import TimelineSection from '../components/TimelineSection';
 import TestimonialSection from '../components/TestimonialSection';
 import NewsSection from '../components/NewsSection';
 import FAQSection from '../components/FAQSection';
@@ -83,6 +84,9 @@ const LandingPage = () => {
 
             {/* Benefits Section */}
             <BenefitsSection />
+
+            {/* Timeline Section */}
+            <TimelineSection />
 
             {/* Core Values Section */}
             <section className="relative py-24 bg-white/50 backdrop-blur-sm">
