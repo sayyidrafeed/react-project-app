@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import BenefitsSection from '../components/BenefitsSection';
 import TestimonialSection from '../components/TestimonialSection';
 import NewsSection from '../components/NewsSection';
+import FAQSection from '../components/FAQSection';
 
 const LandingPage = () => {
     const fadeIn = {
@@ -133,6 +134,9 @@ const LandingPage = () => {
 
             {/* News Section */}
             <NewsSection />
+
+            {/* FAQ Section */}
+            <FAQSection />
         </div>
     );
 };
