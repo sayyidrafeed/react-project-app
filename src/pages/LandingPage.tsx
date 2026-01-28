@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BenefitsSection from '../components/BenefitsSection';
+import AboutSection from '../components/AboutSection';
 import TestimonialSection from '../components/TestimonialSection';
 import NewsSection from '../components/NewsSection';
 
@@ -127,6 +128,9 @@ const LandingPage = () => {
                     </motion.div>
                 </div>
             </section>
+
+            {/* About Section */}
+            <AboutSection />
 
             {/* Testimonial Section */}
             <TestimonialSection />

@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 interface Testimonial {
     id: number;
@@ -35,21 +34,15 @@ const testimonials: Testimonial[] = [
 ];
 
 const TestimonialSection = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
 
-    const nextTestimonial = () => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    };
-
-    const prevTestimonial = () => {
-        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    };
-
-    const currentTestimonial = testimonials[currentIndex];
+    // Duplicate testimonials for seamless loop (render 3x for better visual coverage)
+    const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
     return (
-        <section className="relative py-24 lg:py-32 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-24 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -65,85 +58,77 @@ const TestimonialSection = () => {
                     </h3>
                 </motion.div>
 
-                <div className="relative">
-                    {/* Navigation Buttons */}
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20 -ml-4 lg:-ml-16">
-                        <button
-                            onClick={prevTestimonial}
-                            className="w-12 h-12 rounded-full bg-slate-200 hover:bg-upn-green hover:text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
-                            aria-label="Previous testimonial"
-                        >
-                            <ChevronLeft className="w-6 h-6" />
-                        </button>
-                    </div>
+                {/* Infinite Scroll Container */}
+                <div
+                    className="relative overflow-hidden"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                >
+                    {/* Gradient Overlays */}
+                    <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+                    <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
 
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20 -mr-4 lg:-mr-16">
-                        <button
-                            onClick={nextTestimonial}
-                            className="w-12 h-12 rounded-full bg-blue-600 hover:bg-upn-green text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110"
-                            aria-label="Next testimonial"
-                        >
-                            <ChevronRight className="w-6 h-6" />
-                        </button>
-                    </div>
-
-                    {/* Testimonial Card */}
-                    <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 min-h-[300px] flex items-center">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={currentTestimonial.id}
-                                initial={{ opacity: 0, x: 50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -50 }}
-                                transition={{ duration: 0.4 }}
-                                className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 w-full"
-                            >
-                                {/* Profile Image */}
-                                <div className="flex-shrink-0">
-                                    <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden ring-4 ring-upn-green/20 shadow-lg">
-                                        <img
-                                            src={currentTestimonial.image}
-                                            alt={currentTestimonial.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Testimonial Content */}
-                                <div className="flex-1 text-center lg:text-left">
-                                    <p className="text-lg lg:text-xl text-slate-700 leading-relaxed mb-6 italic">
-                                        "{currentTestimonial.quote}"
-                                    </p>
-                                    <div>
-                                        <h4 className="text-lg font-bold text-slate-900 mb-1">
-                                            – {currentTestimonial.name}
-                                        </h4>
-                                        <p className="text-sm text-slate-500">
-                                            {currentTestimonial.role}
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-
-                    {/* Dots Indicator */}
-                    <div className="flex justify-center gap-2 mt-8">
-                        {testimonials.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                        ? 'bg-upn-green w-8'
-                                        : 'bg-slate-300 hover:bg-slate-400'
-                                    }`}
-                                aria-label={`Go to testimonial ${index + 1}`}
+                    {/* Scrolling Track */}
+                    <motion.div
+                        className="flex gap-6"
+                        animate={{
+                            x: [0, -(testimonials.length * 400)] // Move by one full set width
+                        }}
+                        transition={{
+                            x: {
+                                repeat: Infinity,
+                                repeatType: 'loop',
+                                duration: 30,
+                                ease: 'linear'
+                            }
+                        }}
+                        style={{ width: 'max-content' }}
+                    >
+                        {duplicatedTestimonials.map((testimonial, index) => (
+                            <TestimonialCard
+                                key={`${testimonial.id}-${index}`}
+                                testimonial={testimonial}
                             />
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
+
+                {/* Pause Indicator */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="text-center mt-8"
+                >
+                    <p className="text-sm text-slate-500">
+                        {isPaused ? "⏸️ Animasi dipause" : "▶️ Auto-scrolling"}
+                    </p>
+                </motion.div>
             </div>
         </section>
+    );
+};
+
+const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
+    return (
+        <div className="flex-shrink-0 w-80 lg:w-96 bg-white rounded-3xl shadow-xl p-8 lg:p-10">
+            <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-upn-green/20">
+                    <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+                <div>
+                    <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
+                    <p className="text-sm text-slate-500">{testimonial.role}</p>
+                </div>
+            </div>
+            <p className="text-slate-700 leading-relaxed italic">
+                "{testimonial.quote}"
+            </p>
+        </div>
     );
 };
 
