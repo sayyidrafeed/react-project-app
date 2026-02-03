@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
 import BottomNav from '../components/ui/BottomNav';
-import { Menu, Bell } from 'lucide-react';
+import { Bell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
@@ -65,9 +65,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => setIsMobileMenuOpen(true)}
-                            className="p-2 -ml-2 text-slate-500 md:hidden hover:bg-slate-50 rounded-lg transition-colors"
+                            className="md:hidden text-slate-500 hover:text-upn-green transition-colors"
                         >
-                            <Menu size={24} />
+                            <span className="font-black text-lg">SIERA</span>
                         </button>
                         <h2 className="font-bold text-slate-800 tracking-tight hidden sm:block">
                             SIERA <span className="text-upn-green uppercase text-[10px] ml-1 px-1.5 py-0.5 bg-upn-gold/10 rounded border border-upn-gold/20 leading-none">{user.role}</span>
