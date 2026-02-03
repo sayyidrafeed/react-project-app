@@ -10,6 +10,7 @@ interface Student {
     major: string;
     interests: string[];
     skills: string[];
+    group?: string;
     avatar: string;
     banner: string;
     email?: string;
@@ -25,6 +26,7 @@ const MOCK_STUDENTS: Student[] = [
         name: 'Budi Santoso',
         faculty: 'Teknik',
         major: 'Informatika',
+        group: '42',
         interests: ['Web Development', 'UI/UX Design', 'Machine Learning'],
         skills: ['React', 'TypeScript', 'Node.js', 'Python'],
         avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400',
@@ -40,6 +42,7 @@ const MOCK_STUDENTS: Student[] = [
         name: 'Siti Aminah',
         faculty: 'Kedokteran',
         major: 'Kedokteran Umum',
+        group: '157',
         interests: ['Public Health', 'Community Service', 'Research'],
         skills: ['Patient Care', 'Medical Research', 'Communication'],
         avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400',
@@ -55,6 +58,7 @@ const MOCK_STUDENTS: Student[] = [
         name: 'Andi Wijaya',
         faculty: 'Hukum',
         major: 'Ilmu Hukum',
+        group: '89',
         interests: ['Debate', 'Law Practice', 'Legal Writing'],
         skills: ['Public Speaking', 'Legal Research', 'Negotiation'],
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
@@ -70,6 +74,7 @@ const MOCK_STUDENTS: Student[] = [
         name: 'Dewi Lestari',
         faculty: 'Ekonomi',
         major: 'Manajemen',
+        group: '176',
         interests: ['Entrepreneurship', 'Business Strategy', 'Finance'],
         skills: ['Business Planning', 'Financial Analysis', 'Leadership'],
         avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=400',
@@ -85,6 +90,7 @@ const MOCK_STUDENTS: Student[] = [
         name: 'Rizky Pratama',
         faculty: 'FISIP',
         major: 'Ilmu Komunikasi',
+        group: '63',
         interests: ['Photography', 'Content Creation', 'Social Media'],
         skills: ['Photography', 'Video Editing', 'Creative Writing'],
         avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400',
@@ -100,6 +106,7 @@ const MOCK_STUDENTS: Student[] = [
         name: 'Nina Kartika',
         faculty: 'Ilmu Kesehatan',
         major: 'Keperawatan',
+        group: '134',
         interests: ['Social Service', 'Healthcare', 'Community Development'],
         skills: ['Nursing', 'Patient Support', 'Health Education'],
         avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400',
@@ -199,6 +206,14 @@ const StudentProfileDetail: React.FC = () => {
                     <div className="card p-6">
                         <h3 className="text-lg font-black text-slate-800 dark:text-dark-text mb-3">Tentang</h3>
                         <p className="text-slate-600 dark:text-dark-text-muted leading-relaxed">{student.bio}</p>
+                    </div>
+                )}
+
+                {/* Group */}
+                {student.group && (
+                    <div className="card p-6 bg-upn-gold/5 dark:bg-upn-gold/10 border-l-4 border-upn-gold">
+                        <h3 className="text-lg font-black text-slate-800 dark:text-dark-text mb-3">Kelompok</h3>
+                        <p className="text-3xl font-black text-upn-green dark:text-upn-gold">{student.group}</p>
                     </div>
                 )}
 
