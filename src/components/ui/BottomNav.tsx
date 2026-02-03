@@ -37,7 +37,9 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout }) => {
         <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface border-t border-slate-200 dark:border-dark-border md:hidden z-50 safe-area-bottom">
             <div className="flex items-center justify-between h-20 px-3 relative">
                 {currentMenu.map((item, index) => {
-                    const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
+                    const isActive = location.pathname === item.path || 
+                        (item.path !== '/mentee' && location.pathname.startsWith(item.path));
+                    
                     
                     // Center item (Camera/Presensi for mentee)
                     if (userRole === 'mentee' && index === 2) {
