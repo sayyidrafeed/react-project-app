@@ -7,6 +7,7 @@ import { MenteeHome, AdminHome, MentorHome } from './pages/DashboardPages';
 import MentorTasks from './pages/MentorTasks';
 import TaskCatalog from './pages/TaskCatalog';
 import PresencePage from './pages/PresencePage';
+import OrientationJourneyDetail from './pages/mentee/OrientationJourneyDetail';
 import AdminUsers from './pages/AdminUsers';
 import AdminEvents from './pages/AdminEvents';
 import LandingPage from './pages/LandingPage';
@@ -31,6 +32,7 @@ function App() {
                     <Route path="/mentee">
                         <Route index element={<ProtectedRoute allowedRoles={['mentee']}><MenteeHome /></ProtectedRoute>} />
                         <Route path="tasks" element={<ProtectedRoute allowedRoles={['mentee']}><TaskCatalog /></ProtectedRoute>} />
+                        <Route path="orientation-journey" element={<ProtectedRoute allowedRoles={['mentee']}><OrientationJourneyDetail /></ProtectedRoute>} />
                         <Route path="presence" element={<ProtectedRoute allowedRoles={['mentee']}><PresencePage /></ProtectedRoute>} />
                     </Route>
 

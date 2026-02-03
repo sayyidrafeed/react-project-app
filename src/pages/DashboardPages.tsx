@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../layouts/DashboardLayout';
 import { StatsCard } from '../components/StatsCard';
 import { Calendar, CheckSquare, Users, Star, Bell, TrendingUp } from 'lucide-react';
@@ -11,6 +12,7 @@ import MentorInfoCard from '../components/mentee/MentorInfoCard';
 import TimeSidebar from '../components/mentee/TimeSidebar';
 
 export const MenteeHome: React.FC = () => {
+    const navigate = useNavigate();
     // Mock data for priority tasks
     const priorityTasks: any[] = [
         {
@@ -32,6 +34,7 @@ export const MenteeHome: React.FC = () => {
                         totalStages={10}
                         nextStageName="Core Values Seminar"
                         currentDay={2}
+                        onClick={() => navigate('/mentee/orientation-journey')}
                     />
 
                     <MenteeStatsRow
