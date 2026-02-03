@@ -92,7 +92,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                     </div>
                 </header>
 
-                <main className="flex-grow overflow-auto bg-slate-50/30 p-4 md:p-8 pb-20 md:pb-8">
+                <main className="flex-grow overflow-auto bg-slate-50/30 p-4 md:p-8 pb-24 md:pb-8">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={location.pathname}

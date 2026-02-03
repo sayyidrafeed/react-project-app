@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, CheckSquare, Users, Calendar, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { UserRole } from '../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -15,19 +15,21 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
 
     const menuItems = {
         admin: [
-            { name: 'Ringkasan', icon: LayoutDashboard, path: '/admin' },
-            { name: 'Manajemen User', icon: Users, path: '/admin/users' },
-            { name: 'Manajemen Event', icon: Calendar, path: '/admin/events' },
+            { name: 'Ringkasan', icon: Home, path: '/admin' },
+            { name: 'Manajemen User', icon: User, path: '/admin/users' },
+            { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
         ],
         mentor: [
-            { name: 'Statistik Grup', icon: LayoutDashboard, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: Users, path: '/mentor' },
-            { name: 'Validasi Tugas', icon: CheckSquare, path: '/mentor/tasks' },
+            { name: 'Statistik Grup', icon: Home, path: '/mentor' },
+            { name: 'Daftar Mentee', icon: User, path: '/mentor' },
+            { name: 'Validasi Tugas', icon: FileText, path: '/mentor/tasks' },
         ],
         mentee: [
-            { name: 'Beranda', icon: LayoutDashboard, path: '/mentee' },
-            { name: 'Katalog Tugas', icon: CheckSquare, path: '/mentee/tasks' },
-            { name: 'Presensi Digital', icon: Calendar, path: '/mentee/presence' },
+            { name: 'Home', icon: Home, path: '/mentee' },
+            { name: 'Discover', icon: Eye, path: '/mentee/discover' },
+            { name: 'Presensi', icon: Camera, path: '/mentee/presence' },
+            { name: 'Tasks', icon: FileText, path: '/mentee/tasks' },
+            { name: 'Profile', icon: User, path: '/mentee/profile' },
         ]
     };
 
