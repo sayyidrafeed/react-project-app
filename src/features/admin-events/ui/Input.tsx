@@ -15,7 +15,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
     size?: 'sm' | 'md' | 'lg';
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
+export const Input: React.FC<InputProps> = ({
     label,
     error,
     hint,
@@ -24,7 +24,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
     className,
     id,
     ...props
-}, ref) => {
+}) => {
     const sizes = {
         sm: 'px-3 py-2 text-sm',
         md: 'px-4 py-3',
@@ -51,7 +51,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
                     />
                 )}
                 <input
-                    ref={ref}
                     id={inputId}
                     className={cn(
                         'input-field w-full',
@@ -81,8 +80,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
             )}
         </div>
     );
-});
-Input.displayName = 'Input';
+};
 
 export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
     label?: string;
@@ -91,7 +89,7 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
     size?: 'sm' | 'md' | 'lg';
 }
 
-export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
+export const Select: React.FC<SelectProps> = ({
     label,
     error,
     hint,
@@ -100,7 +98,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
     id,
     children,
     ...props
-}, ref) => {
+}) => {
     const sizes = {
         sm: 'px-3 py-2 text-sm',
         md: 'px-4 py-3',
@@ -120,7 +118,6 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
                 </label>
             )}
             <select
-                ref={ref}
                 id={selectId}
                 className={cn(
                     'input-field w-full cursor-pointer appearance-none',
@@ -150,8 +147,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
             )}
         </div>
     );
-});
-Select.displayName = 'Select';
+};
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
@@ -160,7 +156,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
     size?: 'sm' | 'md' | 'lg';
 }
 
-export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
+export const Textarea: React.FC<TextareaProps> = ({
     label,
     error,
     hint,
@@ -168,7 +164,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
     className,
     id,
     ...props
-}, ref) => {
+}) => {
     const sizes = {
         sm: 'px-3 py-2 text-sm',
         md: 'px-4 py-3',
@@ -188,7 +184,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
                 </label>
             )}
             <textarea
-                ref={ref}
                 id={textareaId}
                 className={cn(
                     'input-field w-full resize-none',
@@ -216,7 +211,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
             )}
         </div>
     );
-});
-Textarea.displayName = 'Textarea';
+};
 
 export default Input;

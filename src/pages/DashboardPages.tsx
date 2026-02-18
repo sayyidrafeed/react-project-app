@@ -5,11 +5,11 @@ import { StatsCard } from '../components/StatsCard';
 import { Calendar, CheckSquare, Users, Star, Bell, TrendingUp } from 'lucide-react';
 import { MOCK_TASKS, MOCK_EVENTS } from '../data/mockData';
 
-import OrientationJourneyCard from '../components/mentee/OrientationJourneyCard';
-import MenteeStatsRow from '../components/mentee/MenteeStatsRow';
-import TodaysPriorityCard from '../components/mentee/TodaysPriorityCard';
-import MentorInfoCard from '../components/mentee/MentorInfoCard';
-import TimeSidebar from '../components/mentee/TimeSidebar';
+import OrientationJourneyCard from '../features/mentee/components/OrientationJourneyCard';
+import MenteeStatsRow from '../features/mentee/components/MenteeStatsRow';
+import TodaysPriorityCard from '../features/mentee/components/TodaysPriorityCard';
+import MentorInfoCard from '../features/mentee/components/MentorInfoCard';
+import TimeSidebar from '../features/mentee/components/TimeSidebar';
 
 export const MenteeHome: React.FC = () => {
     const navigate = useNavigate();

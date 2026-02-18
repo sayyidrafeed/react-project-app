@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Event, EventFormData, EventStatus, EventFilters, EventSort } from '../../types/event';
+import { Event, EventFormData, EventStatus, EventFilters, EventSort } from '../../../types/event';
 import { EventModal } from './EventModal';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { Button } from '../ui/Button';
@@ -156,7 +156,7 @@ export const EventManagement: React.FC<EventManagementProps> = ({
     };
 
     const handleSort = (field: keyof Event) => {
-        setSort((prev) => ({
+        setSort((prev: EventSort) => ({
             field,
             direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc'
         }));

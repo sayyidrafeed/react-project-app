@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import Sidebar from '../components/Sidebar';
-import BottomNav from '../components/ui/BottomNav';
+import Sidebar from './components/Sidebar';
+import BottomNav from './components/BottomNav';
 import { Bell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';

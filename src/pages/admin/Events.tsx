@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import DashboardLayout from '../layouts/DashboardLayout';
-import { EventManagement } from '../components/events/EventManagement';
-import { Event, EventFormData } from '../types/event';
-import { mockEvents } from '../data/mockEvents';
+import DashboardLayout from '../../layouts/DashboardLayout';
+import { EventManagement } from '../../features/admin-events/components/EventManagement';
+import { Event, EventFormData } from '../../features/admin-events/types/event';
+import { mockEvents } from '../../data/mockEvents';
 
 const AdminEvents: React.FC = () => {
     const [events, setEvents] = useState<Event[]>(mockEvents);

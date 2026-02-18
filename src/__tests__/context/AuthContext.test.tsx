@@ -1,7 +1,7 @@
 // @ts-ignore - Bun test types not available in tsc
 import { describe, test, expect, beforeEach } from 'bun:test';
 import { renderWithProviders, screen, waitFor, render } from '../test-utils';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, AuthContextType } from '../../context/AuthContext';
 
 describe('AuthContext', () => {
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe('AuthContext', () => {
   // ===== INITIAL STATE TESTS =====
 
   test('after mount, isLoading becomes false', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -27,7 +27,7 @@ describe('AuthContext', () => {
   });
 
   test('initial state has user null when no localStorage', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -47,7 +47,7 @@ describe('AuthContext', () => {
   // ===== LOGIN TESTS =====
 
   test('login sets user with correct role and properties', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -81,7 +81,7 @@ describe('AuthContext', () => {
   });
 
   test('login persists user to localStorage', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -114,7 +114,7 @@ describe('AuthContext', () => {
   });
 
   test('login sets mentee-specific fields when role is mentee', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -142,7 +142,7 @@ describe('AuthContext', () => {
   });
 
   test('login does not set mentee-specific fields when role is admin', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -174,7 +174,7 @@ describe('AuthContext', () => {
   // ===== LOGOUT TESTS =====
 
   test('logout clears user state', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -210,7 +210,7 @@ describe('AuthContext', () => {
   });
 
   test('logout removes user from localStorage', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -255,7 +255,7 @@ describe('AuthContext', () => {
     };
     localStorage.setItem('siera_user', JSON.stringify(mockUser));
 
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -273,7 +273,7 @@ describe('AuthContext', () => {
   });
 
   test('isAuthenticated reflects user presence', async () => {
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();
@@ -317,7 +317,7 @@ describe('AuthContext', () => {
     // Pre-populate localStorage with invalid JSON
     localStorage.setItem('siera_user', 'invalid-json-data');
 
-    let authState: any;
+    let authState!: AuthContextType;
 
     const TestComponent = () => {
       authState = useAuth();

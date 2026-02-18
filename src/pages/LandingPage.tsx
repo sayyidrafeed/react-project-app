@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import BenefitsSection from '../components/BenefitsSection';
-import AboutSection from '../components/AboutSection';
-import TimelineSection from '../components/TimelineSection';
-import TestimonialSection from '../components/TestimonialSection';
-import NewsSection from '../components/NewsSection';
-import FAQSection from '../components/FAQSection';
+import BenefitsSection from '../features/landing/components/BenefitsSection';
+import AboutSection from '../features/landing/components/AboutSection';
+import TimelineSection from '../features/landing/components/TimelineSection';
+import TestimonialSection from '../features/landing/components/TestimonialSection';
+import NewsSection from '../features/landing/components/NewsSection';
+import FAQSection from '../features/landing/components/FAQSection';
 
 const LandingPage = () => {
     const fadeIn = {

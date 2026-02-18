@@ -1,6 +1,6 @@
 import React from 'react';
 import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
-import { UserRole } from '../context/AuthContext';
+import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
 interface SidebarProps {

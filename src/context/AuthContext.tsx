@@ -13,7 +13,7 @@ export interface UserProfile {
     avatar?: string;
 }
 
-interface AuthContextType {
+export interface AuthContextType {
     user: UserProfile | null;
     isLoading: boolean;
     login: (email: string, role: UserRole) => Promise<void>;

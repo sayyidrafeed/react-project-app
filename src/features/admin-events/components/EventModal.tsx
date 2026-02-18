@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Modal } from '../ui/Modal';
 import { Input, Select, Textarea } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { Event, EventFormData, EventStatus } from '../../types/event';
+import { Event, EventFormData, EventStatus } from '../../../types/event';
+
+type EventFormValue = string | number;
 
 interface EventModalProps {
     isOpen: boolean;
@@ -62,27 +64,28 @@ export const EventModal: React.FC<EventModalProps> = ({
         setTouched({});
     }, [event, isOpen]);
 
-    const validateField = (name: keyof EventFormData, value: any): string | undefined => {
+    const validateField = (name: keyof EventFormData, value: EventFormValue): string | undefined => {
+        const strValue = value as string;
         switch (name) {
             case 'title':
-                if (!value || value.trim().length === 0) {
+                if (!strValue || strValue.trim().length === 0) {
                     return 'Event title is required';
                 }
-                if (value.trim().length < 3) {
+                if (strValue.trim().length < 3) {
                     return 'Event title must be at least 3 characters';
                 }
-                if (value.trim().length > 100) {
+                if (strValue.trim().length > 100) {
                     return 'Event title must not exceed 100 characters';
                 }
                 break;
             case 'description':
-                if (!value || value.trim().length === 0) {
+                if (!strValue || strValue.trim().length === 0) {
                     return 'Description is required';
                 }
-                if (value.trim().length < 10) {
+                if (strValue.trim().length < 10) {
                     return 'Description must be at least 10 characters';
                 }
-                if (value.trim().length > 1000) {
+                if (strValue.trim().length > 1000) {
                     return 'Description must not exceed 1000 characters';
                 }
                 break;
@@ -92,47 +95,48 @@ export const EventModal: React.FC<EventModalProps> = ({
                 }
                 break;
             case 'endDate':
-                if (!value) {
+                if (!strValue) {
                     return 'End date is required';
                 }
-                if (formData.startDate && new Date(value) <= new Date(formData.startDate)) {
+                if (formData.startDate && new Date(strValue) <= new Date(formData.startDate)) {
                     return 'End date must be after start date';
                 }
                 break;
             case 'location':
-                if (!value || value.trim().length === 0) {
+                if (!strValue || strValue.trim().length === 0) {
                     return 'Location is required';
                 }
-                if (value.trim().length < 2) {
+                if (strValue.trim().length < 2) {
                     return 'Location must be at least 2 characters';
                 }
                 break;
             case 'venue':
-                if (!value || value.trim().length === 0) {
+                if (!strValue || strValue.trim().length === 0) {
                     return 'Venue is required';
                 }
-                if (value.trim().length < 2) {
+                if (strValue.trim().length < 2) {
                     return 'Venue must be at least 2 characters';
                 }
                 break;
             case 'capacity':
-                if (!value || value <= 0) {
+                const numValue = value as number;
+                if (!numValue || numValue <= 0) {
                     return 'Capacity must be greater than 0';
                 }
-                if (value > 10000) {
+                if (numValue > 10000) {
                     return 'Capacity must not exceed 10,000';
                 }
                 break;
             case 'organizer':
-                if (!value || value.trim().length === 0) {
+                if (!strValue || strValue.trim().length === 0) {
                     return 'Organizer is required';
                 }
-                if (value.trim().length < 2) {
+                if (strValue.trim().length < 2) {
                     return 'Organizer must be at least 2 characters';
                 }
                 break;
             case 'status':
-                if (!value) {
+                if (!strValue) {
                     return 'Status is required';
                 }
                 break;
@@ -156,8 +160,8 @@ export const EventModal: React.FC<EventModalProps> = ({
         return isValid;
     };
 
-    const handleFieldChange = (name: keyof EventFormData, value: any) => {
-        setFormData((prev) => ({ ...prev, [name]: value }));
+    const handleFieldChange = (name: keyof EventFormData, value: EventFormValue) => {
+        setFormData((prev: EventFormData) => ({ ...prev, [name]: value }));
 
         if (touched[name]) {
             const error = validateField(name, value);
