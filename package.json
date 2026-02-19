@@ -27,6 +27,7 @@
     "@vitejs/plugin-react": "^4.3.6",
     "autoprefixer": "^10.4.23",
     "happy-dom": "^20.3.9",
+    "husky": "^9.1.7",
     "oxlint": "^1.48.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.0.0",
