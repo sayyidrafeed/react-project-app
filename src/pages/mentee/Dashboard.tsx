@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { Calendar, CheckSquare, Users, Star, Bell, AlertTriangle, Clock, ArrowRight, TrendingUp } from 'lucide-react';
-import { MOCK_TASKS, MOCK_EVENTS } from '../../data/mockData';
+import { MOCK_TASKS, MOCK_EVENTS, type Task, type Event } from '../../data/mockData';
 
 const MenteeDashboard: React.FC = () => {
     const navigate = useNavigate();
     const [tasks, setTasks] = useState(MOCK_TASKS);
-    const [events, setEvents] = useState(MOCK_EVENTS);
+    const [_events] = useState(MOCK_EVENTS);
     const [showEmergencyAlert, setShowEmergencyAlert] = useState(false);
 
     useEffect(() => {
@@ -33,12 +33,6 @@ const MenteeDashboard: React.FC = () => {
         const diffTime = deadline.getTime() - today.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return diffDays <= 2;
-    });
-
-    const todayEvents = events.filter(e => {
-        const eventDate = new Date(e.date);
-        const today = new Date();
-        return eventDate.toDateString() === today.toDateString();
     });
 
     return (
@@ -139,10 +133,10 @@ const MenteeDashboard: React.FC = () => {
                         </button>
                     </div>
                     <div className="space-y-3">
-                        {events.slice(0, 3).map(event => (
+                        {_events.slice(0, 3).map((event: Event) => (
                             <EventItem key={event.id} event={event} />
                         ))}
-                        {events.length === 0 && (
+                        {_events.length === 0 && (
                             <div className="text-center py-8 sm:py-12 border-2 border-dashed border-slate-200 dark:border-dark-border rounded-xl bg-slate-50/50 dark:bg-dark-bg/50">
                                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-100 dark:bg-dark-border rounded-full flex items-center justify-center text-slate-300 dark:text-dark-text-muted mx-auto mb-3 sm:mb-4">
                                     <Calendar size={24} />
@@ -183,7 +177,7 @@ const StatCard: React.FC<{
     icon: React.ElementType;
     description: string;
     color: 'green' | 'gold' | 'blue';
-}> = ({ title, value, icon: Icon, description, color }) => {
+}> = ({ title: _title, value, icon: Icon, description, color }) => {
     const colorClasses = {
         green: 'bg-upn-green/10 text-upn-green dark:text-upn-gold',
         gold: 'bg-upn-gold/10 text-upn-gold',
@@ -206,7 +200,7 @@ const StatCard: React.FC<{
 
 // Task Item Component
 const TaskItem: React.FC<{
-    task: any;
+    task: Task;
     onClick: () => void;
 }> = ({ task, onClick }) => {
     const deadline = new Date(task.deadline);
@@ -243,7 +237,7 @@ const TaskItem: React.FC<{
 };
 
 // Event Item Component
-const EventItem: React.FC<{ event: any }> = ({ event }) => {
+const EventItem: React.FC<{ event: Event }> = ({ event }) => {
     const eventDate = new Date(event.date);
     const today = new Date();
     const isToday = eventDate.toDateString() === today.toDateString();

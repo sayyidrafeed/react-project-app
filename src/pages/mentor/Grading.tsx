@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { Users, CheckSquare, Clock, GraduationCap, Mail, X, Calendar, TrendingUp, Star, ArrowRight } from 'lucide-react';
-import { MOCK_MENTEES } from '../../data/mockData';
+import { MOCK_MENTEES, type Mentee } from '../../data/mockData';
 
 const GradingPage: React.FC = () => {
-    const navigate = useNavigate();
-    const [selectedMentee, setSelectedMentee] = useState<any | null>(null);
+    const [selectedMentee, setSelectedMentee] = useState<Mentee | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    const openDrawer = (mentee: any) => {
+    const openDrawer = (mentee: Mentee) => {
         setSelectedMentee(mentee);
         setIsDrawerOpen(true);
     };
@@ -91,21 +89,9 @@ const GradingPage: React.FC = () => {
 
 // Mentee Card Component
 const MenteeCard: React.FC<{
-    mentee: any;
+    mentee: Mentee;
     onClick: () => void;
 }> = ({ mentee, onClick }) => {
-    const getGradeColor = (grade: number) => {
-        if (grade >= 80) return 'text-green-600 dark:text-green-400';
-        if (grade >= 60) return 'text-yellow-600 dark:text-yellow-400';
-        return 'text-red-600 dark:text-red-400';
-    };
-
-    const getGradeBg = (grade: number) => {
-        if (grade >= 80) return 'bg-green-100 dark:bg-green-900/20';
-        if (grade >= 60) return 'bg-yellow-100 dark:bg-yellow-900/20';
-        return 'bg-red-100 dark:bg-red-900/20';
-    };
-
     return (
         <button
             onClick={onClick}
@@ -150,7 +136,7 @@ const MenteeCard: React.FC<{
 
 // Mentee Profile Content Component
 const MenteeProfileContent: React.FC<{
-    mentee: any;
+    mentee: Mentee;
     onClose: () => void;
 }> = ({ mentee, onClose }) => {
     const attendanceHistory = [

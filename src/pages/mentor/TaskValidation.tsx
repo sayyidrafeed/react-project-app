@@ -6,17 +6,16 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { MOCK_MENTEES } from '../../data/mockData';
-import { ValidatedForm, FormField, FormActions, FormSection } from '../../components/ui/ValidatedForm';
-import { FormProgress } from '../../components/ui/FormProgress';
+import { MOCK_MENTEES, type Mentee } from '../../data/mockData';
+import { ValidatedForm, FormField, FormActions, FormSection } from '../../components/forms/ValidatedForm';
 import { ValidationSchema } from '../../types/validation';
 import { taskValidationRules, commonRules } from '../../utils/validation';
-import { CheckCircle2, XCircle, Clock, Eye, Filter, Search, UserCheck, FileText, Star, Send, Save } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, Eye, Search, UserCheck, FileText, Star, Send, Save } from 'lucide-react';
 import { clsx } from 'clsx';
 
 const TaskValidation: React.FC = () => {
     const [mentees, setMentees] = useState(MOCK_MENTEES);
-    const [selectedMentee, setSelectedMentee] = useState<any>(null);
+    const [selectedMentee, setSelectedMentee] = useState<Mentee | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
 
@@ -55,8 +54,6 @@ const TaskValidation: React.FC = () => {
 
     // Handle form submission
     const handleSubmit = async (values: Record<string, any>) => {
-        console.log('Submitting grade:', values);
-
         // Update mentee grade
         setMentees(mentees.map(m =>
             m.id === values.menteeId
@@ -369,7 +366,7 @@ const FilterButton: React.FC<{
 
 // Mentee Row Component
 const MenteeRow: React.FC<{
-    mentee: any;
+    mentee: Mentee;
     onClick: () => void;
 }> = ({ mentee, onClick }) => {
     const isPending = mentee.averageGrade === 0;

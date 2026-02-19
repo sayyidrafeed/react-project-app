@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AuthLayout from '../../layouts/AuthLayout';
-import { ChevronRight, Check, X, ArrowLeft, ArrowRight, User, MapPin, GraduationCap, Heart, Share2 } from 'lucide-react';
+import { Check, ArrowLeft, ArrowRight, User, GraduationCap, Heart, Share2 } from 'lucide-react';
+
+interface ProfileFormData {
+    fullName: string;
+    nim: string;
+    faculty: string;
+    major: string;
+    interests: string[];
+    instagram: string;
+    linkedin: string;
+    bio: string;
+}
 
 const ProfileSetup: React.FC = () => {
     const navigate = useNavigate();
@@ -10,12 +21,12 @@ const ProfileSetup: React.FC = () => {
     const totalSteps = 4;
 
     // Form state
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<ProfileFormData>({
         fullName: '',
         nim: '',
         faculty: '',
         major: '',
-        interests: [] as string[],
+        interests: [],
         instagram: '',
         linkedin: '',
         bio: '',
@@ -51,7 +62,6 @@ const ProfileSetup: React.FC = () => {
 
     const handleSubmit = () => {
         // Mock submission - in real app, send to backend
-        console.log('Profile setup complete:', formData);
         navigate('/mentee');
     };
 
@@ -143,8 +153,8 @@ const ProfileSetup: React.FC = () => {
 
 // Step 1: Personal Information
 const Step1PersonalInfo: React.FC<{
-    formData: any;
-    setFormData: (data: any) => void;
+    formData: ProfileFormData;
+    setFormData: React.Dispatch<React.SetStateAction<ProfileFormData>>;
 }> = ({ formData, setFormData }) => (
     <div className="space-y-4 sm:space-y-5">
         <div className="flex items-center gap-3 mb-4">
@@ -200,8 +210,8 @@ const Step1PersonalInfo: React.FC<{
 
 // Step 2: Academic Information
 const Step2AcademicInfo: React.FC<{
-    formData: any;
-    setFormData: (data: any) => void;
+    formData: ProfileFormData;
+    setFormData: React.Dispatch<React.SetStateAction<ProfileFormData>>;
 }> = ({ formData, setFormData }) => (
     <div className="space-y-4 sm:space-y-5">
         <div className="flex items-center gap-3 mb-4">
@@ -306,8 +316,8 @@ const Step3Interests: React.FC<{
 
 // Step 4: Social Connect
 const Step4SocialConnect: React.FC<{
-    formData: any;
-    setFormData: (data: any) => void;
+    formData: ProfileFormData;
+    setFormData: React.Dispatch<React.SetStateAction<ProfileFormData>>;
 }> = ({ formData, setFormData }) => (
     <div className="space-y-4 sm:space-y-5">
         <div className="flex items-center gap-3 mb-4">

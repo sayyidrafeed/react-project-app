@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { FileText, Plus, Trash2, CheckCircle, XCircle, Calendar as CalendarIcon, Save, Upload, X } from 'lucide-react';
+import { FileText, CheckCircle, Save, X } from 'lucide-react';
 
 const TaskBuilderPage: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -27,10 +27,6 @@ const TaskBuilderPage: React.FC = () => {
         } else {
             setFileTypes([...fileTypes, type]);
         }
-    };
-
-    const handleRemoveFileType = (type: string) => {
-        setFileTypes(fileTypes.filter(t => t !== type));
     };
 
     return (

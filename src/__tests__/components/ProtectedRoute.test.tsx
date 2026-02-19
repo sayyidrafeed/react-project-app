@@ -1,6 +1,6 @@
 // @ts-ignore
 import { describe, it, expect, beforeEach } from 'bun:test';
-import ProtectedRoute from '../../components/ProtectedRoute';
+import ProtectedRoute from '../../components/common/ProtectedRoute';
 import { renderWithProviders, screen } from '../test-utils';
 
 /**

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Users, CheckSquare, TrendingUp, Clock, CheckCircle, AlertCircle, Search, Filter, MoreVertical, ArrowRight } from 'lucide-react';
-import { MOCK_MENTEES } from '../../data/mockData';
+import { Users, CheckSquare, TrendingUp, Clock, CheckCircle, Search, Filter, MoreVertical } from 'lucide-react';
+import { MOCK_MENTEES, type Mentee } from '../../data/mockData';
 
 const MentorGroupPage: React.FC = () => {
     const [selectedMentees, setSelectedMentees] = useState<Set<string>>(new Set());
@@ -56,7 +56,7 @@ const MentorGroupPage: React.FC = () => {
         setSelectedMentees(newSelected);
     };
 
-    const getMenteeStatus = (mentee: any) => {
+    const getMenteeStatus = (mentee: Mentee) => {
         if (mentee.averageGrade > 0) {
             return { label: 'Aktif', color: 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400', icon: CheckCircle };
         }
@@ -185,7 +185,6 @@ const MentorGroupPage: React.FC = () => {
                         {filteredMentees.map(mentee => {
                             const status = getMenteeStatus(mentee);
                             const isSelected = selectedMentees.has(mentee.id);
-                            const StatusIcon = status.icon;
 
                             return (
                                 <div
@@ -276,7 +275,7 @@ const KPICard: React.FC<{
     icon: React.ElementType;
     description: string;
     color: 'blue' | 'green' | 'gold' | 'purple';
-}> = ({ title, value, icon: Icon, description, color }) => {
+}> = ({ title: _title, value, icon: Icon, description, color }) => {
     const colorClasses = {
         blue: 'bg-primary-blue/10 text-primary-blue',
         green: 'bg-upn-green/10 text-upn-green dark:text-upn-gold',

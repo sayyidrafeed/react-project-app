@@ -53,7 +53,7 @@ bunx playwright test
 bunx playwright test --ui
 ```
 
-**Test Coverage:** 89.36% (140 passing unit tests, 8 passing E2E tests)
+**Test Coverage:** 82.55% (140 unit tests: 140 pass, 5 skip | E2E: pending configuration)
 
 See the test suite documentation for more details on writing and running tests.
 
@@ -73,7 +73,6 @@ src/
 ├── hooks/              # Custom React hooks
 ├── layouts/            # Page layout components (Dashboard, Auth, etc.)
 ├── pages/              # Page components mapped to routes
-├── services/           # Data fetching and external API integrations
 ├── types/              # TypeScript type definitions and interfaces
 ├── utils/              # Helper functions and utilities
 ├── App.tsx             # Main application component & Routing
@@ -87,4 +86,7 @@ src/
 2.  **Modular Components**: Aim for small, focused components that do one thing well.
 3.  **Strict Typing**: Leverage TypeScript for all components and utilities to prevent runtime errors.
 4.  **Semantic HTML**: Use proper HTML tags for accessibility and SEO.
-5.  **Environment Variables**: Use `.env.example` to document required environment variables. Never commit secret keys in `.env`.
+
+## Notes
+
+1.  For Demo purposes, no backend and third party integration

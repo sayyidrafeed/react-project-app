@@ -20,7 +20,7 @@ export interface ValidationRule {
     type: ValidationRuleType;
     value?: number | string | RegExp;
     message: string;
-    validate?: (value: any, formData?: Record<string, any>) => boolean;
+    validate?: (value: unknown, formData?: Record<string, unknown>) => boolean;
 }
 
 export interface FieldValidation {

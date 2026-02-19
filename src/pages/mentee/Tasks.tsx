@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { CheckSquare, Clock, FileText, CheckCircle, AlertTriangle, Search, Filter, ArrowRight } from 'lucide-react';
-import { MOCK_TASKS } from '../../data/mockData';
+import { MOCK_TASKS, type Task } from '../../data/mockData';
 
 type FilterType = 'all' | 'urgent' | 'pending' | 'completed';
+
+interface TaskStatus {
+    status: 'completed' | 'urgent' | 'warning' | 'pending';
+    color: string;
+    bg: string;
+    label: string;
+}
 
 const TasksPage: React.FC = () => {
     const navigate = useNavigate();
@@ -50,7 +57,7 @@ const TasksPage: React.FC = () => {
         }
     });
 
-    const getTaskStatus = (task: any) => {
+    const getTaskStatus = (task: Task): TaskStatus => {
         if (task.grade !== null) {
             return { status: 'completed', color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20', label: 'Selesai' };
         }
@@ -243,15 +250,10 @@ const FilterButton: React.FC<{
 
 // Task Card Component
 const TaskCard: React.FC<{
-    task: any;
-    status: any;
+    task: Task;
+    status: TaskStatus;
     onClick: () => void;
 }> = ({ task, status, onClick }) => {
-    const deadline = new Date(task.deadline);
-    const today = new Date();
-    const diffTime = deadline.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
     return (
         <button
             onClick={onClick}

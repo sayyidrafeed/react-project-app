@@ -28,7 +28,7 @@ globalThis.motion = new Proxy(
     get: () => {
       // Return a mock component for any framer-motion component
       // (motion.div, motion.span, motion.button, etc.)
-      return (props: any) => {
+      return (props: { children?: React.ReactNode }) => {
         const { children } = props;
         // Return children directly, avoiding animation side effects
         return children;

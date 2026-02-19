@@ -1,6 +1,6 @@
 // @ts-ignore
 import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
-import { ErrorBoundary } from '../../components/ErrorBoundary';
+import { ErrorBoundary } from '../../components/common/ErrorBoundary';
 import { renderWithProviders, screen } from '../test-utils';
 
 // Component that throws an error

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import PublicLayout from './layouts/PublicLayout';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/common/ProtectedRoute';
 import { MenteeHome, AdminHome, MentorHome } from './pages/DashboardPages';
 import MentorTasks from './pages/MentorTasks';
 import TaskCatalog from './pages/TaskCatalog';
@@ -12,7 +12,7 @@ import DiscoveryPage from './pages/DiscoveryPage';
 import StudentProfileDetail from './pages/mentee/StudentProfileDetail';
 import ProfilePage from './pages/mentee/Profile';
 import AdminUsers from './pages/AdminUsers';
-import AdminEvents from './pages/AdminEvents';
+import AdminEvents from './pages/admin/Events';
 import LandingPage from './pages/LandingPage';
 
 function App() {

@@ -8,9 +8,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import {
     ValidationSchema,
     FormValidationState,
-    FormConfig,
     FormProgress,
-    FieldValidation,
 } from '../types/validation';
 import {
     validateField,
@@ -21,25 +19,25 @@ import {
 
 interface UseFormValidationOptions {
     schema: ValidationSchema;
-    initialValues?: Record<string, any>;
+    initialValues?: Record<string, unknown>;
     validateOnChange?: boolean;
     validateOnBlur?: boolean;
-    onSubmit: (values: Record<string, any>) => void | Promise<void>;
+    onSubmit: (values: Record<string, unknown>) => void | Promise<void>;
 }
 
 interface UseFormValidationReturn {
-    values: Record<string, any>;
+    values: Record<string, unknown>;
     errors: Record<string, string>;
     touched: Record<string, boolean>;
     dirty: Record<string, boolean>;
     isValid: boolean;
     isSubmitting: boolean;
     progress: FormProgress;
-    handleChange: (fieldName: string, value: any) => void;
+    handleChange: (fieldName: string, value: unknown) => void;
     handleBlur: (fieldName: string) => void;
     handleSubmit: (e?: React.FormEvent) => Promise<void>;
     resetForm: () => void;
-    setFieldValue: (fieldName: string, value: any) => void;
+    setFieldValue: (fieldName: string, value: unknown) => void;
     setError: (fieldName: string, error: string | null) => void;
     clearError: (fieldName: string) => void;
     validateField: (fieldName: string) => boolean;
@@ -55,7 +53,7 @@ export const useFormValidation = ({
     onSubmit,
 }: UseFormValidationOptions): UseFormValidationReturn => {
     // Initialize form state
-    const [values, setValues] = useState<Record<string, any>>(initialValues);
+    const [values, setValues] = useState<Record<string, unknown>>(initialValues);
     const [validationState, setValidationState] = useState<FormValidationState>(() => {
         const state: FormValidationState = {};
         for (const fieldName of Object.keys(schema)) {
@@ -100,7 +98,7 @@ export const useFormValidation = ({
     const progress = calculateProgress();
 
     // Handle field value change with validation
-    const handleChange = useCallback((fieldName: string, value: any) => {
+    const handleChange = useCallback((fieldName: string, value: unknown) => {
         if (!isMounted.current) return;
 
         setValues(prev => ({ ...prev, [fieldName]: value }));
@@ -181,7 +179,7 @@ export const useFormValidation = ({
     }, [schema]);
 
     // Set field value programmatically
-    const setFieldValue = useCallback((fieldName: string, value: any) => {
+    const setFieldValue = useCallback((fieldName: string, value: unknown) => {
         handleChange(fieldName, value);
     }, [handleChange]);
 
