@@ -15,7 +15,7 @@ import {
  * Built-in validation rule implementations
  */
 export const validationRules = {
-    required: (value: any): boolean => {
+    required: (value: unknown): boolean => {
         if (value === null || value === undefined) return false;
         if (typeof value === 'string') return value.trim().length > 0;
         if (Array.isArray(value)) return value.length > 0;
@@ -61,12 +61,12 @@ export const validationRules = {
         }
     },
 
-    numeric: (value: any): boolean => {
+    numeric: (value: unknown): boolean => {
         if (value === '' || value === null || value === undefined) return false;
         return !isNaN(Number(value));
     },
 
-    integer: (value: any): boolean => {
+    integer: (value: unknown): boolean => {
         if (!validationRules.numeric(value)) return false;
         return Number.isInteger(Number(value));
     },
@@ -76,9 +76,9 @@ export const validationRules = {
  * Validate a single field against its rules
  */
 export const validateField = (
-    value: any,
+    value: unknown,
     rules: ValidationRule[],
-    formData?: Record<string, any>
+    formData?: Record<string, unknown>
 ): FieldValidation => {
     const errors: string[] = [];
 
@@ -90,10 +90,10 @@ export const validateField = (
                 isValid = validationRules.required(value);
                 break;
             case 'minLength':
-                isValid = validationRules.minLength(value, rule.value as number);
+                isValid = validationRules.minLength(String(value ?? ''), rule.value as number);
                 break;
             case 'maxLength':
-                isValid = validationRules.maxLength(value, rule.value as number);
+                isValid = validationRules.maxLength(String(value ?? ''), rule.value as number);
                 break;
             case 'min':
                 isValid = validationRules.min(Number(value), rule.value as number);
@@ -102,13 +102,13 @@ export const validateField = (
                 isValid = validationRules.max(Number(value), rule.value as number);
                 break;
             case 'pattern':
-                isValid = validationRules.pattern(value, rule.value as RegExp);
+                isValid = validationRules.pattern(String(value ?? ''), rule.value as RegExp);
                 break;
             case 'email':
-                isValid = validationRules.email(value);
+                isValid = validationRules.email(String(value ?? ''));
                 break;
             case 'url':
-                isValid = validationRules.url(value);
+                isValid = validationRules.url(String(value ?? ''));
                 break;
             case 'numeric':
                 isValid = validationRules.numeric(value);
@@ -256,7 +256,7 @@ export const commonRules = {
         message,
     }),
 
-    custom: (validate: (value: any, formData?: Record<string, any>) => boolean, message: string): ValidationRule => ({
+    custom: (validate: (value: unknown, formData?: Record<string, unknown>) => boolean, message: string): ValidationRule => ({
         type: 'custom',
         message,
         validate,

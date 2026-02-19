@@ -31,9 +31,6 @@ const EventCalendar: React.FC<EventCalendarProps> = ({ eventDates }) => {
         const startDay = firstDayOfMonth(year, month);
         const days = [];
 
-        // Header hari
-        const weekDays = ['Se', 'Sel', 'Ra', 'Ka', 'Ju', 'Sa', 'Mi'];
-
         // Fill empty slots for previous month
         for (let i = 1; i < (startDay === 0 ? 7 : startDay); i++) {
             days.push(<div key={`empty-${i}`} className="p-2 text-transparent">0</div>);

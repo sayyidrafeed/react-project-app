@@ -31,7 +31,7 @@ const MentorInfoCard: React.FC<MentorInfoCardProps> = ({
                 </div>
                 <button
                     className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-black text-slate-600 hover:bg-slate-50 hover:border-upn-green hover:text-upn-green transition-all group"
-                    onClick={() => console.log('Link to mentor profile')}
+                    onClick={() => {}}
                 >
                     LIHAT PROFIL
                     <ExternalLink size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

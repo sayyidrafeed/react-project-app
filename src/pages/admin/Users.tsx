@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Users, Search, Filter, MoreVertical, Download, Edit, Trash2, CheckCircle, XCircle, Mail, Phone, GraduationCap, Calendar as CalendarIcon } from 'lucide-react';
-import { MOCK_USERS } from '../../data/mockData';
+import { Users, Search, Filter, Download, Edit, Trash2, CheckCircle, XCircle, Phone, GraduationCap, Calendar as CalendarIcon } from 'lucide-react';
+import { MOCK_USERS, type UserAccount } from '../../data/mockData';
 
 const UsersPage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [filter, setFilter] = useState<'all' | 'admin' | 'mentor' | 'mentee' | 'active' | 'inactive'>('all');
     const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedUser, setSelectedUser] = useState<any>(null);
+    const [selectedUser, setSelectedUser] = useState<UserAccount | null>(null);
 
     const filteredUsers = MOCK_USERS.filter(user => {
         const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -50,7 +50,7 @@ const UsersPage: React.FC = () => {
         setSelectedUsers(newSelected);
     };
 
-    const openUserModal = (user: any) => {
+    const openUserModal = (user: UserAccount) => {
         setSelectedUser(user);
         setIsModalOpen(true);
     };
@@ -412,7 +412,7 @@ const FilterButton: React.FC<{
 
 // User Card Component (Mobile)
 const UserCard: React.FC<{
-    user: any;
+    user: UserAccount;
     isSelected: boolean;
     onSelect: () => void;
     onEdit: () => void;

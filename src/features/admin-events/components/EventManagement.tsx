@@ -5,7 +5,7 @@ import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { Button } from '../ui/Button';
 import { Input, Select } from '../ui/Input';
 import { Badge } from '../ui/Badge';
-import { Card, CardHeader, CardContent } from '../ui/Card';
+import { Card, CardContent } from '../ui/Card';
 import {
     Plus,
     Search,

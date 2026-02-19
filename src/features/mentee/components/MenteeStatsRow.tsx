@@ -1,5 +1,4 @@
 import React from 'react';
-import { TrendingUp } from 'lucide-react';
 
 interface MenteeStatsRowProps {
     tasksLeft: number;
@@ -11,8 +10,8 @@ interface MenteeStatsRowProps {
 const MenteeStatsRow: React.FC<MenteeStatsRowProps> = ({
     tasksLeft,
     tasksToday,
-    avgGrade,
-    gradeTrend,
+    avgGrade: _avgGrade,
+    gradeTrend: _gradeTrend,
 }) => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

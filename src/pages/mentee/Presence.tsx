@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Camera, MapPin, CheckCircle, XCircle, Clock, RefreshCw, AlertTriangle, Navigation } from 'lucide-react';
+import { Camera, MapPin, CheckCircle, Clock, RefreshCw, AlertTriangle, Navigation } from 'lucide-react';
 import { MOCK_EVENTS } from '../../data/mockData';
 
 type ValidationStep = 'idle' | 'camera' | 'location' | 'validating' | 'success' | 'failed';

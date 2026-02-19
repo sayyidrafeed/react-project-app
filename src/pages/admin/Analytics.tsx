@@ -1,7 +1,35 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Users, TrendingUp, AlertTriangle, BarChart3, Calendar, Activity, ArrowUp, ArrowDown, MoreHorizontal } from 'lucide-react';
+import { Users, TrendingUp, AlertTriangle, BarChart3, Calendar, Activity, ArrowUp, ArrowDown } from 'lucide-react';
 import { MOCK_USERS, MOCK_TASKS, MOCK_EVENTS } from '../../data/mockData';
+
+interface TaskCompletionItem {
+    label: string;
+    value: number;
+}
+
+interface UserActivityItem {
+    label: string;
+    value: number;
+    change: number;
+    isUp: boolean;
+}
+
+interface BottleneckAlert {
+    id: number;
+    type: string;
+    description: string;
+    severity: 'high' | 'medium';
+    count: number;
+}
+
+interface RecentActivity {
+    id: number;
+    action: string;
+    detail: string;
+    time: string;
+    type: 'user' | 'task' | 'presence' | 'grade' | 'event';
+}
 
 const AnalyticsPage: React.FC = () => {
     const [timeRange, setTimeRange] = useState<'week' | 'month' | 'all'>('week');
@@ -15,7 +43,7 @@ const AnalyticsPage: React.FC = () => {
     const upcomingEvents = MOCK_EVENTS.filter(e => new Date(e.date) >= new Date()).length;
 
     // Mock data for charts
-    const taskCompletionData = [
+    const taskCompletionData: TaskCompletionItem[] = [
         { label: 'Sen', value: 45 },
         { label: 'Sel', value: 62 },
         { label: 'Rab', value: 38 },
@@ -24,19 +52,19 @@ const AnalyticsPage: React.FC = () => {
         { label: 'Sab', value: 48 },
     ];
 
-    const userActivityData = [
+    const userActivityData: UserActivityItem[] = [
         { label: 'Mentee', value: 4, change: 12, isUp: true },
         { label: 'Mentor', value: 2, change: 5, isUp: true },
         { label: 'Admin', value: 2, change: 0, isUp: false },
     ];
 
-    const bottlenecks = [
+    const bottlenecks: BottleneckAlert[] = [
         { id: 1, type: 'Tugas', description: '30% mentee belum submit tugas Day 1', severity: 'high', count: 12 },
         { id: 2, type: 'Presensi', description: '15% mentee belum presensi kegiatan kemarin', severity: 'medium', count: 6 },
         { id: 3, type: 'Grup', description: 'Grup 21 memiliki mentee dengan grade < 60', severity: 'high', count: 3 },
     ];
 
-    const recentActivities = [
+    const recentActivities: RecentActivity[] = [
         { id: 1, action: 'User Baru', detail: 'Ahmad Fauzi mendaftar', time: '2 jam yang lalu', type: 'user' },
         { id: 2, action: 'Tugas Dikirim', detail: 'Siti Aminah submit Tugas Day 1', time: '3 jam yang lalu', type: 'task' },
         { id: 3, action: 'Presensi', detail: 'Budi Santoso hadir kegiatan', time: '4 jam yang lalu', type: 'presence' },
@@ -161,7 +189,7 @@ const AnalyticsPage: React.FC = () => {
                             Aktivitas Pengguna
                         </h3>
                         <div className="space-y-3">
-                            {userActivityData.map((item: any, index: number) => (
+                            {userActivityData.map((item, index: number) => (
                                 <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
                                     <div className="flex items-center gap-3">
                                         <span className="text-xs sm:text-sm font-semibold text-slate-700">
@@ -199,7 +227,7 @@ const AnalyticsPage: React.FC = () => {
                         </button>
                     </div>
                     <div className="space-y-3">
-                        {recentActivities.slice(0, 5).map((activity: any) => (
+                        {recentActivities.slice(0, 5).map((activity: RecentActivity) => (
                             <ActivityItem key={activity.id} activity={activity} />
                         ))}
                     </div>
@@ -239,7 +267,7 @@ const StatCard: React.FC<{
     description: string;
     trend?: { value: number; isUp: boolean };
     color: 'blue' | 'green' | 'gold' | 'purple';
-}> = ({ title, value, icon: Icon, description, trend, color }) => {
+}> = ({ title: _title, value, icon: Icon, description, trend, color }) => {
     const colorClasses = {
         blue: 'bg-primary-blue/10 text-primary-blue',
         green: 'bg-upn-green/10 text-upn-green',
@@ -268,7 +296,7 @@ const StatCard: React.FC<{
 };
 
 // Bottleneck Alert Component
-const BottleneckAlert: React.FC<{ alert: any }> = ({ alert }) => {
+const BottleneckAlert: React.FC<{ alert: BottleneckAlert }> = ({ alert }) => {
     const severityClasses = {
         high: 'border-red-300 bg-red-100',
         medium: 'border-yellow-300 bg-yellow-100',
@@ -298,7 +326,7 @@ const BottleneckAlert: React.FC<{ alert: any }> = ({ alert }) => {
 };
 
 // Activity Item Component
-const ActivityItem: React.FC<{ activity: any }> = ({ activity }) => {
+const ActivityItem: React.FC<{ activity: RecentActivity }> = ({ activity }) => {
     const typeColors = {
         user: 'bg-blue-100 text-blue-600',
         task: 'bg-green-100 text-green-600',

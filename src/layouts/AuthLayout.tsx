@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
 
 interface AuthLayoutProps {
     children: React.ReactNode;
@@ -9,7 +8,6 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
-    const { theme } = useTheme();
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:py-12 relative overflow-hidden bg-gradient-to-br from-upn-green via-upn-green/90 to-upn-green/80">

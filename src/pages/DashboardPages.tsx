@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../layouts/DashboardLayout';
 import { StatsCard } from '../components/StatsCard';
-import { Calendar, CheckSquare, Users, Star, Bell, TrendingUp } from 'lucide-react';
-import { MOCK_TASKS, MOCK_EVENTS } from '../data/mockData';
+import { Users, CheckSquare, TrendingUp } from 'lucide-react';
 
 import OrientationJourneyCard from '../features/mentee/components/OrientationJourneyCard';
 import MenteeStatsRow from '../features/mentee/components/MenteeStatsRow';
@@ -14,12 +13,12 @@ import TimeSidebar from '../features/mentee/components/TimeSidebar';
 export const MenteeHome: React.FC = () => {
     const navigate = useNavigate();
     // Mock data for priority tasks
-    const priorityTasks: any[] = [
+    const priorityTasks = [
         {
             id: 't1',
             title: 'Bela Negara Essay',
             module: 'National Identity',
-            status: 'PENDING',
+            status: 'PENDING' as const,
             timeLeft: '2H 14M'
         }
     ];

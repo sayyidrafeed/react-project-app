@@ -53,7 +53,7 @@ bunx playwright test
 bunx playwright test --ui
 ```
 
-**Test Coverage:** 89.36% (140 passing unit tests, 8 passing E2E tests)
+**Test Coverage:** 82.55% (140 unit tests: 140 pass, 5 skip | E2E: pending configuration)
 
 See the test suite documentation for more details on writing and running tests.
 

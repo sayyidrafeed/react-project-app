@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Target, Eye, Users, BookOpen, Shield, Award, GraduationCap, HeartHandshake, Trophy } from 'lucide-react';
+import { Target, Eye, Users, BookOpen, Shield, Award, GraduationCap, HeartHandshake } from 'lucide-react';
 
 const AboutSection = () => {
     const missionItems = [

@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Search, Filter, Users, GraduationCap, MapPin, Mail, ArrowRight } from 'lucide-react';
+import { Search, Filter, Users, Mail, ArrowRight } from 'lucide-react';
+
+interface Student {
+    id: number;
+    name: string;
+    nim: string;
+    major: string;
+    faculty: string;
+    interests: string[];
+    avatar: string;
+}
 
 const SocialPage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -8,7 +18,7 @@ const SocialPage: React.FC = () => {
     const [selectedInterest, setSelectedInterest] = useState<string>('all');
 
     // Mock student data
-    const students = [
+    const students: Student[] = [
         { id: 1, name: 'Ahmad Fauzi', nim: '2010123456', major: 'S1 Informatika', faculty: 'Teknik', interests: ['Programming', 'Gaming', 'Music'], avatar: 'AF' },
         { id: 2, name: 'Siti Aminah', nim: '2010123457', major: 'S1 Sistem Informasi', faculty: 'Teknik', interests: ['Design', 'Photography', 'Traveling'], avatar: 'SA' },
         { id: 3, name: 'Budi Santoso', nim: '2010123458', major: 'S1 Teknik Elektro', faculty: 'Teknik', interests: ['Sports', 'Technology', 'Business'], avatar: 'BS' },
@@ -144,8 +154,8 @@ const SocialPage: React.FC = () => {
 };
 
 // Student Card Component
-const StudentCard: React.FC<{ student: any }> = ({ student }) => {
-    const getAvatarColor = (initials: string) => {
+const StudentCard: React.FC<{ student: Student }> = ({ student }) => {
+    const getAvatarColor = (_initials: string) => {
         const colors = [
             'bg-blue-500', 'bg-purple-500', 'bg-pink-500', 'bg-indigo-500',
             'bg-teal-500', 'bg-orange-500', 'bg-cyan-500', 'bg-rose-500',

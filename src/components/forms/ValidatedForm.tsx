@@ -10,7 +10,7 @@ import { LucideIcon } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import { ValidationSchema, FormFieldConfig, ValidationMessage } from '../../types/validation';
+import { ValidationSchema, ValidationMessage } from '../../types/validation';
 import { ValidatedInput } from './ValidatedInput';
 import { ValidatedTextarea } from './ValidatedTextarea';
 import { ValidatedSelect, ValidatedSelectOption } from './ValidatedSelect';
@@ -170,9 +170,9 @@ export interface FormFieldProps {
     values?: Record<string, any>;
     errors?: Record<string, string>;
     touched?: Record<string, boolean>;
-    handleChange?: (name: string, value: any) => void;
+    handleChange?: (name: string, value: unknown) => void;
     handleBlur?: (name: string) => void;
-    setFieldValue?: (name: string, value: any) => void;
+    setFieldValue?: (name: string, value: unknown) => void;
     clearError?: (name: string) => void;
 }
 
@@ -199,7 +199,7 @@ export const FormField: React.FC<FormFieldProps> = ({
     touched,
     handleChange,
     handleBlur,
-    setFieldValue,
+    setFieldValue: _setFieldValue,
     clearError,
 }) => {
     const value = values?.[name] ?? '';
@@ -208,7 +208,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 
     const widthClass = fullWidth ? 'w-full' : 'w-auto';
 
-    const handleFieldChange = (newValue: any) => {
+    const handleFieldChange = (newValue: unknown) => {
         handleChange?.(name, newValue);
     };
 

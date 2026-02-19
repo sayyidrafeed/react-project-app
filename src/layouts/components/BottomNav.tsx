@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, CheckSquare, Users, Calendar, LogOut, Home, FileText, MapPin, Users2, BarChart3, Camera, Eye, User } from 'lucide-react';
+import { CheckSquare, Users, Calendar, Home, FileText, Users2, BarChart3, Camera, Eye, User } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ interface BottomNavProps {
     onLogout: () => void;
 }
 
-const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout }) => {
+const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) => {
     const location = useLocation();
 
     const menuItems = {

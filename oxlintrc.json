@@ -1,0 +1,15 @@
+{
+  "categories": {
+    "correctness": "warn",
+    "suspicious": "warn",
+    "perf": "warn",
+    "style": "warn",
+    "pedantic": "warn",
+    "nursery": "warn"
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "no-console": "warn"
+  },
+  "ignore": ["node_modules", "dist", "e2e"]
+}

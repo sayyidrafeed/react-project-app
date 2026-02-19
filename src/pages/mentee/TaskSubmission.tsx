@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Upload, FileText, CheckCircle, X, ArrowLeft, Download, AlertCircle, Clock, Send } from 'lucide-react';
+import { Upload, FileText, X, ArrowLeft, AlertCircle, Clock, Send } from 'lucide-react';
 import { MOCK_TASKS } from '../../data/mockData';
 
 const TaskSubmission: React.FC = () => {
