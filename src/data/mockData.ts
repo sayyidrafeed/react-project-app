@@ -51,6 +51,18 @@ export interface Mentee {
     tasksCompleted: number;
     tasksPending: number;
     attendanceRate: number;
+    profile?: {
+        phone?: string;
+        address?: string;
+        bio?: string;
+        avatar?: string;
+    };
+    socialLinks?: {
+        instagram?: string;
+        twitter?: string;
+        linkedin?: string;
+        tiktok?: string;
+    };
 }
 
 // Mock Tasks with new structure
@@ -309,7 +321,18 @@ export const MOCK_MENTEES: Mentee[] = [
         averageGrade: 85,
         tasksCompleted: 4,
         tasksPending: 2,
-        attendanceRate: 92
+        attendanceRate: 92,
+        profile: {
+            phone: '0812-3456-7890',
+            address: 'Jl. Lenteng Agung Raya No. 21, Jakarta Selatan',
+            bio: 'Mentee Informatika yang tertarik pada web development dan UI engineering.',
+            avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80'
+        },
+        socialLinks: {
+            instagram: 'https://instagram.com/ahmadfauzi.dev',
+            twitter: 'https://twitter.com/ahmadfauzi_dev',
+            linkedin: 'https://linkedin.com/in/ahmadfauzi'
+        }
     },
     {
         id: 'm2',
@@ -319,7 +342,18 @@ export const MOCK_MENTEES: Mentee[] = [
         averageGrade: 78,
         tasksCompleted: 3,
         tasksPending: 3,
-        attendanceRate: 88
+        attendanceRate: 88,
+        profile: {
+            phone: '0813-9876-5432',
+            address: 'Jl. Jagakarsa Baru No. 8, Jakarta Selatan',
+            bio: 'Aktif di organisasi kampus, fokus pada analisis bisnis dan manajemen data.',
+            avatar: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=400&q=80'
+        },
+        socialLinks: {
+            instagram: 'https://instagram.com/sitiaminah.si',
+            linkedin: 'https://linkedin.com/in/sitiaminah-si',
+            tiktok: 'https://tiktok.com/@sitiaminah.si'
+        }
     },
     {
         id: 'm3',
@@ -329,7 +363,18 @@ export const MOCK_MENTEES: Mentee[] = [
         averageGrade: 90,
         tasksCompleted: 5,
         tasksPending: 1,
-        attendanceRate: 95
+        attendanceRate: 95,
+        profile: {
+            phone: '0821-2233-4455',
+            address: 'Jl. Depok Lama No. 12, Depok',
+            bio: 'Suka project IoT dan robotika, senang kolaborasi lintas jurusan.',
+            avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80'
+        },
+        socialLinks: {
+            instagram: 'https://instagram.com/budisantoso.ee',
+            twitter: 'https://twitter.com/budisantoso_ee',
+            linkedin: 'https://linkedin.com/in/budisantoso-ee'
+        }
     },
     {
         id: 'm4',
@@ -339,7 +384,17 @@ export const MOCK_MENTEES: Mentee[] = [
         averageGrade: 82,
         tasksCompleted: 4,
         tasksPending: 2,
-        attendanceRate: 90
+        attendanceRate: 90,
+        profile: {
+            phone: '0822-1111-0099',
+            address: 'Jl. Cilandak Tengah No. 5, Jakarta Selatan',
+            bio: 'Tertarik pada data visualization dan frontend performance.',
+            avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80'
+        },
+        socialLinks: {
+            instagram: 'https://instagram.com/dewilestari.id',
+            linkedin: 'https://linkedin.com/in/dewilestari'
+        }
     },
     {
         id: 'm5',

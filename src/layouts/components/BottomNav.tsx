@@ -18,8 +18,8 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
             { name: 'Manajemen Event', icon: Calendar, path: '/admin/events' },
         ],
         mentor: [
-            { name: 'Statistik Grup', icon: BarChart3, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: Users2, path: '/mentor' },
+            { name: 'Statistik Grup', icon: BarChart3, path: '/mentor/statistik-grup' },
+            { name: 'Daftar Mentee', icon: Users2, path: '/mentor/group' },
             { name: 'Validasi Tugas', icon: CheckSquare, path: '/mentor/tasks' },
         ],
         mentee: [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3 } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -20,8 +20,9 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
             { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
         ],
         mentor: [
-            { name: 'Statistik Grup', icon: Home, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: User, path: '/mentor' },
+            { name: 'Ringkasan', icon: Home, path: '/mentor' },
+            { name: 'Daftar Mentee', icon: Users, path: '/mentor/group' },
+            { name: 'Statistik Grup', icon: BarChart3, path: '/mentor/statistik-grup' },
             { name: 'Validasi Tugas', icon: FileText, path: '/mentor/tasks' },
         ],
         mentee: [

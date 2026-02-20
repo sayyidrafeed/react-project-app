@@ -10,8 +10,8 @@ test.describe('Task Grading', () => {
     await page.goto('/mentor/tasks');
     await page.waitForLoadState('networkidle');
 
-    // And: User clicks the eye icon on first mentee row
-    const eyeButton = page.locator('button').filter({ has: page.locator('svg') }).first();
+    // And: User clicks the detail button on first mentee row
+    const eyeButton = page.locator('button[aria-label^="Lihat detail"]').first();
     await eyeButton.click();
 
     // Then: Grading modal opens with grade input
@@ -28,6 +28,6 @@ test.describe('Task Grading', () => {
     await gradeInput.waitFor({ state: 'hidden', timeout: 5000 });
 
     // And: Mentee row shows "GRADE: 85" badge
-    await expect(page.locator('text=GRADE: 85').first()).toBeVisible();
+    await expect(page.locator('span:visible', { hasText: 'GRADE: 85' }).first()).toBeVisible();
   });
 });

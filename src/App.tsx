@@ -14,6 +14,8 @@ import ProfilePage from './pages/mentee/Profile';
 import AdminUsers from './pages/AdminUsers';
 import AdminEvents from './pages/admin/Events';
 import LandingPage from './pages/LandingPage';
+import MentorGroupPage from './pages/mentor/Group';
+import StatistikGrupPage from './pages/mentor/StatistikGrup';
 
 function App() {
     return (
@@ -45,6 +47,8 @@ function App() {
 
                     <Route path="/mentor">
                         <Route index element={<ProtectedRoute allowedRoles={['mentor']}><MentorHome /></ProtectedRoute>} />
+                        <Route path="group" element={<ProtectedRoute allowedRoles={['mentor']}><MentorGroupPage /></ProtectedRoute>} />
+                        <Route path="statistik-grup" element={<ProtectedRoute allowedRoles={['mentor']}><StatistikGrupPage /></ProtectedRoute>} />
                         <Route path="tasks" element={<ProtectedRoute allowedRoles={['mentor']}><MentorTasks /></ProtectedRoute>} />
                     </Route>
 
