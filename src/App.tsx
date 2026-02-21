@@ -17,6 +17,7 @@ import LandingPage from './pages/LandingPage';
 import MentorGroupPage from './pages/mentor/Group';
 import StatistikGrupPage from './pages/mentor/StatistikGrup';
 import MentorProfilePage from './pages/mentor/Profile';
+import AdminProfilePage from './pages/admin/Profile';
 
 function App() {
     return (
@@ -58,6 +59,7 @@ function App() {
                         <Route index element={<ProtectedRoute allowedRoles={['admin']}><AdminHome /></ProtectedRoute>} />
                         <Route path="users" element={<ProtectedRoute allowedRoles={['admin']}><AdminUsers /></ProtectedRoute>} />
                         <Route path="events" element={<ProtectedRoute allowedRoles={['admin']}><AdminEvents /></ProtectedRoute>} />
+                        <Route path="profile" element={<ProtectedRoute allowedRoles={['admin']}><AdminProfilePage /></ProtectedRoute>} />
                     </Route>
 
                     {/* Fallback */}

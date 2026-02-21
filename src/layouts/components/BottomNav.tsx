@@ -16,6 +16,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
             { name: 'Ringkasan', icon: BarChart3, path: '/admin' },
             { name: 'Manajemen User', icon: Users, path: '/admin/users' },
             { name: 'Manajemen Event', icon: Calendar, path: '/admin/events' },
+            { name: 'Profil', icon: User, path: '/admin/profile' },
         ],
         mentor: [
             { name: 'Ringkasan', icon: Home, path: '/mentor' },

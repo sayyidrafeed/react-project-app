@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { Camera, CheckCircle2, KeyRound, Mail, ShieldCheck, User as UserIcon, Users } from 'lucide-react';
+import { Camera, CheckCircle2, KeyRound, Mail, ShieldCheck, User as UserIcon, Users, LogOut } from 'lucide-react';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/ui/Modal';
@@ -57,7 +57,7 @@ const passwordSchema: ValidationSchema = {
 };
 
 const MentorProfilePage: React.FC = () => {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const initialProfileValues = useMemo<MentorProfileFormValues>(() => ({
@@ -288,6 +288,17 @@ const MentorProfilePage: React.FC = () => {
                                 <InfoRow label="Nama Lengkap" value={profileData.name} />
                                 <InfoRow label="Email" value={profileData.email} />
                                 <InfoRow label="Kelompok" value={mentorGroup} />
+                            </div>
+
+                            {/* Actions */}
+                            <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-dark-border">
+                                <button
+                                    onClick={logout}
+                                    className="w-full py-3 sm:py-4 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 font-black rounded-2xl transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <LogOut size={20} />
+                                    KELUAR SESI
+                                </button>
                             </div>
                         </div>
                     </div>
