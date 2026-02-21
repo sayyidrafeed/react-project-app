@@ -200,7 +200,18 @@ const MentorTasks: React.FC = () => {
                 {/* Validation Modal */}
                 {selectedMentee && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setSelectedMentee(null)} />
+                        <div 
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" 
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => setSelectedMentee(null)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Escape' || e.key === 'Enter') {
+                                    setSelectedMentee(null);
+                                }
+                            }}
+                            aria-label="Tutup modal"
+                        />
                         <div className="bg-white w-full max-w-2xl rounded-3xl overflow-hidden relative z-10 animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
                             <div className="h-44 sm:h-48 bg-upn-green p-5 sm:p-8 flex items-end justify-between gap-3">
                                 <div>

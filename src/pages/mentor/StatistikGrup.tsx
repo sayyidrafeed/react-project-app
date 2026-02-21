@@ -158,7 +158,7 @@ const StatistikGrupPage: React.FC = () => {
                             <h4 className="text-sm font-semibold text-slate-700 dark:text-dark-text mb-4">Tren Kehadiran</h4>
                             <div className="flex items-end gap-2 h-24">
                                 {[95, 88, 92, 78, 85, 90, 87].map((rate, idx) => (
-                                    <div key={idx} className="flex-1 flex flex-col items-center gap-1">
+                                    <div key={`attendance-${rate}`} className="flex-1 flex flex-col items-center gap-1">
                                         <div 
                                             className="w-full bg-purple-500/60 dark:bg-purple-400/60 rounded-t"
                                             style={{ height: `${rate}%` }}

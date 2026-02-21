@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Camera, CheckCircle2, KeyRound, Mail, ShieldCheck, User as UserIcon, Users, LogOut } from 'lucide-react';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useAuth } from '../../context/AuthContext';
@@ -7,20 +7,8 @@ import Button from '../../components/ui/Button';
 import { ValidatedForm, FormActions, FormField, FormSection } from '../../components/forms/ValidatedForm';
 import { ValidationSchema } from '../../types/validation';
 import { commonRules } from '../../utils/validation';
-
-const DEFAULT_MENTOR_GROUP = '21 - PATRIBERA';
-
-interface MentorProfileFormValues {
-    name: string;
-    email: string;
-    group: string;
-}
-
-interface PasswordFormValues {
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
-}
+import { useProfileReducer } from './hooks/useProfileReducer';
+import { usePasswordReducer } from './hooks/usePasswordReducer';
 
 const profileSchema: ValidationSchema = {
     name: [
@@ -60,53 +48,46 @@ const MentorProfilePage: React.FC = () => {
     const { user, logout } = useAuth();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const initialProfileValues = useMemo<MentorProfileFormValues>(() => ({
-        name: user?.name ?? 'Kak Mentor Patribera',
-        email: user?.email ?? 'mentor@upnvj.ac.id',
-        group: user?.major ?? DEFAULT_MENTOR_GROUP,
-    }), [user?.email, user?.major, user?.name]);
-
-    const [profileData, setProfileData] = useState<MentorProfileFormValues>(initialProfileValues);
-    const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.avatar ?? null);
-    const [isProfileSaved, setIsProfileSaved] = useState(false);
-
-    const [pendingPassword, setPendingPassword] = useState<PasswordFormValues | null>(null);
-    const [isPasswordConfirmOpen, setIsPasswordConfirmOpen] = useState(false);
-    const [isPasswordChanged, setIsPasswordChanged] = useState(false);
-    const [passwordFormKey, setPasswordFormKey] = useState(0);
+    const { state: profileState, dispatch: dispatchProfile } = useProfileReducer(user ?? undefined);
+    const { state: passwordState, dispatch: dispatchPassword } = usePasswordReducer();
 
     if (!user) return null;
 
-    const mentorGroup = profileData.group || DEFAULT_MENTOR_GROUP;
-    const mentorInitial = profileData.name?.charAt(0)?.toUpperCase() || 'M';
+    const mentorGroup = profileState.data.group || '21 - PATRIBERA';
+    const mentorInitial = profileState.data.name?.charAt(0)?.toUpperCase() || 'M';
 
     const handleProfileSave = async (values: Record<string, unknown>) => {
-        const updatedData: MentorProfileFormValues = {
-            name: String(values.name ?? ''),
-            email: String(values.email ?? ''),
-            group: String(values.group ?? ''),
-        };
-        setProfileData(updatedData);
-        setIsProfileSaved(true);
-        setTimeout(() => setIsProfileSaved(false), 2200);
+        dispatchProfile({
+            type: 'SET_DATA',
+            payload: {
+                name: String(values.name ?? ''),
+                email: String(values.email ?? ''),
+                group: String(values.group ?? ''),
+            },
+        });
+        dispatchProfile({ type: 'SET_SAVED', payload: true });
+        setTimeout(() => dispatchProfile({ type: 'SET_SAVED', payload: false }), 2200);
     };
 
     const handlePasswordSubmit = async (values: Record<string, unknown>) => {
-        setPendingPassword({
-            currentPassword: String(values.currentPassword ?? ''),
-            newPassword: String(values.newPassword ?? ''),
-            confirmPassword: String(values.confirmPassword ?? ''),
+        dispatchPassword({
+            type: 'SET_PENDING',
+            payload: {
+                currentPassword: String(values.currentPassword ?? ''),
+                newPassword: String(values.newPassword ?? ''),
+                confirmPassword: String(values.confirmPassword ?? ''),
+            },
         });
-        setIsPasswordConfirmOpen(true);
+        dispatchPassword({ type: 'SET_CONFIRM_OPEN', payload: true });
     };
 
     const handleConfirmPasswordChange = () => {
-        if (!pendingPassword) return;
-        setIsPasswordConfirmOpen(false);
-        setPendingPassword(null);
-        setPasswordFormKey((prev) => prev + 1);
-        setIsPasswordChanged(true);
-        setTimeout(() => setIsPasswordChanged(false), 2200);
+        if (!passwordState.pending) return;
+        dispatchPassword({ type: 'SET_CONFIRM_OPEN', payload: false });
+        dispatchPassword({ type: 'SET_PENDING', payload: null });
+        dispatchPassword({ type: 'INCREMENT_FORM_KEY' });
+        dispatchPassword({ type: 'SET_CHANGED', payload: true });
+        setTimeout(() => dispatchPassword({ type: 'SET_CHANGED', payload: false }), 2200);
     };
 
     const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +97,7 @@ const MentorProfilePage: React.FC = () => {
         const reader = new FileReader();
         reader.onload = () => {
             if (typeof reader.result === 'string') {
-                setAvatarPreview(reader.result);
+                dispatchProfile({ type: 'SET_AVATAR', payload: reader.result });
             }
         };
         reader.readAsDataURL(file);
@@ -139,7 +120,7 @@ const MentorProfilePage: React.FC = () => {
                         <div className="card p-4 sm:p-6">
                             <ValidatedForm
                                 schema={profileSchema}
-                                initialValues={profileData}
+                                initialValues={profileState.data}
                                 onSubmit={handleProfileSave}
                                 showSummary
                                 showProgress={false}
@@ -177,7 +158,7 @@ const MentorProfilePage: React.FC = () => {
                                     <Button type="submit" variant="primary" size="md" className="rounded-xl">
                                         Simpan Perubahan
                                     </Button>
-                                    {isProfileSaved && (
+                                    {profileState.saved && (
                                         <div className="inline-flex items-center gap-2 text-sm font-semibold text-green-600 dark:text-green-400">
                                             <CheckCircle2 size={16} />
                                             <span>Profil berhasil disimpan</span>
@@ -189,7 +170,7 @@ const MentorProfilePage: React.FC = () => {
 
                         <div className="card p-4 sm:p-6">
                             <ValidatedForm
-                                key={passwordFormKey}
+                                key={passwordState.formKey}
                                 schema={passwordSchema}
                                 initialValues={{
                                     currentPassword: '',
@@ -235,7 +216,7 @@ const MentorProfilePage: React.FC = () => {
                                     <Button type="submit" variant="outline" size="md" className="rounded-xl">
                                         Simpan Password
                                     </Button>
-                                    {isPasswordChanged && (
+                                    {passwordState.changed && (
                                         <div className="inline-flex items-center gap-2 text-sm font-semibold text-green-600 dark:text-green-400">
                                             <CheckCircle2 size={16} />
                                             <span>Password berhasil diperbarui</span>
@@ -250,18 +231,18 @@ const MentorProfilePage: React.FC = () => {
                         <div className="space-y-5">
                             <div className="flex items-center gap-4">
                                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-upn-green/15 dark:bg-upn-gold/15 border border-upn-green/25 dark:border-upn-gold/35 flex items-center justify-center">
-                                    {avatarPreview ? (
-                                        <img src={avatarPreview} alt={profileData.name} className="w-full h-full object-cover" />
+{profileState.avatarPreview ? (
+                                        <img src={profileState.avatarPreview} alt={profileState.data.name} className="w-full h-full object-cover" />
                                     ) : (
                                         <span className="text-3xl sm:text-4xl font-black text-upn-green dark:text-upn-gold">{mentorInitial}</span>
                                     )}
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-base sm:text-lg font-black text-slate-800 dark:text-dark-text truncate">
-                                        {profileData.name}
+                                        {profileState.data.name}
                                     </p>
                                     <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted truncate">
-                                        {profileData.email}
+                                        {profileState.data.email}
                                     </p>
                                 </div>
                             </div>
@@ -285,8 +266,8 @@ const MentorProfilePage: React.FC = () => {
                             </Button>
 
                             <div className="space-y-3 pt-2 border-t border-slate-200 dark:border-dark-border">
-                                <InfoRow label="Nama Lengkap" value={profileData.name} />
-                                <InfoRow label="Email" value={profileData.email} />
+                                <InfoRow label="Nama Lengkap" value={profileState.data.name} />
+                                <InfoRow label="Email" value={profileState.data.email} />
                                 <InfoRow label="Kelompok" value={mentorGroup} />
                             </div>
 
@@ -306,8 +287,8 @@ const MentorProfilePage: React.FC = () => {
             </div>
 
             <Modal
-                isOpen={isPasswordConfirmOpen}
-                onClose={() => setIsPasswordConfirmOpen(false)}
+isOpen={passwordState.confirmOpen}
+                onClose={() => dispatchPassword({ type: 'SET_CONFIRM_OPEN', payload: false })}
                 title="Konfirmasi Ubah Password"
                 size="sm"
                 className="dark:bg-dark-surface dark:border dark:border-dark-border"
@@ -322,7 +303,7 @@ const MentorProfilePage: React.FC = () => {
                             variant="ghost"
                             size="sm"
                             className="rounded-lg"
-                            onClick={() => setIsPasswordConfirmOpen(false)}
+                            onClick={() => dispatchPassword({ type: 'SET_CONFIRM_OPEN', payload: false })}
                         >
                             Batal
                         </Button>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LazyMotion, m, AnimatePresence, domAnimation } from 'framer-motion';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import {
     Users,
@@ -111,47 +111,49 @@ const GradingPage: React.FC = () => {
             </div>
 
             {/* Drawer/Modal for Student Profile */}
-            <AnimatePresence>
-                {isDrawerOpen && selectedMentee && (
-                    <>
-                        {/* Overlay */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={closeDrawer}
-                            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 md:hidden"
-                        />
+            <LazyMotion features={domAnimation}>
+                <AnimatePresence>
+                    {isDrawerOpen && selectedMentee && (
+                        <>
+                            {/* Overlay */}
+                            <m.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={closeDrawer}
+                                className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 md:hidden"
+                            />
 
-                        {/* Drawer (Mobile) */}
-                        <motion.div
-                            initial={{ y: '100%' }}
-                            animate={{ y: 0 }}
-                            exit={{ y: '100%' }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface rounded-t-3xl shadow-2xl z-50 md:hidden max-h-[85vh] overflow-y-auto"
-                        >
-                            <MenteeProfileContent mentee={selectedMentee} onClose={closeDrawer} />
-                        </motion.div>
-
-                        {/* Modal (Desktop) */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            onClick={closeDrawer}
-                            className="hidden md:flex fixed inset-0 items-center justify-center bg-slate-900/50 backdrop-blur-sm z-50"
-                        >
-                            <motion.div
-                                onClick={(e) => e.stopPropagation()}
-                                className="bg-white dark:bg-dark-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto m-4"
+                            {/* Drawer (Mobile) */}
+                            <m.div
+                                initial={{ y: '100%' }}
+                                animate={{ y: 0 }}
+                                exit={{ y: '100%' }}
+                                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                                className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface rounded-t-3xl shadow-2xl z-50 md:hidden max-h-[85vh] overflow-y-auto"
                             >
                                 <MenteeProfileContent mentee={selectedMentee} onClose={closeDrawer} />
-                            </motion.div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                            </m.div>
+
+                            {/* Modal (Desktop) */}
+                            <m.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                onClick={closeDrawer}
+                                className="hidden md:flex fixed inset-0 items-center justify-center bg-slate-900/50 backdrop-blur-sm z-50"
+                            >
+                                <m.div
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="bg-white dark:bg-dark-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto m-4"
+                                >
+                                    <MenteeProfileContent mentee={selectedMentee} onClose={closeDrawer} />
+                                </m.div>
+                            </m.div>
+                        </>
+                    )}
+                </AnimatePresence>
+            </LazyMotion>
         </DashboardLayout>
     );
 };
@@ -322,8 +324,8 @@ const MenteeProfileContent: React.FC<{
                         Riwayat Kehadiran
                     </h3>
                     <div className="space-y-2">
-                        {attendanceHistory.map((record, index) => (
-                            <AttendanceRecord key={index} record={record} />
+                        {attendanceHistory.map((record) => (
+                            <AttendanceRecord key={record.date} record={record} />
                         ))}
                     </div>
                 </div>
@@ -335,8 +337,8 @@ const MenteeProfileContent: React.FC<{
                         Riwayat Tugas
                     </h3>
                     <div className="space-y-2">
-                        {taskHistory.map((task, index) => (
-                            <TaskRecord key={index} task={task} />
+                        {taskHistory.map((task) => (
+                            <TaskRecord key={task.title} task={task} />
                         ))}
                     </div>
                 </div>

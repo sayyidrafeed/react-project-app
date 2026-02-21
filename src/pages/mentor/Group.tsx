@@ -168,8 +168,12 @@ const MentorGroupPage: React.FC = () => {
                 <div className="card p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-dark-text">Daftar Mentee</h3>
-                        <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-dark-text-muted cursor-pointer">
+                        <label
+                            htmlFor="select-all-mentees"
+                            className="flex items-center gap-2 text-xs text-slate-600 dark:text-dark-text-muted cursor-pointer"
+                        >
                             <input
+                                id="select-all-mentees"
                                 type="checkbox"
                                 checked={selectAll}
                                 onChange={handleSelectAll}
