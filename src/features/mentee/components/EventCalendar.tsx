@@ -2,14 +2,51 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface EventCalendarProps {
-    eventDates: string[]; // ISO date strings (just dates YYYY-MM-DD)
+    eventDates: string[];
 }
+
+const daysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
+const firstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
+
+const CalendarDays: React.FC<{
+    year: number;
+    month: number;
+    eventDates: string[];
+}> = ({ year, month, eventDates }) => {
+    const totalDays = daysInMonth(year, month);
+    const startDay = firstDayOfMonth(year, month);
+    const days = [];
+
+    for (let i = 1; i < (startDay === 0 ? 7 : startDay); i++) {
+        days.push(<div key={`empty-${i}`} className="p-2 text-transparent">0</div>);
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+        const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const isEvent = eventDates.includes(dateStr);
+        const isToday = new Date().toDateString() === new Date(year, month, day).toDateString();
+
+        days.push(
+            <div
+                key={day}
+                className={`p-2 flex items-center justify-center text-xs font-bold rounded-full transition-all cursor-pointer h-8 w-8 mx-auto ${
+                    isToday
+                        ? 'bg-upn-green text-white shadow-sm'
+                        : isEvent
+                            ? 'border-2 border-upn-green text-upn-green'
+                            : 'text-slate-600 hover:bg-slate-100'
+                }`}
+            >
+                {day}
+            </div>
+        );
+    }
+
+    return <>{days}</>;
+};
 
 const EventCalendar: React.FC<EventCalendarProps> = ({ eventDates }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
-
-    const daysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
-    const firstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
 
     const monthNames = [
         "Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -22,40 +59,6 @@ const EventCalendar: React.FC<EventCalendarProps> = ({ eventDates }) => {
 
     const nextMonth = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
-    };
-
-    const renderDays = () => {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const totalDays = daysInMonth(year, month);
-        const startDay = firstDayOfMonth(year, month);
-        const days = [];
-
-        // Fill empty slots for previous month
-        for (let i = 1; i < (startDay === 0 ? 7 : startDay); i++) {
-            days.push(<div key={`empty-${i}`} className="p-2 text-transparent">0</div>);
-        }
-
-        // Fill days of current month
-        for (let day = 1; day <= totalDays; day++) {
-            const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            const isEvent = eventDates.includes(dateStr);
-            const isToday = new Date().toDateString() === new Date(year, month, day).toDateString();
-
-            days.push(
-                <div
-                    key={day}
-                    className={`p-2 flex items-center justify-center text-xs font-bold rounded-full transition-all cursor-pointer h-8 w-8 mx-auto ${isToday ? 'bg-upn-green text-white shadow-sm' :
-                        isEvent ? 'border-2 border-upn-green text-upn-green' :
-                            'text-slate-600 hover:bg-slate-100'
-                        }`}
-                >
-                    {day}
-                </div>
-            );
-        }
-
-        return days;
     };
 
     return (
@@ -88,7 +91,11 @@ const EventCalendar: React.FC<EventCalendarProps> = ({ eventDates }) => {
             </div>
 
             <div className="grid grid-cols-7 gap-y-1">
-                {renderDays()}
+                <CalendarDays
+                    year={currentDate.getFullYear()}
+                    month={currentDate.getMonth()}
+                    eventDates={eventDates}
+                />
             </div>
 
             <div className="mt-8">

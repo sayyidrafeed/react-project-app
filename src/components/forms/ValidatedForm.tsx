@@ -151,7 +151,7 @@ ValidatedForm.displayName = 'ValidatedForm';
 export interface FormFieldProps {
     name: string;
     label?: string;
-    type?: 'text' | 'number' | 'email' | 'url' | 'textarea' | 'select';
+    type?: 'text' | 'password' | 'number' | 'email' | 'url' | 'textarea' | 'select';
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;

@@ -1,8 +1,77 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LazyMotion, m, AnimatePresence, domAnimation } from 'framer-motion';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Users, CheckSquare, Clock, GraduationCap, Mail, X, Calendar, TrendingUp, Star, ArrowRight } from 'lucide-react';
+import {
+    Users,
+    CheckSquare,
+    Clock,
+    GraduationCap,
+    Mail,
+    X,
+    Calendar,
+    TrendingUp,
+    Star,
+    ArrowRight,
+    FileText,
+    FileImage,
+    FileArchive,
+    Download,
+} from 'lucide-react';
 import { MOCK_MENTEES, type Mentee } from '../../data/mockData';
+
+type SubmissionFileType = 'pdf' | 'doc' | 'docx' | 'zip' | 'jpg' | 'png';
+
+interface SubmissionFileInfo {
+    name: string;
+    type: SubmissionFileType;
+    size: string;
+    url: string;
+}
+
+interface AttendanceHistoryRecord {
+    date: string;
+    event: string;
+    status: 'present' | 'absent';
+}
+
+interface TaskHistoryRecord {
+    title: string;
+    grade: number | null;
+    submittedAt: string | null;
+    gradedAt: string | null;
+    submissionFile?: SubmissionFileInfo;
+}
+
+const getFileTypeIcon = (type: SubmissionFileType) => {
+    switch (type) {
+        case 'jpg':
+        case 'png':
+            return FileImage;
+        case 'zip':
+            return FileArchive;
+        default:
+            return FileText;
+    }
+};
+
+const getFileTypeLabel = (type: SubmissionFileType) => {
+    switch (type) {
+        case 'pdf':
+            return 'PDF';
+        case 'doc':
+            return 'DOC';
+        case 'docx':
+            return 'DOCX';
+        case 'zip':
+            return 'ZIP';
+        case 'jpg':
+            return 'JPG';
+        case 'png':
+            return 'PNG';
+        default:
+            return 'FILE';
+    }
+};
 
 const GradingPage: React.FC = () => {
     const [selectedMentee, setSelectedMentee] = useState<Mentee | null>(null);
@@ -42,47 +111,49 @@ const GradingPage: React.FC = () => {
             </div>
 
             {/* Drawer/Modal for Student Profile */}
-            <AnimatePresence>
-                {isDrawerOpen && selectedMentee && (
-                    <>
-                        {/* Overlay */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={closeDrawer}
-                            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 md:hidden"
-                        />
+            <LazyMotion features={domAnimation}>
+                <AnimatePresence>
+                    {isDrawerOpen && selectedMentee && (
+                        <>
+                            {/* Overlay */}
+                            <m.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={closeDrawer}
+                                className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 md:hidden"
+                            />
 
-                        {/* Drawer (Mobile) */}
-                        <motion.div
-                            initial={{ y: '100%' }}
-                            animate={{ y: 0 }}
-                            exit={{ y: '100%' }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface rounded-t-3xl shadow-2xl z-50 md:hidden max-h-[85vh] overflow-y-auto"
-                        >
-                            <MenteeProfileContent mentee={selectedMentee} onClose={closeDrawer} />
-                        </motion.div>
-
-                        {/* Modal (Desktop) */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            onClick={closeDrawer}
-                            className="hidden md:flex fixed inset-0 items-center justify-center bg-slate-900/50 backdrop-blur-sm z-50"
-                        >
-                            <motion.div
-                                onClick={(e) => e.stopPropagation()}
-                                className="bg-white dark:bg-dark-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto m-4"
+                            {/* Drawer (Mobile) */}
+                            <m.div
+                                initial={{ y: '100%' }}
+                                animate={{ y: 0 }}
+                                exit={{ y: '100%' }}
+                                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                                className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface rounded-t-3xl shadow-2xl z-50 md:hidden max-h-[85vh] overflow-y-auto"
                             >
                                 <MenteeProfileContent mentee={selectedMentee} onClose={closeDrawer} />
-                            </motion.div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                            </m.div>
+
+                            {/* Modal (Desktop) */}
+                            <m.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                onClick={closeDrawer}
+                                className="hidden md:flex fixed inset-0 items-center justify-center bg-slate-900/50 backdrop-blur-sm z-50"
+                            >
+                                <m.div
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="bg-white dark:bg-dark-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto m-4"
+                                >
+                                    <MenteeProfileContent mentee={selectedMentee} onClose={closeDrawer} />
+                                </m.div>
+                            </m.div>
+                        </>
+                    )}
+                </AnimatePresence>
+            </LazyMotion>
         </DashboardLayout>
     );
 };
@@ -139,7 +210,7 @@ const MenteeProfileContent: React.FC<{
     mentee: Mentee;
     onClose: () => void;
 }> = ({ mentee, onClose }) => {
-    const attendanceHistory = [
+    const attendanceHistory: AttendanceHistoryRecord[] = [
         { date: '2026-08-14', event: 'Pembukaan PKKMB-U', status: 'present' },
         { date: '2026-08-15', event: 'Senam Pagi', status: 'present' },
         { date: '2026-08-16', event: 'Kunjungan Museum', status: 'present' },
@@ -148,10 +219,43 @@ const MenteeProfileContent: React.FC<{
         { date: '2026-08-19', event: 'Malam Keakraban', status: 'present' },
     ];
 
-    const taskHistory = [
-        { title: 'Resume PKKMB Day 1', grade: 85, submittedAt: '2026-08-15', gradedAt: '2026-08-16' },
-        { title: 'Yel-yel Kelompok', grade: 90, submittedAt: '2026-08-17', gradedAt: '2026-08-18' },
-        { title: 'Esai Bela Negara', grade: 78, submittedAt: '2026-08-18', gradedAt: '2026-08-19' },
+    const taskHistory: TaskHistoryRecord[] = [
+        {
+            title: 'Resume PKKMB Day 1',
+            grade: 85,
+            submittedAt: '2026-08-15',
+            gradedAt: '2026-08-16',
+            submissionFile: {
+                name: 'resume-pkkmb-day-1.pdf',
+                type: 'pdf',
+                size: '2.3 MB',
+                url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+            },
+        },
+        {
+            title: 'Yel-yel Kelompok',
+            grade: 90,
+            submittedAt: '2026-08-17',
+            gradedAt: '2026-08-18',
+            submissionFile: {
+                name: 'yel-yel-kelompok.zip',
+                type: 'zip',
+                size: '5.1 MB',
+                url: 'data:application/zip;base64,UEsDBAoAAAAAA',
+            },
+        },
+        {
+            title: 'Esai Bela Negara',
+            grade: 78,
+            submittedAt: '2026-08-18',
+            gradedAt: '2026-08-19',
+            submissionFile: {
+                name: 'esai-bela-negara.docx',
+                type: 'docx',
+                size: '890 KB',
+                url: 'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,VGhpcyBpcyBhIG1vY2sgRE9DWCBmaWxl',
+            },
+        },
         { title: 'Foto Kegiatan Kelompok', grade: null, submittedAt: null, gradedAt: null },
         { title: 'Presentasi Mini', grade: null, submittedAt: null, gradedAt: null },
     ];
@@ -220,8 +324,8 @@ const MenteeProfileContent: React.FC<{
                         Riwayat Kehadiran
                     </h3>
                     <div className="space-y-2">
-                        {attendanceHistory.map((record, index) => (
-                            <AttendanceRecord key={index} record={record} />
+                        {attendanceHistory.map((record) => (
+                            <AttendanceRecord key={record.date} record={record} />
                         ))}
                     </div>
                 </div>
@@ -233,8 +337,8 @@ const MenteeProfileContent: React.FC<{
                         Riwayat Tugas
                     </h3>
                     <div className="space-y-2">
-                        {taskHistory.map((task, index) => (
-                            <TaskRecord key={index} task={task} />
+                        {taskHistory.map((task) => (
+                            <TaskRecord key={task.title} task={task} />
                         ))}
                     </div>
                 </div>
@@ -280,7 +384,7 @@ const OverviewStat: React.FC<{
 };
 
 // Attendance Record Component
-const AttendanceRecord: React.FC<{ record: any }> = ({ record }) => {
+const AttendanceRecord: React.FC<{ record: AttendanceHistoryRecord }> = ({ record }) => {
     const statusClasses = {
         present: 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 border-green-200 dark:border-green-800',
         absent: 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800',
@@ -305,7 +409,7 @@ const AttendanceRecord: React.FC<{ record: any }> = ({ record }) => {
 };
 
 // Task Record Component
-const TaskRecord: React.FC<{ task: any }> = ({ task }) => {
+const TaskRecord: React.FC<{ task: TaskHistoryRecord }> = ({ task }) => {
     const getGradeColor = (grade: number | null) => {
         if (grade === null) return 'text-slate-400 dark:text-dark-text-muted';
         if (grade >= 80) return 'text-green-600 dark:text-green-400';
@@ -342,6 +446,27 @@ const TaskRecord: React.FC<{ task: any }> = ({ task }) => {
                                 <span className="text-[10px] sm:text-xs text-slate-600 dark:text-dark-text-muted font-medium">
                                     Dinilai: {task.gradedAt}
                                 </span>
+                            </div>
+                        )}
+                        {task.submissionFile && (
+                            <div className="flex items-center gap-1.5">
+                                {(() => {
+                                    const FileIcon = getFileTypeIcon(task.submissionFile.type);
+                                    return <FileIcon size={12} className="text-slate-400 dark:text-dark-text-muted" />;
+                                })()}
+                                <span className="text-[10px] sm:text-xs text-slate-600 dark:text-dark-text-muted font-medium">
+                                    {getFileTypeLabel(task.submissionFile.type)} | {task.submissionFile.size}
+                                </span>
+                                <a
+                                    href={task.submissionFile.url}
+                                    download
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-upn-green dark:text-upn-gold hover:underline"
+                                >
+                                    <Download size={10} />
+                                    Unduh
+                                </a>
                             </div>
                         )}
                     </div>

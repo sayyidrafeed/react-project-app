@@ -1,16 +1,43 @@
 import React, { useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Users, CheckSquare, TrendingUp, Clock, CheckCircle, Search, Filter, MoreVertical } from 'lucide-react';
+import {
+    Users,
+    CheckCircle,
+    Search,
+    Filter,
+    MoreVertical,
+    ArrowRight,
+    X,
+    Phone,
+    MapPin,
+    FileText,
+    MessageCircle,
+    Instagram,
+    Twitter,
+    Linkedin,
+    Music2,
+    Eye,
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { MOCK_MENTEES, type Mentee } from '../../data/mockData';
+import Modal from '../../components/ui/Modal';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
 
 const MentorGroupPage: React.FC = () => {
     const [selectedMentees, setSelectedMentees] = useState<Set<string>>(new Set());
     const [searchQuery, setSearchQuery] = useState('');
     const [filter, setFilter] = useState<'all' | 'active' | 'pending'>('all');
     const [selectAll, setSelectAll] = useState(false);
+    const [selectedMenteeProfile, setSelectedMenteeProfile] = useState<Mentee | null>(null);
 
-    const filteredMentees = MOCK_MENTEES.filter(mentee => {
-        const matchesSearch = mentee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const filteredMentees = MOCK_MENTEES.filter((mentee) => {
+        const matchesSearch =
+            mentee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             mentee.nim.includes(searchQuery) ||
             mentee.major.toLowerCase().includes(searchQuery.toLowerCase());
         if (!matchesSearch) return false;
@@ -26,22 +53,14 @@ const MentorGroupPage: React.FC = () => {
     });
 
     const totalMentees = filteredMentees.length;
-    const activeMentees = filteredMentees.filter(m => m.averageGrade > 0).length;
-    const pendingMentees = filteredMentees.filter(m => m.averageGrade === 0).length;
-    const averageGrade = totalMentees > 0
-        ? Math.round(filteredMentees.reduce((acc, m) => acc + m.averageGrade, 0) / totalMentees)
-        : 0;
-    const totalTasksCompleted = filteredMentees.reduce((acc, m) => acc + m.tasksCompleted, 0);
-    const totalTasksPending = filteredMentees.reduce((acc, m) => acc + m.tasksPending, 0);
-    const averageAttendance = totalMentees > 0
-        ? Math.round(filteredMentees.reduce((acc, m) => acc + m.attendanceRate, 0) / totalMentees)
-        : 0;
+    const activeMentees = filteredMentees.filter((m) => m.averageGrade > 0).length;
+    const pendingMentees = filteredMentees.filter((m) => m.averageGrade === 0).length;
 
     const handleSelectAll = () => {
         if (selectAll) {
             setSelectedMentees(new Set());
         } else {
-            setSelectedMentees(new Set(filteredMentees.map(m => m.id)));
+            setSelectedMentees(new Set(filteredMentees.map((m) => m.id)));
         }
         setSelectAll(!selectAll);
     };
@@ -58,57 +77,38 @@ const MentorGroupPage: React.FC = () => {
 
     const getMenteeStatus = (mentee: Mentee) => {
         if (mentee.averageGrade > 0) {
-            return { label: 'Aktif', color: 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400', icon: CheckCircle };
+            return { label: 'Aktif', color: 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400' };
         }
-        return { label: 'Pending', color: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400', icon: Clock };
+        return { label: 'Pending', color: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400' };
+    };
+
+    const handleOpenProfile = (mentee: Mentee) => {
+        setSelectedMenteeProfile(mentee);
+    };
+
+    const handleCloseProfile = () => {
+        setSelectedMenteeProfile(null);
     };
 
     return (
         <DashboardLayout>
             <div className="space-y-4 sm:space-y-6">
-                {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">Manajemen Grup</h1>
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">Daftar Mentee</h1>
                         <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
                             Kelola dan pantau progres mentee Anda
                         </p>
                     </div>
+                    <Link
+                        to="/mentor/statistik-grup"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-upn-green/10 dark:bg-upn-gold/10 text-upn-green dark:text-upn-gold rounded-xl font-semibold text-sm hover:bg-upn-green/20 dark:hover:bg-upn-gold/20 transition-colors"
+                    >
+                        <span>Lihat Statistik Grup</span>
+                        <ArrowRight size={16} />
+                    </Link>
                 </div>
 
-                {/* KPI Cards */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                    <KPICard
-                        title="Total Mentee"
-                        value={totalMentees}
-                        icon={Users}
-                        description={`${activeMentees} Aktif, ${pendingMentees} Pending`}
-                        color="blue"
-                    />
-                    <KPICard
-                        title="Tugas Selesai"
-                        value={totalTasksCompleted}
-                        icon={CheckSquare}
-                        description={`${totalTasksPending} Pending`}
-                        color="green"
-                    />
-                    <KPICard
-                        title="Rata-rata Grade"
-                        value={`${averageGrade}`}
-                        icon={TrendingUp}
-                        description={averageGrade >= 80 ? 'Sangat Baik' : averageGrade >= 60 ? 'Baik' : 'Perlu Perhatian'}
-                        color="gold"
-                    />
-                    <KPICard
-                        title="Kehadiran Rata-rata"
-                        value={`${averageAttendance}%`}
-                        icon={Clock}
-                        description={averageAttendance >= 90 ? 'Sangat Baik' : averageAttendance >= 80 ? 'Baik' : 'Perlu Perhatian'}
-                        color="purple"
-                    />
-                </div>
-
-                {/* Search and Filter */}
                 <div className="flex flex-col sm:flex-row gap-3">
                     <div className="relative flex-grow">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-dark-text-muted" size={18} />
@@ -144,7 +144,6 @@ const MentorGroupPage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Bulk Action Bar */}
                 {selectedMentees.size > 0 && (
                     <div className="card p-3 sm:p-4 bg-upn-green/5 dark:bg-upn-green/10 border-2 border-upn-green/20 dark:border-upn-green/30">
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -166,12 +165,15 @@ const MentorGroupPage: React.FC = () => {
                     </div>
                 )}
 
-                {/* Mentee List */}
                 <div className="card p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-dark-text">Daftar Mentee</h3>
-                        <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-dark-text-muted cursor-pointer">
+                        <label
+                            htmlFor="select-all-mentees"
+                            className="flex items-center gap-2 text-xs text-slate-600 dark:text-dark-text-muted cursor-pointer"
+                        >
                             <input
+                                id="select-all-mentees"
                                 type="checkbox"
                                 checked={selectAll}
                                 onChange={handleSelectAll}
@@ -182,20 +184,34 @@ const MentorGroupPage: React.FC = () => {
                     </div>
 
                     <div className="space-y-3">
-                        {filteredMentees.map(mentee => {
+                        {filteredMentees.map((mentee) => {
                             const status = getMenteeStatus(mentee);
                             const isSelected = selectedMentees.has(mentee.id);
 
                             return (
                                 <div
                                     key={mentee.id}
-                                    className={`flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-50 dark:bg-dark-bg rounded-xl border-2 transition-all ${isSelected ? 'border-upn-green dark:border-upn-gold' : 'border-transparent hover:border-slate-200 dark:hover:border-dark-border'
-                                        }`}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleOpenProfile(mentee)}
+                                    onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                            event.preventDefault();
+                                            handleOpenProfile(mentee);
+                                        }
+                                    }}
+                                    className={cn(
+                                        'flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-50 dark:bg-dark-bg rounded-xl border-2 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-upn-green/40 dark:focus:ring-upn-gold/40',
+                                        isSelected
+                                            ? 'border-upn-green dark:border-upn-gold'
+                                            : 'border-transparent hover:border-slate-200 dark:hover:border-dark-border'
+                                    )}
                                 >
                                     <input
                                         type="checkbox"
                                         checked={isSelected}
                                         onChange={() => handleMenteeSelect(mentee.id)}
+                                        onClick={(event) => event.stopPropagation()}
                                         className="accent-upn-green w-5 h-5 shrink-0"
                                     />
                                     <div className="flex-grow min-w-0">
@@ -210,12 +226,27 @@ const MentorGroupPage: React.FC = () => {
                                                     </span>
                                                 </div>
                                                 <p className="text-[10px] sm:text-xs text-slate-500 dark:text-dark-text-muted">
-                                                    {mentee.nim} • {mentee.major}
+                                                    {mentee.nim} | {mentee.major}
                                                 </p>
                                             </div>
-                                            <button className="p-1.5 hover:bg-slate-100 dark:hover:bg-dark-border rounded-lg transition-colors">
-                                                <MoreVertical size={16} className="text-slate-400 dark:text-dark-text-muted" />
-                                            </button>
+                                            <div className="flex items-center gap-1.5">
+                                                <button
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        handleOpenProfile(mentee);
+                                                    }}
+                                                    className="flex items-center gap-1 px-2 py-1.5 bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-lg text-[10px] sm:text-xs font-semibold text-slate-600 dark:text-dark-text-muted hover:bg-slate-100 dark:hover:bg-dark-border transition-colors"
+                                                >
+                                                    <Eye size={14} />
+                                                    <span>Profil</span>
+                                                </button>
+                                                <button
+                                                    onClick={(event) => event.stopPropagation()}
+                                                    className="p-1.5 hover:bg-slate-100 dark:hover:bg-dark-border rounded-lg transition-colors"
+                                                >
+                                                    <MoreVertical size={16} className="text-slate-400 dark:text-dark-text-muted" />
+                                                </button>
+                                            </div>
                                         </div>
                                         <div className="grid grid-cols-3 gap-2 sm:gap-4">
                                             <StatBox
@@ -255,7 +286,6 @@ const MentorGroupPage: React.FC = () => {
                     )}
                 </div>
 
-                {/* Results Count */}
                 {filteredMentees.length > 0 && (
                     <div className="text-center py-4">
                         <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted">
@@ -264,40 +294,15 @@ const MentorGroupPage: React.FC = () => {
                     </div>
                 )}
             </div>
+            <MenteeProfileDrawer
+                mentee={selectedMenteeProfile}
+                isOpen={selectedMenteeProfile !== null}
+                onClose={handleCloseProfile}
+            />
         </DashboardLayout>
     );
 };
 
-// KPI Card Component
-const KPICard: React.FC<{
-    title: string;
-    value: string | number;
-    icon: React.ElementType;
-    description: string;
-    color: 'blue' | 'green' | 'gold' | 'purple';
-}> = ({ title: _title, value, icon: Icon, description, color }) => {
-    const colorClasses = {
-        blue: 'bg-primary-blue/10 text-primary-blue',
-        green: 'bg-upn-green/10 text-upn-green dark:text-upn-gold',
-        gold: 'bg-upn-gold/10 text-upn-gold',
-        purple: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-    };
-
-    return (
-        <div className="card p-3 sm:p-4 hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between mb-2">
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center ${colorClasses[color]}`}>
-                    <Icon size={18} className="sm:size-20" />
-                </div>
-                <TrendingUp size={16} className="text-slate-300 dark:text-dark-text-muted" />
-            </div>
-            <p className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-dark-text">{value}</p>
-            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-dark-text-muted font-medium mt-1">{description}</p>
-        </div>
-    );
-};
-
-// Filter Button Component
 const FilterButton: React.FC<{
     active: boolean;
     onClick: () => void;
@@ -339,7 +344,6 @@ const FilterButton: React.FC<{
     );
 };
 
-// Stat Box Component
 const StatBox: React.FC<{
     label: string;
     value: string | number;
@@ -358,5 +362,177 @@ const StatBox: React.FC<{
         </div>
     );
 };
+
+const MenteeProfileDrawer: React.FC<{
+    mentee: Mentee | null;
+    isOpen: boolean;
+    onClose: () => void;
+}> = ({ mentee, isOpen, onClose }) => {
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+
+    React.useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 767px)');
+        const handleMediaChange = (event: MediaQueryListEvent) => setIsMobile(event.matches);
+        setIsMobile(mediaQuery.matches);
+        mediaQuery.addEventListener('change', handleMediaChange);
+        return () => mediaQuery.removeEventListener('change', handleMediaChange);
+    }, []);
+
+    if (!isOpen || !mentee) return null;
+
+    const phone = mentee.profile?.phone ?? '-';
+    const address = mentee.profile?.address ?? 'Belum tersedia';
+    const bio = mentee.profile?.bio ?? 'Belum ada bio.';
+    const avatar = mentee.profile?.avatar;
+
+    const socialItems = [
+        { key: 'instagram', href: mentee.socialLinks?.instagram, label: 'Instagram', icon: Instagram },
+        { key: 'twitter', href: mentee.socialLinks?.twitter, label: 'Twitter', icon: Twitter },
+        { key: 'linkedin', href: mentee.socialLinks?.linkedin, label: 'LinkedIn', icon: Linkedin },
+        { key: 'tiktok', href: mentee.socialLinks?.tiktok, label: 'TikTok', icon: Music2 },
+    ].filter((item): item is { key: string; href: string; label: string; icon: typeof Instagram } => Boolean(item.href));
+
+    const numericPhone = (mentee.profile?.phone ?? '').replace(/[^\d+]/g, '');
+    const callLink = numericPhone ? `tel:${numericPhone}` : '#';
+    const messageLink = numericPhone ? `https://wa.me/${numericPhone.replace(/\D/g, '')}` : '#';
+
+    const content = (
+        <div className="space-y-5">
+            <div className="flex items-start gap-3">
+                <div className="w-16 h-16 rounded-2xl overflow-hidden bg-upn-green/15 dark:bg-upn-gold/15 border border-upn-green/20 dark:border-upn-gold/30 shrink-0">
+                    {avatar ? (
+                        <img src={avatar} alt={mentee.name} className="w-full h-full object-cover" />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center text-upn-green dark:text-upn-gold text-xl font-black">
+                            {mentee.name[0]?.toUpperCase()}
+                        </div>
+                    )}
+                </div>
+                <div className="min-w-0">
+                    <h2 className="text-lg sm:text-xl font-black text-slate-800 dark:text-dark-text truncate">{mentee.name}</h2>
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted mt-1">
+                        {mentee.nim} | {mentee.major}
+                    </p>
+                </div>
+            </div>
+
+            <div className="space-y-3 border-t border-b border-slate-200 dark:border-dark-border py-4">
+                <ProfileRow icon={Phone} label="Telepon" value={phone} />
+                <ProfileRow icon={MapPin} label="Alamat" value={address} />
+                <ProfileRow icon={FileText} label="Bio" value={bio} />
+            </div>
+
+            <div>
+                <p className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-500 dark:text-dark-text-muted mb-2">
+                    Social Links
+                </p>
+                {socialItems.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                        {socialItems.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <a
+                                    key={item.key}
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-dark-bg border border-slate-200 dark:border-dark-border text-xs font-semibold text-slate-700 dark:text-dark-text hover:bg-slate-200 dark:hover:bg-dark-border transition-colors"
+                                >
+                                    <Icon size={14} />
+                                    <span>{item.label}</span>
+                                </a>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <p className="text-xs text-slate-400 dark:text-dark-text-muted">Belum ada social link.</p>
+                )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <a
+                    href={messageLink}
+                    target={messageLink === '#' ? undefined : '_blank'}
+                    rel={messageLink === '#' ? undefined : 'noreferrer'}
+                    className={cn(
+                        'inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-colors',
+                        messageLink === '#'
+                            ? 'bg-slate-100 dark:bg-dark-border text-slate-400 dark:text-dark-text-muted cursor-not-allowed pointer-events-none'
+                            : 'bg-upn-green text-white hover:bg-green-800'
+                    )}
+                >
+                    <MessageCircle size={16} />
+                    <span>Kirim Pesan</span>
+                </a>
+                <a
+                    href={callLink}
+                    className={cn(
+                        'inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-colors border',
+                        callLink === '#'
+                            ? 'bg-slate-50 dark:bg-dark-bg border-slate-200 dark:border-dark-border text-slate-400 dark:text-dark-text-muted cursor-not-allowed pointer-events-none'
+                            : 'bg-white dark:bg-dark-surface border-upn-green/30 dark:border-upn-gold/40 text-upn-green dark:text-upn-gold hover:bg-upn-green/10 dark:hover:bg-upn-gold/10'
+                    )}
+                >
+                    <Phone size={16} />
+                    <span>Telepon</span>
+                </a>
+            </div>
+        </div>
+    );
+
+    if (!isMobile) {
+        return (
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                size="sm"
+                title="Detail Mentee"
+                className="max-w-[480px] dark:bg-dark-surface dark:border dark:border-dark-border"
+            >
+                {content}
+            </Modal>
+        );
+    }
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-end sm:hidden" role="dialog" aria-modal="true">
+            <button
+                type="button"
+                onClick={onClose}
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                aria-label="Tutup drawer"
+            />
+            <div className="relative w-full rounded-t-3xl bg-white dark:bg-dark-surface border-t border-slate-200 dark:border-dark-border shadow-2xl max-h-[88vh] overflow-y-auto p-5 pb-6">
+                <div className="w-12 h-1.5 bg-slate-300 dark:bg-dark-border rounded-full mx-auto mb-4" />
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-base font-black text-slate-800 dark:text-dark-text">Detail Mentee</h2>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-dark-bg transition-colors"
+                        aria-label="Tutup"
+                    >
+                        <X size={18} className="text-slate-500 dark:text-dark-text-muted" />
+                    </button>
+                </div>
+                {content}
+            </div>
+        </div>
+    );
+};
+
+const ProfileRow: React.FC<{
+    icon: React.ComponentType<{ size?: number; className?: string }>;
+    label: string;
+    value: string;
+}> = ({ icon: Icon, label, value }) => (
+    <div className="flex items-start gap-2.5">
+        <Icon size={16} className="mt-0.5 text-upn-green dark:text-upn-gold shrink-0" />
+        <div className="min-w-0">
+            <p className="text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-dark-text-muted">{label}</p>
+            <p className="text-sm text-slate-800 dark:text-dark-text break-words">{value}</p>
+        </div>
+    </div>
+);
 
 export default MentorGroupPage;

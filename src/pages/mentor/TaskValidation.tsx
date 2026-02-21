@@ -10,8 +10,106 @@ import { MOCK_MENTEES, type Mentee } from '../../data/mockData';
 import { ValidatedForm, FormField, FormActions, FormSection } from '../../components/forms/ValidatedForm';
 import { ValidationSchema } from '../../types/validation';
 import { taskValidationRules, commonRules } from '../../utils/validation';
-import { CheckCircle2, XCircle, Clock, Eye, Search, UserCheck, FileText, Star, Send, Save } from 'lucide-react';
+import {
+    CheckCircle2,
+    XCircle,
+    Clock,
+    Eye,
+    Search,
+    UserCheck,
+    FileText,
+    Star,
+    Send,
+    Save,
+    Download,
+    FileArchive,
+    FileImage,
+    FileVideo,
+} from 'lucide-react';
 import { clsx } from 'clsx';
+
+type SubmissionFileType = 'pdf' | 'doc' | 'docx' | 'zip' | 'jpg' | 'png' | 'mp4';
+
+interface SubmissionFile {
+    name: string;
+    size: string;
+    type: SubmissionFileType;
+    url: string;
+}
+
+const MENTEE_SUBMISSION_FILES: Record<string, SubmissionFile> = {
+    m1: {
+        name: 'resume-pkkmb-day-1.pdf',
+        size: '2.3 MB',
+        type: 'pdf',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    },
+    m2: {
+        name: 'dokumentasi-kegiatan.png',
+        size: '1.8 MB',
+        type: 'png',
+        url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1280&q=80',
+    },
+    m3: {
+        name: 'laporan-harian.docx',
+        size: '856 KB',
+        type: 'docx',
+        url: 'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,VGhpcyBpcyBhIG1vY2sgRE9DWCBmaWxl',
+    },
+    m4: {
+        name: 'arsip-kelompok.zip',
+        size: '5.1 MB',
+        type: 'zip',
+        url: 'data:application/zip;base64,UEsDBAoAAAAAA',
+    },
+    m5: {
+        name: 'video-presentasi.mp4',
+        size: '10.4 MB',
+        type: 'mp4',
+        url: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+    },
+    m6: {
+        name: 'foto-kegiatan.jpg',
+        size: '1.2 MB',
+        type: 'jpg',
+        url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1280&q=80',
+    },
+};
+
+const getFileIcon = (type: SubmissionFileType) => {
+    switch (type) {
+        case 'zip':
+            return FileArchive;
+        case 'jpg':
+        case 'png':
+            return FileImage;
+        case 'mp4':
+            return FileVideo;
+        default:
+            return FileText;
+    }
+};
+
+const getFileTypeLabel = (type: SubmissionFileType) => {
+    switch (type) {
+        case 'pdf':
+            return 'PDF';
+        case 'doc':
+            return 'DOC';
+        case 'docx':
+            return 'DOCX';
+        case 'zip':
+            return 'ZIP';
+        case 'jpg':
+            return 'JPG';
+        case 'png':
+            return 'PNG';
+        case 'mp4':
+            return 'MP4';
+        default:
+            return 'FILE';
+    }
+};
 
 const TaskValidation: React.FC = () => {
     const [mentees, setMentees] = useState(MOCK_MENTEES);
@@ -218,10 +316,7 @@ const TaskValidation: React.FC = () => {
                                     title="Pratinjau Tugas"
                                     description="Review tugas yang dikirim oleh mentee"
                                 >
-                                    <div className="aspect-video bg-slate-50 dark:bg-dark-bg rounded-2xl border-2 border-dashed border-slate-200 dark:border-dark-border flex flex-col items-center justify-center text-slate-300 dark:text-dark-text-muted">
-                                        <FileText size={48} className="mb-2" />
-                                        <p className="font-bold text-sm sm:text-base">Pratinjau Dokumen (PDF)</p>
-                                    </div>
+                                    <TaskSubmissionPreview submissionFile={MENTEE_SUBMISSION_FILES[selectedMentee.id]} />
                                 </FormSection>
 
                                 {/* Grade Input */}
@@ -286,6 +381,93 @@ const TaskValidation: React.FC = () => {
                 )}
             </div>
         </DashboardLayout>
+    );
+};
+
+const TaskSubmissionPreview: React.FC<{ submissionFile?: SubmissionFile }> = ({ submissionFile }) => {
+    if (!submissionFile) {
+        return (
+            <div className="bg-slate-50 dark:bg-dark-bg rounded-2xl border-2 border-dashed border-slate-200 dark:border-dark-border p-6 text-center">
+                <FileText size={36} className="mx-auto mb-3 text-slate-400 dark:text-dark-text-muted" />
+                <p className="text-sm font-semibold text-slate-600 dark:text-dark-text-muted">
+                    Belum ada file submission
+                </p>
+            </div>
+        );
+    }
+
+    const Icon = getFileIcon(submissionFile.type);
+    const isPdf = submissionFile.type === 'pdf';
+    const isImage = submissionFile.type === 'jpg' || submissionFile.type === 'png';
+    const isVideo = submissionFile.type === 'mp4';
+
+    return (
+        <div className="space-y-3">
+            <div className="w-full rounded-2xl border border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-bg overflow-hidden">
+                {isPdf && (
+                    <iframe
+                        src={submissionFile.url}
+                        title={submissionFile.name}
+                        className="w-full h-[320px] sm:h-[420px]"
+                    />
+                )}
+
+                {isImage && (
+                    <div className="w-full max-h-[70vh] sm:max-h-[420px] overflow-auto bg-black/5 dark:bg-black/20">
+                        <img
+                            src={submissionFile.url}
+                            alt={submissionFile.name}
+                            className="w-full h-auto object-contain"
+                        />
+                    </div>
+                )}
+
+                {isVideo && (
+                    <video controls className="w-full h-[220px] sm:h-[420px] bg-black">
+                        <source src={submissionFile.url} type="video/mp4" />
+                        Browser Anda tidak mendukung video preview.
+                    </video>
+                )}
+
+                {!isPdf && !isImage && !isVideo && (
+                    <div className="p-6 sm:p-10 text-center">
+                        <Icon size={40} className="mx-auto mb-3 text-slate-500 dark:text-dark-text-muted" />
+                        <p className="text-sm sm:text-base font-semibold text-slate-700 dark:text-dark-text">
+                            Pratinjau tidak tersedia untuk {getFileTypeLabel(submissionFile.type)}
+                        </p>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted mt-1">
+                            Gunakan tombol unduh untuk membuka file.
+                        </p>
+                    </div>
+                )}
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 sm:p-4 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-surface">
+                <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-lg bg-upn-green/10 dark:bg-upn-green/20 text-upn-green dark:text-upn-gold flex items-center justify-center shrink-0">
+                        <Icon size={18} />
+                    </div>
+                    <div className="min-w-0">
+                        <p className="text-sm font-semibold text-slate-800 dark:text-dark-text truncate">
+                            {submissionFile.name}
+                        </p>
+                        <p className="text-xs text-slate-500 dark:text-dark-text-muted">
+                            {getFileTypeLabel(submissionFile.type)} | {submissionFile.size}
+                        </p>
+                    </div>
+                </div>
+                <a
+                    href={submissionFile.url}
+                    download
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-upn-green text-upn-gold hover:bg-upn-green/90 transition-colors text-sm font-semibold"
+                >
+                    <Download size={16} />
+                    Unduh File
+                </a>
+            </div>
+        </div>
     );
 };
 
