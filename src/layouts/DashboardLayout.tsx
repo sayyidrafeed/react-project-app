@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar';
 import BottomNav from './components/BottomNav';
 import { Bell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
@@ -13,7 +13,6 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     const { user, logout } = useAuth();
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
 
     if (!user) return null;
@@ -30,45 +29,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 />
             </div>
 
-            {/* Sidebar for Mobile Drawer Overlay */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <div className="fixed inset-0 z-50 md:hidden overflow-hidden">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        />
-                        <motion.div
-                            initial={{ x: '-100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '-100%' }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="absolute left-0 top-0 h-full w-72 bg-white shadow-2xl"
-                        >
-                            <Sidebar
-                                userRole={user.role}
-                                isCollapsed={false}
-                                setIsCollapsed={() => { }}
-                                onLogout={logout}
-                            />
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
-
             {/* Main Content */}
             <div className="flex-grow flex flex-col overflow-hidden">
                 <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-8 shrink-0 relative z-10">
                     <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => setIsMobileMenuOpen(true)}
+                        <Link
+                            to="/"
                             className="md:hidden text-slate-500 hover:text-upn-green transition-colors"
                         >
                             <span className="font-black text-lg">SIERA</span>
-                        </button>
+                        </Link>
                         <h2 className="font-bold text-slate-800 tracking-tight hidden sm:block">
                             SIERA <span className="text-upn-green uppercase text-[10px] ml-1 px-1.5 py-0.5 bg-upn-gold/10 rounded border border-upn-gold/20 leading-none">{user.role}</span>
                         </h2>
