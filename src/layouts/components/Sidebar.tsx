@@ -24,6 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
             { name: 'Daftar Mentee', icon: Users, path: '/mentor/group' },
             { name: 'Statistik Grup', icon: BarChart3, path: '/mentor/statistik-grup' },
             { name: 'Validasi Tugas', icon: FileText, path: '/mentor/tasks' },
+            { name: 'Profil', icon: User, path: '/mentor/profile' },
         ],
         mentee: [
             { name: 'Home', icon: Home, path: '/mentee' },

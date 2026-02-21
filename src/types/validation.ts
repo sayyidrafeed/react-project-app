@@ -47,7 +47,7 @@ export interface ValidationSchema {
 export interface FormFieldConfig {
     name: string;
     label: string;
-    type?: 'text' | 'number' | 'email' | 'url' | 'textarea' | 'select' | 'checkbox' | 'radio';
+    type?: 'text' | 'password' | 'number' | 'email' | 'url' | 'textarea' | 'select' | 'checkbox' | 'radio';
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;
