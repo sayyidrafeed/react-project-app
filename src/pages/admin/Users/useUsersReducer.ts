@@ -86,13 +86,15 @@ export function useUsersReducer() {
 
     const handleSelectAll = useCallback(
         (filteredUserIds: string[]) => {
-            if (state.selectedUsers.size === filteredUserIds.length) {
+            const allFilteredSelected = filteredUserIds.length > 0 &&
+                filteredUserIds.every(id => state.selectedUsers.has(id));
+            if (allFilteredSelected) {
                 clearSelection();
             } else {
                 selectAll(filteredUserIds);
             }
         },
-        [state.selectedUsers.size, clearSelection, selectAll]
+        [state.selectedUsers, clearSelection, selectAll]
     );
 
     return {

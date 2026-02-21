@@ -92,7 +92,7 @@ const MentorProfilePage: React.FC = () => {
 
     const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-        if (!file) return;
+        if (!file || !file.type.startsWith('image/')) return;
 
         const reader = new FileReader();
         reader.onload = () => {

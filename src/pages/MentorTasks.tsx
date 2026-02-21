@@ -237,7 +237,10 @@ const MentorTasks: React.FC = () => {
                                         min="0"
                                         max="100"
                                         value={grade}
-                                        onChange={(e) => setGrade(Number(e.target.value))}
+                                        onChange={(e) => {
+                                            const val = Math.min(100, Math.max(0, Number(e.target.value)));
+                                            setGrade(val);
+                                        }}
                                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-2xl font-black text-center focus:ring-2 focus:ring-upn-green outline-none"
                                         placeholder="0-100"
                                         aria-label="Nilai tugas"

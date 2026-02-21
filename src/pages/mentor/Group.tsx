@@ -114,7 +114,7 @@ const MentorGroupPage: React.FC = () => {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-dark-text-muted" size={18} />
                         <input
                             type="text"
-                            placeholder="Cari nama, NIM, atau jurisdiction..."
+                            placeholder="Cari nama, NIM, atau jurusan..."
                             className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}

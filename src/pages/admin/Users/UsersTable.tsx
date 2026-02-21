@@ -73,7 +73,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
                         <input
                             id="select-all-users"
                             type="checkbox"
-                            checked={selectedUsers.size === filteredUsers.length && filteredUsers.length > 0}
+                            checked={filteredUsers.length > 0 && filteredUsers.every(u => selectedUsers.has(u.id))}
                             onChange={onSelectAll}
                             className="accent-upn-green w-4 h-4"
                         />
