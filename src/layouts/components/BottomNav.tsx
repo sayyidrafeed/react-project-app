@@ -18,12 +18,12 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
             { name: 'Manajemen Event', icon: Calendar, path: '/admin/events' },
             { name: 'Profil', icon: User, path: '/admin/profile' },
         ],
-        mentor: [
-            { name: 'Ringkasan', icon: Home, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: Users, path: '/mentor/group' },
-            { name: 'Statistik Grup', icon: BarChart3, path: '/mentor/statistik-grup' },
-            { name: 'Validasi Tugas', icon: FileText, path: '/mentor/tasks' },
-            { name: 'Profil', icon: User, path: '/mentor/profile' },
+        panitia: [
+            { name: 'Ringkasan', icon: Home, path: '/panitia' },
+            { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
+            { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
+            { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
+            { name: 'Profil', icon: User, path: '/panitia/profile' },
         ],
         mentee: [
             { name: 'Home', icon: Home, path: '/mentee' },
@@ -40,7 +40,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
         <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface border-t border-slate-200 dark:border-dark-border md:hidden z-50 safe-area-bottom">
             <div className="flex items-center justify-between h-20 px-3 relative">
                 {currentMenu.map((item, index) => {
-                    const isRootPath = ['/mentee', '/admin', '/mentor'].includes(item.path);
+                    const isRootPath = ['/mentee', '/admin', '/panitia'].includes(item.path);
                     const isActive = location.pathname === item.path ||
                         (!isRootPath && location.pathname.startsWith(item.path));
 
@@ -101,7 +101,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
                         );
                     }
 
-                    // Other roles (admin, mentor)
+                    // Other roles (admin, panitia)
                     return (
                         <Link
                             key={item.name}

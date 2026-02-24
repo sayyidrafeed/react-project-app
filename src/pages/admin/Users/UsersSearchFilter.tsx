@@ -82,10 +82,10 @@ export const UsersSearchFilter: React.FC<UsersSearchFilterProps> = ({
                     color="blue"
                 />
                 <FilterButton
-                    active={filter === 'mentor'}
-                    onClick={() => onFilterChange('mentor')}
-                    count={users.filter(u => u.role === 'mentor').length}
-                    label="Mentor"
+                    active={filter === 'panitia'}
+                    onClick={() => onFilterChange('panitia')}
+                    count={users.filter(u => u.role === 'panitia').length}
+                    label="Panitia"
                     color="gold"
                 />
                 <FilterButton

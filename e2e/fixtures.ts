@@ -6,9 +6,9 @@ export const expect = baseExpect;
 /**
  * Helper function to login as a specific role
  * @param page - Playwright Page object
- * @param role - User role: 'mentee', 'mentor', or 'admin'
+ * @param role - User role: 'mentee', 'panitia', or 'admin'
  */
-export async function loginAs(page: Page, role: 'mentee' | 'mentor' | 'admin') {
+export async function loginAs(page: Page, role: 'mentee' | 'panitia' | 'admin') {
   // Navigate to login page (localStorage already cleared by beforeEach)
   await page.goto('http://localhost:5173/login');
   
@@ -18,7 +18,7 @@ export async function loginAs(page: Page, role: 'mentee' | 'mentor' | 'admin') {
   // Click the role button (buttons render as uppercase in UI)
   const roleButtonMap = {
     mentee: 'MENTEE',
-    mentor: 'MENTOR',
+    panitia: 'PANITIA',
     admin: 'ADMIN',
   };
   

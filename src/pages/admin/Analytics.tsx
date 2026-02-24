@@ -54,7 +54,7 @@ const AnalyticsPage: React.FC = () => {
 
     const userActivityData: UserActivityItem[] = [
         { label: 'Mentee', value: 4, change: 12, isUp: true },
-        { label: 'Mentor', value: 2, change: 5, isUp: true },
+        { label: 'Panitia', value: 2, change: 5, isUp: true },
         { label: 'Admin', value: 2, change: 0, isUp: false },
     ];
 

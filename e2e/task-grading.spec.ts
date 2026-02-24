@@ -2,12 +2,12 @@ import { test, expect } from './fixtures';
 import { loginAs } from './fixtures';
 
 test.describe('Task Grading', () => {
-  test('Mentor can grade a task', async ({ page }) => {
-    // Given: User is logged in as mentor
-    await loginAs(page, 'mentor');
+  test('Panitia can grade a task', async ({ page }) => {
+    // Given: User is logged in as panitia
+    await loginAs(page, 'panitia');
 
-    // When: User navigates to /mentor/tasks
-    await page.goto('/mentor/tasks');
+    // When: User navigates to /panitia/tasks
+    await page.goto('/panitia/tasks');
     await page.waitForLoadState('networkidle');
 
     // And: User clicks the detail button on first mentee row

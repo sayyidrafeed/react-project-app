@@ -40,8 +40,8 @@ describe('Sidebar Component', () => {
     expect(screen.getByText('Manajemen Event')).toBeTruthy();
   });
 
-  test('should render mentor menu items', () => {
-    renderWithProviders(<Sidebar {...defaultProps} userRole="mentor" />);
+  test('should render panitia menu items', () => {
+    renderWithProviders(<Sidebar {...defaultProps} userRole="panitia" />);
 
     expect(screen.getByText('Statistik Grup')).toBeTruthy();
     expect(screen.getByText('Daftar Mentee')).toBeTruthy();

@@ -17,7 +17,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, isSelected, onSelect, onEdit 
                         <div className="w-12 h-12 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green shrink-0">
                             {user.role === 'admin' ? (
                                 <GraduationCap size={20} />
-                            ) : user.role === 'mentor' ? (
+                            ) : user.role === 'panitia' ? (
                                 <Users size={20} />
                             ) : (
                                 <Users size={20} />
@@ -138,7 +138,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
                                     <div className="w-10 h-10 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green shrink-0">
                                         {user.role === 'admin' ? (
                                             <GraduationCap size={18} />
-                                        ) : user.role === 'mentor' ? (
+                                        ) : user.role === 'panitia' ? (
                                             <Users size={18} />
                                         ) : (
                                             <Users size={18} />

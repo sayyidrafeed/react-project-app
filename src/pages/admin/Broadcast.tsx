@@ -14,7 +14,7 @@ interface Alert {
 const BroadcastPage: React.FC = () => {
     const [message, setMessage] = useState('');
     const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
-    const [targetAudience, setTargetAudience] = useState<'all' | 'mentee' | 'mentor' | 'admin'>('all');
+    const [targetAudience, setTargetAudience] = useState<'all' | 'mentee' | 'panitia' | 'admin'>('all');
     const [isSending, setIsSending] = useState(false);
     const [activeAlerts, setActiveAlerts] = useState<Alert[]>([
         { id: 1, title: 'Jadwal Tambahan', message: 'Jadwal kegiatan PKKMB Day 2 telah diperbarui', priority: 'medium', time: '5 menit yang lalu', active: true },
@@ -133,11 +133,11 @@ const BroadcastPage: React.FC = () => {
                                         <input
                                             type="radio"
                                             name="audience"
-                                            checked={targetAudience === 'mentor'}
-                                            onChange={() => setTargetAudience('mentor')}
+                                            checked={targetAudience === 'panitia'}
+                                            onChange={() => setTargetAudience('panitia')}
                                             className="accent-upn-green w-4 h-4"
                                         />
-                                        <span className="text-sm font-semibold text-slate-700">Mentor</span>
+                                        <span className="text-sm font-semibold text-slate-700">Panitia</span>
                                     </label>
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input

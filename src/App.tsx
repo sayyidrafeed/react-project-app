@@ -47,12 +47,12 @@ function App() {
                         <Route path="profile" element={<ProtectedRoute allowedRoles={['mentee']}><ProfilePage /></ProtectedRoute>} />
                     </Route>
 
-                    <Route path="/mentor">
-                        <Route index element={<ProtectedRoute allowedRoles={['mentor']}><MentorHome /></ProtectedRoute>} />
-                        <Route path="group" element={<ProtectedRoute allowedRoles={['mentor']}><MentorGroupPage /></ProtectedRoute>} />
-                        <Route path="statistik-grup" element={<ProtectedRoute allowedRoles={['mentor']}><StatistikGrupPage /></ProtectedRoute>} />
-                        <Route path="tasks" element={<ProtectedRoute allowedRoles={['mentor']}><MentorTasks /></ProtectedRoute>} />
-                        <Route path="profile" element={<ProtectedRoute allowedRoles={['mentor']}><MentorProfilePage /></ProtectedRoute>} />
+                    <Route path="/panitia">
+                        <Route index element={<ProtectedRoute allowedRoles={['panitia']}><MentorHome /></ProtectedRoute>} />
+                        <Route path="group" element={<ProtectedRoute allowedRoles={['panitia']}><MentorGroupPage /></ProtectedRoute>} />
+                        <Route path="statistik-grup" element={<ProtectedRoute allowedRoles={['panitia']}><StatistikGrupPage /></ProtectedRoute>} />
+                        <Route path="tasks" element={<ProtectedRoute allowedRoles={['panitia']}><MentorTasks /></ProtectedRoute>} />
+                        <Route path="profile" element={<ProtectedRoute allowedRoles={['panitia']}><MentorProfilePage /></ProtectedRoute>} />
                     </Route>
 
                     <Route path="/admin">

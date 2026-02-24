@@ -19,12 +19,12 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
             { name: 'Manajemen User', icon: User, path: '/admin/users' },
             { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
         ],
-        mentor: [
-            { name: 'Ringkasan', icon: Home, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: Users, path: '/mentor/group' },
-            { name: 'Statistik Grup', icon: BarChart3, path: '/mentor/statistik-grup' },
-            { name: 'Validasi Tugas', icon: FileText, path: '/mentor/tasks' },
-            { name: 'Profil', icon: User, path: '/mentor/profile' },
+        panitia: [
+            { name: 'Ringkasan', icon: Home, path: '/panitia' },
+            { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
+            { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
+            { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
+            { name: 'Profil', icon: User, path: '/panitia/profile' },
         ],
         mentee: [
             { name: 'Home', icon: Home, path: '/mentee' },

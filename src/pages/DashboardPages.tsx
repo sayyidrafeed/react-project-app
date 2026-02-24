@@ -140,8 +140,8 @@ export const MentorHome: React.FC = () => {
 export const AdminHome: React.FC = () => {
     const [users, _setUsers] = useState([
         { id: 'u1', name: 'Admin Utama', email: 'admin@upnvj.ac.id', role: 'admin', status: 'Active' },
-        { id: 'u2', name: 'Kak Mentor Budi', email: 'mentor1@upnvj.ac.id', role: 'mentor', status: 'Active' },
-        { id: 'u3', name: 'Kak Mentor Siti', email: 'mentor2@upnvj.ac.id', role: 'mentor', status: 'Active' },
+        { id: 'u2', name: 'Kak Panitia Budi', email: 'panitia1@upnvj.ac.id', role: 'panitia', status: 'Active' },
+        { id: 'u3', name: 'Kak Panitia Siti', email: 'panitia2@upnvj.ac.id', role: 'panitia', status: 'Active' },
         { id: 'u4', name: 'Ahmad Fauzi', email: 'mentee1@upnvj.ac.id', role: 'mentee', status: 'Active' },
         { id: 'u5', name: 'Siti Aminah', email: 'mentee2@upnvj.ac.id', role: 'mentee', status: 'Active' },
         { id: 'u6', name: 'Budi Santoso', email: 'mentee3@upnvj.ac.id', role: 'mentee', status: 'Active' },
@@ -152,12 +152,12 @@ export const AdminHome: React.FC = () => {
     const totalUsers = users.length;
     const activeUsers = users.filter(u => u.status === 'Active').length;
     const adminCount = users.filter(u => u.role === 'admin').length;
-    const mentorCount = users.filter(u => u.role === 'mentor').length;
+    const panitiaCount = users.filter(u => u.role === 'panitia').length;
     const menteeCount = users.filter(u => u.role === 'mentee').length;
 
     const activities = [
         { id: 1, action: 'User Baru', detail: 'Ahmad Fauzi ditambahkan', time: '2 jam yang lalu' },
-        { id: 2, action: 'Update Role', detail: 'Siti Aminah diubah ke Mentor', time: '3 jam yang lalu' },
+        { id: 2, action: 'Update Role', detail: 'Siti Aminah diubah ke Panitia', time: '3 jam yang lalu' },
         { id: 3, action: 'Tugas Baru', detail: 'Day 1 Resume dibuat', time: '4 jam yang lalu' },
         { id: 4, action: 'Event Baru', detail: 'Pembukaan PKKMB-U dijadwal', time: '5 jam yang lalu' }
     ];
@@ -170,7 +170,7 @@ export const AdminHome: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <StatsCard title="Total Pengguna" value={totalUsers} icon={Users} description={`${activeUsers} Aktif, ${totalUsers - activeUsers} Inaktif`} trend={{ value: 5, isUp: true }} />
                     <StatsCard title="Admin" value={adminCount} icon={Users} description="Pengelola sistem" variant="gold" />
-                    <StatsCard title="Mentor" value={mentorCount} icon={Users} description="Membimbing kelompok" />
+                    <StatsCard title="Panitia" value={panitiaCount} icon={Users} description="Membimbing kelompok" />
                     <StatsCard title="Mentee" value={menteeCount} icon={Users} description="Mahasiswa baru" />
                 </div>
 
@@ -183,8 +183,8 @@ export const AdminHome: React.FC = () => {
                                 <p className="text-xs text-slate-500 font-bold uppercase mt-2">Admin</p>
                             </div>
                             <div className="bg-upn-gold/10 rounded-xl p-4 text-center">
-                                <p className="text-3xl font-black text-upn-gold">{mentorCount}</p>
-                                <p className="text-xs text-slate-500 font-bold uppercase mt-2">Mentor</p>
+                                <p className="text-3xl font-black text-upn-gold">{panitiaCount}</p>
+                                <p className="text-xs text-slate-500 font-bold uppercase mt-2">Panitia</p>
                             </div>
                             <div className="bg-blue-500/10 rounded-xl p-4 text-center">
                                 <p className="text-3xl font-black text-blue-600">{menteeCount}</p>

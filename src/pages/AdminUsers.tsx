@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 
 const MOCK_USERS = [
     { id: '1', name: 'John Admin', email: 'admin@upnvj.ac.id', role: 'admin', status: 'Active' },
-    { id: '2', name: 'Kak Mentor 1', email: 'mentor1@upnvj.ac.id', role: 'mentor', status: 'Active' },
+    { id: '2', name: 'Kak Panitia 1', email: 'panitia1@upnvj.ac.id', role: 'panitia', status: 'Active' },
     { id: '3', name: 'Mentee Student', email: 'mentee@upnvj.ac.id', role: 'mentee', status: 'Verified' },
     { id: '4', name: 'Another Admin', email: 'admin2@upnvj.ac.id', role: 'admin', status: 'Inactive' },
 ];
@@ -90,7 +90,7 @@ const AdminUsers: React.FC = () => {
                                             <span className={clsx(
                                                 "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border",
                                                 user.role === 'admin' ? "bg-red-50 text-red-600 border-red-100" :
-                                                    user.role === 'mentor' ? "bg-upn-gold/10 text-upn-green border-upn-gold/20" :
+                                                    user.role === 'panitia' ? "bg-upn-gold/10 text-upn-green border-upn-gold/20" :
                                                         "bg-blue-50 text-blue-600 border-blue-100"
                                             )}>
                                                 {user.role === 'admin' && <Shield size={12} />}
@@ -162,7 +162,7 @@ const AdminUsers: React.FC = () => {
                                             onChange={e => setEditingUser({ ...editingUser, role: e.target.value })}
                                         >
                                             <option value="mentee">Mentee</option>
-                                            <option value="mentor">Mentor</option>
+                                            <option value="panitia">Panitia</option>
                                             <option value="admin">Admin</option>
                                         </select>
                                     </div>

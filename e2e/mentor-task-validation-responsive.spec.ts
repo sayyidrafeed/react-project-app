@@ -8,11 +8,11 @@ const viewports = [
 ];
 
 for (const viewport of viewports) {
-  test(`mentor task validation renders grade status on ${viewport.name}`, async ({ page }) => {
+  test(`panitia task validation renders grade status on ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await loginAs(page, 'mentor');
+    await loginAs(page, 'panitia');
 
-    await page.goto('/mentor/tasks');
+    await page.goto('/panitia/tasks');
     await page.waitForLoadState('networkidle');
 
     await expect(page.locator('span:visible', { hasText: 'GRADE: 85' }).first()).toBeVisible();
@@ -31,13 +31,13 @@ for (const viewport of viewports) {
   });
 }
 
-test('mentor mobile bottom nav points to newest mentor pages', async ({ page }) => {
+test('panitia mobile bottom nav points to newest panitia pages', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await loginAs(page, 'mentor');
-  await page.goto('/mentor/tasks');
+  await loginAs(page, 'panitia');
+  await page.goto('/panitia/tasks');
   await page.waitForLoadState('networkidle');
 
-  await expect(page.locator('a[href="/mentor/statistik-grup"]:visible')).toHaveCount(1);
-  await expect(page.locator('a[href="/mentor/group"]:visible')).toHaveCount(1);
-  await expect(page.locator('a[href="/mentor/tasks"]:visible')).toHaveCount(1);
+  await expect(page.locator('a[href="/panitia/statistik-grup"]:visible')).toHaveCount(1);
+  await expect(page.locator('a[href="/panitia/group"]:visible')).toHaveCount(1);
+  await expect(page.locator('a[href="/panitia/tasks"]:visible')).toHaveCount(1);
 });

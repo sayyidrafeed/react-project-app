@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
                         Pilih Peran (Simulasi)
                     </label>
                     <div className="grid grid-cols-3 gap-2 p-1 bg-slate-100 rounded-lg">
-                        {(['mentee', 'mentor', 'admin'] as UserRole[]).map((r) => (
+                        {(['mentee', 'panitia', 'admin'] as UserRole[]).map((r) => (
                             <button
                                 key={r}
                                 type="button"

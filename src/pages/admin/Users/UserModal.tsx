@@ -56,7 +56,7 @@ export const UserModal: React.FC<UserModalProps> = ({ isOpen, user, onClose }) =
                         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-upn-green/10 rounded-xl flex items-center justify-center text-upn-green shrink-0">
                             {user.role === 'admin' ? (
                                 <GraduationCap size={32} />
-                            ) : user.role === 'mentor' ? (
+                            ) : user.role === 'panitia' ? (
                                 <Users size={32} />
                             ) : (
                                 <Users size={32} />
