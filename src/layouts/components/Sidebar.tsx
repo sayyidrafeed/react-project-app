@@ -13,6 +13,10 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed, onLogout }) => {
     const location = useLocation();
 
+    const shouldShowMentorBadge = (name: string) => {
+        return userRole === 'panitia' && ['Daftar Mentee', 'Statistik Grup', 'Validasi Tugas'].includes(name);
+    };
+
     const menuItems = {
         admin: [
             { name: 'Ringkasan', icon: Home, path: '/admin' },
@@ -65,7 +69,19 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                                 }`}
                         >
                             <item.icon size={20} className={isActive ? 'text-upn-gold' : 'text-slate-400 group-hover:text-upn-green'} />
-                            {!isCollapsed && <span className="font-semibold text-sm truncate">{item.name}</span>}
+                            {!isCollapsed && (
+                                <div className="flex items-center justify-between grow gap-2 min-w-0">
+                                    <span className="font-semibold text-sm truncate">{item.name}</span>
+                                    {shouldShowMentorBadge(item.name) && (
+                                        <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${isActive
+                                            ? 'border-upn-gold/40 bg-upn-gold/15 text-upn-gold'
+                                            : 'border-upn-gold/30 bg-upn-gold/10 text-upn-green'
+                                            }`}>
+                                            Mentor
+                                        </span>
+                                    )}
+                                </div>
+                            )}
                         </Link>
                     );
                 })}
