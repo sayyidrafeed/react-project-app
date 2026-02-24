@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Calendar, Home, FileText, BarChart3, Camera, Eye, User } from 'lucide-react';
+import { Users, Calendar, Home, FileText, BarChart3, Camera, Eye, User, ShieldAlert } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
             { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
             { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
             { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
+            { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
             { name: 'Profil', icon: User, path: '/panitia/profile' },
         ],
         mentee: [

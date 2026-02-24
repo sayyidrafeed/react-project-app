@@ -18,6 +18,7 @@ import MentorGroupPage from './pages/mentor/Group';
 import StatistikGrupPage from './pages/mentor/StatistikGrup';
 import MentorProfilePage from './pages/mentor/Profile';
 import AdminProfilePage from './pages/admin/Profile';
+import K3ViolationsPage from './pages/panitia/K3Violations';
 
 function App() {
     return (
@@ -52,6 +53,7 @@ function App() {
                         <Route path="group" element={<ProtectedRoute allowedRoles={['panitia']}><MentorGroupPage /></ProtectedRoute>} />
                         <Route path="statistik-grup" element={<ProtectedRoute allowedRoles={['panitia']}><StatistikGrupPage /></ProtectedRoute>} />
                         <Route path="tasks" element={<ProtectedRoute allowedRoles={['panitia']}><MentorTasks /></ProtectedRoute>} />
+                        <Route path="k3" element={<ProtectedRoute allowedRoles={['panitia']}><K3ViolationsPage /></ProtectedRoute>} />
                         <Route path="profile" element={<ProtectedRoute allowedRoles={['panitia']}><MentorProfilePage /></ProtectedRoute>} />
                     </Route>
 

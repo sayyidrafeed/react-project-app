@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3 } from 'lucide-react';
+import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -17,6 +17,10 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
         return userRole === 'panitia' && ['Daftar Mentee', 'Statistik Grup', 'Validasi Tugas'].includes(name);
     };
 
+    const shouldShowK3Badge = (name: string) => {
+        return userRole === 'panitia' && name === 'Keamanan';
+    };
+
     const menuItems = {
         admin: [
             { name: 'Ringkasan', icon: Home, path: '/admin' },
@@ -28,6 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
             { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
             { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
             { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
+            { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
             { name: 'Profil', icon: User, path: '/panitia/profile' },
         ],
         mentee: [
@@ -78,6 +83,14 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                                             : 'border-upn-gold/30 bg-upn-gold/10 text-upn-green'
                                             }`}>
                                             Mentor
+                                        </span>
+                                    )}
+                                    {shouldShowK3Badge(item.name) && (
+                                        <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${isActive
+                                            ? 'border-red-400 bg-red-100 text-red-700'
+                                            : 'border-red-200 bg-red-50 text-red-600'
+                                            }`}>
+                                            K3
                                         </span>
                                     )}
                                 </div>
