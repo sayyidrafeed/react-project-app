@@ -26,11 +26,11 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
             { name: 'Profil', icon: User, path: '/panitia/profile' },
         ],
         mentee: [
-            { name: 'Home', icon: Home, path: '/mentee' },
-            { name: 'Discover', icon: Eye, path: '/mentee/discover' },
+            { name: 'Beranda', icon: Home, path: '/mentee' },
+            { name: 'Jelajah', icon: Eye, path: '/mentee/discover' },
             { name: 'Presensi', icon: Camera, path: '/mentee/presence' },
-            { name: 'Tasks', icon: FileText, path: '/mentee/tasks' },
-            { name: 'Profile', icon: User, path: '/mentee/profile' },
+            { name: 'Tugas', icon: FileText, path: '/mentee/tasks' },
+            { name: 'Profil', icon: User, path: '/mentee/profile' },
         ]
     };
 
@@ -63,7 +63,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
                         );
                     }
 
-                    // Left side items (Home, Discover)
+                    // Item sisi kiri (Beranda, Jelajah)
                     if (userRole === 'mentee' && index < 2) {
                         return (
                             <Link
@@ -82,7 +82,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
                         );
                     }
 
-                    // Right side items (Tasks, Profile)
+                    // Item sisi kanan (Tugas, Profil)
                     if (userRole === 'mentee' && index > 2) {
                         return (
                             <Link

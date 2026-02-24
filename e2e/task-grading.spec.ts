@@ -21,13 +21,13 @@ test.describe('Task Grading', () => {
     // When: User enters grade "85" in input field
     await gradeInput.fill('85');
 
-    // And: User clicks "SET GRADE" button
-    await page.click('button:has-text("SET GRADE")');
+    // And: User clicks "SIMPAN NILAI" button
+    await page.click('button:has-text("SIMPAN NILAI")');
 
     // Then: Modal closes (grade input disappears)
     await gradeInput.waitFor({ state: 'hidden', timeout: 5000 });
 
-    // And: Mentee row shows "GRADE: 85" badge
-    await expect(page.locator('span:visible', { hasText: 'GRADE: 85' }).first()).toBeVisible();
+    // And: Mentee row shows "NILAI: 85" badge
+    await expect(page.locator('span:visible', { hasText: 'NILAI: 85' }).first()).toBeVisible();
   });
 });

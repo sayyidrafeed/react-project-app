@@ -16,8 +16,8 @@ export const MenteeHome: React.FC = () => {
     const priorityTasks = [
         {
             id: 't1',
-            title: 'Bela Negara Essay',
-            module: 'National Identity',
+            title: 'Esai Bela Negara',
+            module: 'Identitas Nasional',
             status: 'PENDING' as const,
             timeLeft: '2H 14M'
         }
@@ -90,14 +90,14 @@ export const MentorHome: React.FC = () => {
                     </div>
                     <div className="flex gap-2">
                         <button onClick={() => alert('Fitur Unduh Laporan akan segera tersedia!')} className="btn-secondary text-xs">UNDUH LAPORAN</button>
-                        <button onClick={() => alert('Fitur Broadcast Pesan akan segera tersedia!')} className="btn-primary text-xs">BROADCAST PESAN</button>
+                        <button onClick={() => alert('Fitur Siaran Pesan akan segera tersedia!')} className="btn-primary text-xs">SIARAN PESAN</button>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <StatsCard title="Total Mentee" value={totalMentees} icon={Users} description={`${activeMentees} Aktif, ${pendingMentees} Pending`} />
+                    <StatsCard title="Total Mentee" value={totalMentees} icon={Users} description={`${activeMentees} Aktif, ${pendingMentees} Tertunda`} />
                     <StatsCard title="Validasi Tugas" value={pendingTasks} icon={CheckSquare} description="Butuh verifikasi segera" variant="white" trend={{ value: 3, isUp: true }} />
-                    <StatsCard title="Avg. Kehadiran" value={`${averageAttendance}%`} icon={TrendingUp} description={averageAttendance >= 90 ? 'Sangat Baik' : averageAttendance >= 80 ? 'Baik' : 'Perlu Perhatian'} variant={averageAttendance >= 90 ? 'green' : 'white'} />
+                    <StatsCard title="Rata-rata Kehadiran" value={`${averageAttendance}%`} icon={TrendingUp} description={averageAttendance >= 90 ? 'Sangat Baik' : averageAttendance >= 80 ? 'Baik' : 'Perlu Perhatian'} variant={averageAttendance >= 90 ? 'green' : 'white'} />
                 </div>
 
                 <div className="card p-6">
@@ -116,7 +116,7 @@ export const MentorHome: React.FC = () => {
                                 </div>
                                 <div className="grid grid-cols-3 gap-4 text-center">
                                     <div className="bg-white rounded-lg p-3">
-                                        <p className="text-[10px] text-slate-400 font-bold uppercase">Grade</p>
+                                        <p className="text-[10px] text-slate-400 font-bold uppercase">Nilai</p>
                                         <p className="text-xl font-black">{mentee.averageGrade === 0 ? '-' : mentee.averageGrade}</p>
                                     </div>
                                     <div className="bg-white rounded-lg p-3">
@@ -157,7 +157,7 @@ export const AdminHome: React.FC = () => {
 
     const activities = [
         { id: 1, action: 'User Baru', detail: 'Ahmad Fauzi ditambahkan', time: '2 jam yang lalu' },
-        { id: 2, action: 'Update Role', detail: 'Siti Aminah diubah ke Panitia', time: '3 jam yang lalu' },
+        { id: 2, action: 'Perbarui Peran', detail: 'Siti Aminah diubah ke Panitia', time: '3 jam yang lalu' },
         { id: 3, action: 'Tugas Baru', detail: 'Day 1 Resume dibuat', time: '4 jam yang lalu' },
         { id: 4, action: 'Event Baru', detail: 'Pembukaan PKKMB-U dijadwal', time: '5 jam yang lalu' }
     ];
@@ -165,7 +165,7 @@ export const AdminHome: React.FC = () => {
     return (
         <DashboardLayout>
             <div className="space-y-8">
-                <h1 className="text-4xl font-black">Admin Oversight</h1>
+                <h1 className="text-4xl font-black">Ringkasan Admin</h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <StatsCard title="Total Pengguna" value={totalUsers} icon={Users} description={`${activeUsers} Aktif, ${totalUsers - activeUsers} Inaktif`} trend={{ value: 5, isUp: true }} />

@@ -110,7 +110,7 @@ const TaskCatalog: React.FC = () => {
                             <div>
                                 <h1 className="text-2xl font-black text-slate-800 dark:text-dark-text">{selectedTask.title}</h1>
                                 <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
-                                    Deadline: {selectedTask.deadline}
+                                    Tenggat: {selectedTask.deadline}
                                 </p>
                             </div>
                         </div>
@@ -141,7 +141,7 @@ const TaskCatalog: React.FC = () => {
                                                     ? "bg-yellow-50 text-yellow-700"
                                                     : "bg-green-50 text-green-700"
                                             )}>
-                                                {selectedTask.grade === null ? 'Pending' : `Grade: ${selectedTask.grade}`}
+                                                {selectedTask.grade === null ? 'Tertunda' : `Nilai: ${selectedTask.grade}`}
                                             </p>
                                         </div>
                                     </div>
@@ -152,7 +152,7 @@ const TaskCatalog: React.FC = () => {
                                         onClick={() => setSelectedTask(selectedTask)}
                                         className="w-full py-4 bg-upn-green text-white rounded-2xl font-black text-lg flex items-center justify-center gap-2 hover:bg-green-900 transition-all shadow-lg shadow-green-900/10"
                                     >
-                                        <Upload size={20} /> SUBMIT TUGAS
+                                        <Upload size={20} /> KIRIM TUGAS
                                     </button>
                                 )}
                             </div>
@@ -201,7 +201,7 @@ const TaskCatalog: React.FC = () => {
                                             filter === f ? "bg-upn-green text-upn-gold shadow-md" : "text-slate-400 hover:text-slate-600"
                                         )}
                                     >
-                                        {f}
+                                        {f === 'all' ? 'semua' : f === 'pending' ? 'tertunda' : 'dinilai'}
                                     </button>
                                 ))}
                             </div>
@@ -222,7 +222,7 @@ const TaskCatalog: React.FC = () => {
                                             "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border",
                                             task.grade === null ? "bg-upn-gold/5 text-upn-gold border-upn-gold/20" : "bg-upn-green/5 text-upn-green border-upn-green/20"
                                         )}>
-                                            {task.grade === null ? 'PENDING' : `GRADE: ${task.grade}`}
+                                            {task.grade === null ? 'TERTUNDA' : `NILAI: ${task.grade}`}
                                         </span>
                                     </div>
 
@@ -247,12 +247,12 @@ const TaskCatalog: React.FC = () => {
                                                 }}
                                                 className="w-full py-3 bg-upn-green text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-green-900 transition-all shadow-lg shadow-green-900/10"
                                             >
-                                                <Upload size={16} /> SUBMIT SEKARANG
+                                                <Upload size={16} /> KIRIM SEKARANG
                                             </button>
                                         )}
                                         {task.grade !== null && (
                                             <div className="w-full py-3 bg-green-50 text-upn-green rounded-xl font-black flex items-center justify-center gap-2 border border-green-100">
-                                                <CheckCircle2 size={16} /> GRADE: {task.grade}
+                                                <CheckCircle2 size={16} /> NILAI: {task.grade}
                                             </div>
                                         )}
                                     </div>
@@ -269,7 +269,7 @@ const TaskCatalog: React.FC = () => {
                         <div className="bg-white w-full max-w-lg rounded-3xl p-8 relative z-10 shadow-2xl animate-in zoom-in-95 duration-200">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h2 className="text-2xl font-black text-slate-800">Submit Tugas</h2>
+                                    <h2 className="text-2xl font-black text-slate-800">Kirim Tugas</h2>
                                     <p className="text-slate-400 font-medium text-sm mt-1">{selectedTask.title}</p>
                                 </div>
                                 <button onClick={() => setSelectedTask(null)} className="p-2 hover:bg-slate-100 rounded-full text-slate-400">
@@ -282,8 +282,8 @@ const TaskCatalog: React.FC = () => {
                                     <div className="w-16 h-16 bg-upn-green/5 rounded-full flex items-center justify-center text-upn-green mb-4 group-hover:scale-110 transition-transform">
                                         <Upload size={32} />
                                     </div>
-                                    <p className="font-bold text-slate-600">Drag & drop berkas PDF di sini</p>
-                                    <p className="text-[10px] text-slate-400 mt-2 uppercase font-black tracking-widest">Maksimal 5MB • PDF Only</p>
+                                    <p className="font-bold text-slate-600">Seret & lepas berkas PDF di sini</p>
+                                    <p className="text-[10px] text-slate-400 mt-2 uppercase font-black tracking-widest">Maksimal 5MB • Hanya PDF</p>
                                 </div>
 
                                 {isUploading && (
@@ -306,7 +306,7 @@ const TaskCatalog: React.FC = () => {
                                     disabled={isUploading}
                                     className="w-full btn-primary py-4 font-black text-lg disabled:opacity-50 flex items-center justify-center gap-3"
                                 >
-                                    {isUploading ? 'PLEASE WAIT...' : 'KONFIRMASI PENGIRIMAN'}
+                                    {isUploading ? 'MOHON TUNGGU...' : 'KONFIRMASI PENGIRIMAN'}
                                 </button>
                             </div>
                         </div>

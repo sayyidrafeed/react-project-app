@@ -64,9 +64,9 @@ const OrientationJourneyDetail: React.FC = () => {
                         <ArrowLeft size={20} />
                     </button>
                     <div>
-                        <h1 className="text-xl sm:text-2xl font-black text-slate-800 dark:text-dark-text">Tasks</h1>
+                        <h1 className="text-xl sm:text-2xl font-black text-slate-800 dark:text-dark-text">Tugas</h1>
                         <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
-                            Orientation Journey 2025
+                            Perjalanan Orientasi 2025
                         </p>
                     </div>
                 </div>
@@ -75,13 +75,13 @@ const OrientationJourneyDetail: React.FC = () => {
                 <div className="rounded-2xl p-5 sm:p-6 bg-upn-green text-white shadow-lg">
                     <div className="flex items-start justify-between gap-4">
                         <div>
-                            <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/70">Siera Orientation 2025</p>
-                            <h2 className="text-xl sm:text-2xl font-black mt-1">Your Progress</h2>
+                            <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/70">Siera Orientasi 2025</p>
+                            <h2 className="text-xl sm:text-2xl font-black mt-1">Progres Anda</h2>
                             <p className="text-xs sm:text-sm text-white/80 mt-2 font-medium">
-                                {completedCount} of {tasks.length} completed
+                                {completedCount} dari {tasks.length} selesai
                             </p>
                             <p className="text-[10px] sm:text-xs text-white/70 font-medium mt-1">
-                                {pendingTasks.length + urgentTasks.length} tasks remaining this week
+                                {pendingTasks.length + urgentTasks.length} tugas tersisa minggu ini
                             </p>
                         </div>
                         <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-white/20 relative">
@@ -98,7 +98,7 @@ const OrientationJourneyDetail: React.FC = () => {
 
                 {/* Sections */}
                 <TaskSection
-                    title="Urgent (Due Today)"
+                    title="Mendesak (Jatuh Tempo Hari Ini)"
                     count={urgentTasks.length}
                     emptyText="Tidak ada tugas mendesak"
                 >
@@ -108,9 +108,9 @@ const OrientationJourneyDetail: React.FC = () => {
                 </TaskSection>
 
                 <TaskSection
-                    title="Pending"
+                    title="Tertunda"
                     count={pendingTasks.length}
-                    emptyText="Tidak ada tugas pending"
+                    emptyText="Tidak ada tugas tertunda"
                 >
                     {pendingTasks.map((task) => (
                         <TaskRow key={task.id} task={task} variant="pending" />
@@ -118,7 +118,7 @@ const OrientationJourneyDetail: React.FC = () => {
                 </TaskSection>
 
                 <TaskSection
-                    title="Completed"
+                    title="Selesai"
                     count={completedTasks.length}
                     emptyText="Belum ada tugas selesai"
                     hideEmptyDivider
@@ -145,7 +145,7 @@ const TaskSection: React.FC<{
             <div className="flex items-center justify-between">
                 <h3 className="text-sm sm:text-base font-black text-slate-800 dark:text-dark-text">{title}</h3>
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-dark-text-muted">
-                    {count} tasks
+                    {count} tugas
                 </span>
             </div>
             <div className={clsx('space-y-2', !hasItems && !hideEmptyDivider && 'pb-2 border-b border-dashed border-slate-200 dark:border-dark-border')}>
@@ -170,17 +170,17 @@ const TaskRow: React.FC<{ task: Task; variant: 'urgent' | 'pending' | 'completed
         urgent: {
             icon: AlertTriangle,
             badge: 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-300',
-            label: `Due today, ${formattedDeadline}`
+            label: `Jatuh tempo hari ini, ${formattedDeadline}`
         },
         pending: {
             icon: Clock,
             badge: 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-300',
-            label: `Due ${formattedDeadline}`
+            label: `Jatuh tempo ${formattedDeadline}`
         },
         completed: {
             icon: CheckCircle2,
             badge: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-300',
-            label: `Verified by Admin`
+            label: 'Terverifikasi oleh Admin'
         }
     } as const;
 

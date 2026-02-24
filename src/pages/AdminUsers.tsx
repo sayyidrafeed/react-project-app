@@ -6,14 +6,21 @@ import { clsx } from 'clsx';
 const MOCK_USERS = [
     { id: '1', name: 'John Admin', email: 'admin@upnvj.ac.id', role: 'admin', status: 'Active' },
     { id: '2', name: 'Kak Panitia 1', email: 'panitia1@upnvj.ac.id', role: 'panitia', status: 'Active' },
-    { id: '3', name: 'Mentee Student', email: 'mentee@upnvj.ac.id', role: 'mentee', status: 'Verified' },
-    { id: '4', name: 'Another Admin', email: 'admin2@upnvj.ac.id', role: 'admin', status: 'Inactive' },
+    { id: '3', name: 'Mahasiswa Mentee', email: 'mentee@upnvj.ac.id', role: 'mentee', status: 'Verified' },
+    { id: '4', name: 'Admin Lain', email: 'admin2@upnvj.ac.id', role: 'admin', status: 'Inactive' },
 ];
 
 const AdminUsers: React.FC = () => {
     const [users, setUsers] = useState(MOCK_USERS);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<{ id?: string, name: string, email: string, role: string, status: string } | null>(null);
+
+    const getStatusLabel = (status: string) => {
+        if (status === 'Active') return 'Aktif';
+        if (status === 'Inactive') return 'Inaktif';
+        if (status === 'Verified') return 'Terverifikasi';
+        return status;
+    };
 
     const handleOpenModal = (user?: typeof MOCK_USERS[0]) => {
         if (user) {
@@ -66,8 +73,8 @@ const AdminUsers: React.FC = () => {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                                    <th className="px-8 py-5 border-b border-slate-50">User Profile</th>
-                                    <th className="px-4 py-5 border-b border-slate-50">Role</th>
+                                    <th className="px-8 py-5 border-b border-slate-50">Profil Pengguna</th>
+                                    <th className="px-4 py-5 border-b border-slate-50">Peran</th>
                                     <th className="px-4 py-5 border-b border-slate-50">Status</th>
                                     <th className="px-8 py-5 border-b border-slate-50 text-right">Aksi</th>
                                 </tr>
@@ -103,12 +110,12 @@ const AdminUsers: React.FC = () => {
                                                     "w-2 h-2 rounded-full",
                                                     user.status === 'Inactive' ? "bg-slate-300" : "bg-upn-green"
                                                 )} />
-                                                {user.status}
+                                                {getStatusLabel(user.status)}
                                             </div>
                                         </td>
                                         <td className="px-8 py-6 text-right">
                                             <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button onClick={() => handleOpenModal(user)} className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-upn-green transition-all" title="Edit Role"><UserCog size={18} /></button>
+                                                <button onClick={() => handleOpenModal(user)} className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-upn-green transition-all" title="Ubah Peran"><UserCog size={18} /></button>
                                                 <button className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-red-500 transition-all" title="Delete User"><UserMinus size={18} /></button>
                                                 <button className="p-2 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 text-slate-400 hover:text-slate-600 transition-all"><MoreVertical size={18} /></button>
                                             </div>
@@ -120,10 +127,10 @@ const AdminUsers: React.FC = () => {
                     </div>
 
                     <div className="p-6 bg-slate-50/50 border-t border-slate-50 flex items-center justify-between">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Showing {users.length} users total</p>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan total {users.length} pengguna</p>
                         <div className="flex gap-2">
-                            <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-400 hover:text-upn-green disabled:opacity-50" disabled>PREVIOUS</button>
-                            <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-500 hover:text-upn-green">NEXT PAGE</button>
+                            <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-400 hover:text-upn-green disabled:opacity-50" disabled>SEBELUMNYA</button>
+                            <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-500 hover:text-upn-green">BERIKUTNYA</button>
                         </div>
                     </div>
                 </div>
@@ -132,7 +139,7 @@ const AdminUsers: React.FC = () => {
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                         <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
                         <div className="bg-white w-full max-w-md rounded-2xl p-8 relative z-10 shadow-xl">
-                            <h2 className="text-2xl font-black text-slate-800 mb-6">{editingUser.id ? 'Edit User' : 'Tambah User Baru'}</h2>
+                            <h2 className="text-2xl font-black text-slate-800 mb-6">{editingUser.id ? 'Ubah Pengguna' : 'Tambah User Baru'}</h2>
                             <form onSubmit={handleSaveUser} className="space-y-4">
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 mb-1">Nama Lengkap</label>
@@ -155,7 +162,7 @@ const AdminUsers: React.FC = () => {
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 mb-1">Role</label>
+                                        <label className="block text-xs font-bold text-slate-500 mb-1">Peran</label>
                                         <select
                                             className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-upn-green outline-none bg-white"
                                             value={editingUser.role}

@@ -14,12 +14,18 @@ interface TodaysPriorityCardProps {
 }
 
 const TodaysPriorityCard: React.FC<TodaysPriorityCardProps> = ({ tasks }) => {
+    const getStatusLabel = (status: PriorityTask['status']) => {
+        if (status === 'PENDING') return 'TERTUNDA';
+        if (status === 'SUBMITTED') return 'TERKIRIM';
+        return 'DINILAI';
+    };
+
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
-                <h3 className="text-xl font-black text-slate-800 tracking-tight">Today's Priority</h3>
+                <h3 className="text-xl font-black text-slate-800 tracking-tight">Prioritas Hari Ini</h3>
                 <button className="text-xs font-black text-upn-green uppercase tracking-widest hover:underline">
-                    View Schedule
+                    Lihat Jadwal
                 </button>
             </div>
 
@@ -32,29 +38,29 @@ const TodaysPriorityCard: React.FC<TodaysPriorityCardProps> = ({ tasks }) => {
                                     <div className="w-2 h-2 rounded-full bg-orange-500 mt-2" />
                                     <div>
                                         <h4 className="text-lg font-black text-slate-800 leading-tight">{task.title}</h4>
-                                        <p className="text-xs font-medium text-slate-500 mt-1">Module: {task.module}</p>
+                                        <p className="text-xs font-medium text-slate-500 mt-1">Modul: {task.module}</p>
                                     </div>
                                 </div>
                                 <span className={`px-3 py-1 rounded text-[10px] font-black tracking-widest ${task.status === 'PENDING' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'
                                     }`}>
-                                    {task.status}
+                                    {getStatusLabel(task.status)}
                                 </span>
                             </div>
 
                             <div className="flex justify-between items-center pt-4 border-t border-dashed border-slate-200">
                                 <div className="flex items-center gap-2 text-red-500">
                                     <Clock size={16} />
-                                    <span className="text-xs font-black uppercase tracking-tighter">{task.timeLeft} LEFT</span>
+                                    <span className="text-xs font-black uppercase tracking-tighter">{task.timeLeft} LAGI</span>
                                 </div>
                                 <button className="px-6 py-2 bg-upn-green text-white text-[10px] font-black uppercase tracking-widest rounded transition-all hover:bg-green-800">
-                                    SUBMIT
+                                    KIRIM
                                 </button>
                             </div>
                         </div>
                     ))
                 ) : (
                     <div className="card p-8 bg-slate-50 border-2 border-dashed border-slate-200 text-center">
-                        <p className="text-sm font-bold text-slate-400">No priority tasks for today.</p>
+                        <p className="text-sm font-bold text-slate-400">Tidak ada tugas prioritas hari ini.</p>
                     </div>
                 )}
             </div>

@@ -15,7 +15,7 @@ for (const viewport of viewports) {
     await page.goto('/panitia/tasks');
     await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('span:visible', { hasText: 'GRADE: 85' }).first()).toBeVisible();
+    await expect(page.locator('span:visible', { hasText: 'NILAI: 85' }).first()).toBeVisible();
 
     const detailButton = page.locator('button[aria-label^="Lihat detail"]:visible').first();
     await expect(detailButton).toBeVisible();
@@ -25,9 +25,9 @@ for (const viewport of viewports) {
     await expect(gradeInput).toBeVisible();
     await gradeInput.fill('85');
 
-    await page.click('button:has-text("SET GRADE")');
+    await page.click('button:has-text("SIMPAN NILAI")');
     await expect(gradeInput).toBeHidden();
-    await expect(page.locator('span:visible', { hasText: 'GRADE: 85' }).first()).toBeVisible();
+    await expect(page.locator('span:visible', { hasText: 'NILAI: 85' }).first()).toBeVisible();
   });
 }
 

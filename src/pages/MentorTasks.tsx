@@ -27,7 +27,7 @@ const MentorTasks: React.FC = () => {
         const isPending = currentGrade <= 0;
 
         return {
-            label: isPending ? 'PENDING' : `GRADE: ${currentGrade}`,
+            label: isPending ? 'TERTUNDA' : `NILAI: ${currentGrade}`,
             className: isPending
                 ? 'bg-upn-gold/5 text-upn-gold border-upn-gold/20'
                 : 'bg-upn-green/5 text-upn-green border-upn-green/20',
@@ -59,7 +59,7 @@ const MentorTasks: React.FC = () => {
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-black">Validasi Tugas</h1>
                     <p className="text-slate-500 font-medium italic text-sm sm:text-base">
-                        Review dan berikan penilaian untuk tugas Mahasiswa Baru.
+                        Tinjau dan berikan penilaian untuk tugas Mahasiswa Baru.
                     </p>
                 </div>
 
@@ -90,7 +90,7 @@ const MentorTasks: React.FC = () => {
                                     onClick={() => setFilter('all')}
                                 />
                                 <FilterChip
-                                    label="Pending"
+                                    label="Tertunda"
                                     active={filter === 'pending'}
                                     onClick={() => setFilter('pending')}
                                 />
@@ -125,7 +125,7 @@ const MentorTasks: React.FC = () => {
                                                 <p className="text-[10px] font-medium text-slate-400">{mentee.nim}</p>
                                             </td>
                                             <td className="px-4 py-5 text-sm font-medium text-slate-600">{mentee.major}</td>
-                                            <td className="px-4 py-5 font-bold text-xs text-upn-green">Resume PKKMB Day 1</td>
+                                            <td className="px-4 py-5 font-bold text-xs text-upn-green">Resume PKKMB Hari 1</td>
                                             <td className="px-4 py-5">
                                                 <span
                                                     className={clsx(
@@ -175,7 +175,7 @@ const MentorTasks: React.FC = () => {
                                     <div className="mt-3 grid grid-cols-[1fr_auto] items-center gap-2">
                                         <div className="text-xs text-slate-600">
                                             <p className="font-medium">{mentee.major}</p>
-                                            <p className="font-bold text-upn-green mt-1">Resume PKKMB Day 1</p>
+                                            <p className="font-bold text-upn-green mt-1">Resume PKKMB Hari 1</p>
                                         </div>
                                         <button
                                             onClick={() => openValidationModal(mentee)}
@@ -216,11 +216,11 @@ const MentorTasks: React.FC = () => {
                             <div className="h-44 sm:h-48 bg-upn-green p-5 sm:p-8 flex items-end justify-between gap-3">
                                 <div>
                                     <h2 className="text-xl sm:text-2xl font-black text-upn-gold">{selectedMentee.name}</h2>
-                                    <p className="text-green-50/70 font-bold uppercase text-[10px] tracking-widest mt-1">Reviewing: Resume PKKMB Day 1</p>
+                                    <p className="text-green-50/70 font-bold uppercase text-[10px] tracking-widest mt-1">Meninjau: Resume PKKMB Hari 1</p>
                                 </div>
                                 <div className="flex gap-2">
                                     <button onClick={() => handleUpdateStatus(selectedMentee.id, 0)} className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center text-white hover:bg-red-500 transition-colors" aria-label="Tolak tugas"><XCircle size={20} /></button>
-                                    <button onClick={() => handleUpdateStatus(selectedMentee.id, grade)} className="px-4 sm:px-6 h-11 bg-upn-gold text-upn-green font-black text-[11px] sm:text-xs rounded-xl hover:bg-yellow-400 transition-colors inline-flex items-center gap-2 tracking-widest whitespace-nowrap">SET GRADE <UserCheck size={18} /></button>
+                                    <button onClick={() => handleUpdateStatus(selectedMentee.id, grade)} className="px-4 sm:px-6 h-11 bg-upn-gold text-upn-green font-black text-[11px] sm:text-xs rounded-xl hover:bg-yellow-400 transition-colors inline-flex items-center gap-2 tracking-widest whitespace-nowrap">SIMPAN NILAI <UserCheck size={18} /></button>
                                 </div>
                             </div>
 

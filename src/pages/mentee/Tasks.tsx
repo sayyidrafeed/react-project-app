@@ -67,11 +67,11 @@ const TasksPage: React.FC = () => {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays <= 1) {
-            return { status: 'urgent', color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20', label: 'Urgent' };
+            return { status: 'urgent', color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20', label: 'Mendesak' };
         } else if (diffDays <= 3) {
             return { status: 'warning', color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-900/20', label: 'Segera' };
         } else {
-            return { status: 'pending', color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20', label: 'Pending' };
+            return { status: 'pending', color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20', label: 'Tertunda' };
         }
     };
 
@@ -118,7 +118,7 @@ const TasksPage: React.FC = () => {
                             return diffTime <= 2 * 24 * 60 * 60 * 1000 && t.grade === null;
                         }).length}
                         icon={AlertTriangle}
-                        label="Urgent"
+                        label="Mendesak"
                         color="red"
                     />
                     <FilterButton
@@ -126,7 +126,7 @@ const TasksPage: React.FC = () => {
                         onClick={() => setFilter('pending')}
                         count={tasks.filter(t => t.grade === null).length}
                         icon={Clock}
-                        label="Pending"
+                        label="Tertunda"
                         color="yellow"
                     />
                     <FilterButton
@@ -178,7 +178,7 @@ const TasksPage: React.FC = () => {
                             color="blue"
                         />
                         <StatItem
-                            label="Urgent"
+                            label="Mendesak"
                             value={tasks.filter(t => {
                                 const deadline = new Date(t.deadline);
                                 const diffTime = deadline.getTime() - today.getTime();
@@ -187,7 +187,7 @@ const TasksPage: React.FC = () => {
                             color="red"
                         />
                         <StatItem
-                            label="Pending"
+                            label="Tertunda"
                             value={tasks.filter(t => t.grade === null).length}
                             color="yellow"
                         />
@@ -279,7 +279,7 @@ const TaskCard: React.FC<{
                         <div className="flex items-center gap-1.5">
                             <Clock size={12} className="text-slate-400 dark:text-dark-text-muted" />
                             <span className="text-[10px] sm:text-xs text-slate-600 dark:text-dark-text-muted font-medium">
-                                Deadline: {task.deadline}
+                                    Tenggat: {task.deadline}
                             </span>
                         </div>
                         <div className="flex items-center gap-1.5">
@@ -292,7 +292,7 @@ const TaskCard: React.FC<{
                             <div className="flex items-center gap-1.5">
                                 <CheckCircle size={12} className="text-green-600 dark:text-green-400" />
                                 <span className="text-[10px] sm:text-xs text-green-600 dark:text-green-400 font-bold">
-                                    Grade: {task.grade}/100
+                                    Nilai: {task.grade}/100
                                 </span>
                             </div>
                         )}

@@ -69,7 +69,7 @@ const TaskSubmission: React.FC = () => {
                         <ArrowLeft size={20} />
                     </button>
                     <div>
-                        <h1 className="text-xl sm:text-2xl font-black text-slate-800 dark:text-dark-text">Submit Tugas</h1>
+                        <h1 className="text-xl sm:text-2xl font-black text-slate-800 dark:text-dark-text">Kirim Tugas</h1>
                         <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted font-medium mt-1">
                             Unggah dan kirim tugas Anda
                         </p>
@@ -89,7 +89,7 @@ const TaskSubmission: React.FC = () => {
                                 <div className="flex items-center gap-1.5">
                                     <Clock size={12} className="text-slate-400 dark:text-dark-text-muted" />
                                     <span className="text-[10px] sm:text-xs text-slate-600 dark:text-dark-text-muted font-medium">
-                                        Deadline: {task.deadline}
+                                        Tenggat: {task.deadline}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
@@ -116,7 +116,7 @@ const TaskSubmission: React.FC = () => {
                                         Tugas Dikembalikan
                                     </h3>
                                     <span className="px-2 py-1 bg-orange-600 text-white rounded-full text-[10px] font-bold uppercase">
-                                        Grade: {feedbackData.grade}/100
+                                        Nilai: {feedbackData.grade}/100
                                     </span>
                                 </div>
                                 <p className="text-xs sm:text-sm text-slate-700 dark:text-dark-text-muted mb-2">
@@ -167,7 +167,7 @@ const TaskSubmission: React.FC = () => {
                                 <Upload size={32} />
                             </div>
                             <p className="text-sm sm:text-base font-semibold text-slate-700 dark:text-dark-text mb-2">
-                                {uploadedFile ? uploadedFile.name : 'Drag & drop file atau klik untuk pilih'}
+                                {uploadedFile ? uploadedFile.name : 'Seret & lepas file atau klik untuk pilih'}
                             </p>
                             <p className="text-xs text-slate-500 dark:text-dark-text-muted">
                                 Format yang didukung: PDF, DOC, DOCX, ZIP (Max 10MB)

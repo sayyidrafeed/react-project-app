@@ -56,7 +56,7 @@ const BroadcastPage: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Broadcast Form */}
+                    {/* Form Siaran */}
                     <div className="card p-4 sm:p-6">
                         <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                             <Send size={18} className="text-upn-green" />
@@ -180,19 +180,19 @@ const BroadcastPage: React.FC = () => {
                                 ) : (
                                     <>
                                         <Send size={18} />
-                                        <span>Kirim Broadcast</span>
+                                        <span>Kirim Siaran</span>
                                     </>
                                 )}
                             </button>
                         </div>
                     </div>
 
-                    {/* Live Pulse Feed */}
+                    {/* Umpan Notifikasi Langsung */}
                     <div className="card p-4 sm:p-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
                                 <Bell size={18} className="text-upn-green animate-pulse" />
-                                Live Pulse - Alert Aktif
+                                Notifikasi Langsung - Peringatan Aktif
                             </h3>
                             <span className="text-xs text-slate-500">
                                 {activeAlerts.length} notifikasi aktif

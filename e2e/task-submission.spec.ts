@@ -59,13 +59,13 @@ test.describe('Task Submission Flow', () => {
     await page.goto('http://localhost:5173/mentee/tasks');
     
     // Wait for tasks to load
-    await page.waitForSelector('button:has-text("SUBMIT SEKARANG")');
+    await page.waitForSelector('button:has-text("KIRIM SEKARANG")');
 
-    // Click "SUBMIT SEKARANG" on first pending task
-    await page.click('button:has-text("SUBMIT SEKARANG")');
+    // Click "KIRIM SEKARANG" on first pending task
+    await page.click('button:has-text("KIRIM SEKARANG")');
 
     // Upload modal appears
-    await page.waitForSelector('h2:has-text("Submit Tugas")');
+    await page.waitForSelector('h2:has-text("Kirim Tugas")');
 
     // Click "KONFIRMASI PENGIRIMAN"
     await page.click('button:has-text("KONFIRMASI PENGIRIMAN")');
@@ -74,10 +74,10 @@ test.describe('Task Submission Flow', () => {
     await page.waitForTimeout(2000);
 
     // Modal closes after upload completes
-    await page.waitForSelector('h2:has-text("Submit Tugas")', { state: 'hidden', timeout: 1000 });
+    await page.waitForSelector('h2:has-text("Kirim Tugas")', { state: 'hidden', timeout: 1000 });
 
-    // Task card shows "PENDING" status (grade is null until graded)
-    const pendingBadge = page.locator('text=PENDING').first();
+    // Task card shows "TERTUNDA" status (grade is null until graded)
+    const pendingBadge = page.locator('text=TERTUNDA').first();
     await expect(pendingBadge).toBeVisible();
   });
 
@@ -86,26 +86,26 @@ test.describe('Task Submission Flow', () => {
     await page.goto('http://localhost:5173/mentee/tasks');
     
     // Wait for page to load
-    await page.waitForSelector('button:has-text("all")');
+    await page.waitForSelector('button:has-text("semua")');
 
     // Initially on "all" filter - should see both pending and graded tasks
     const allTasks = page.locator('.card');
     await expect(allTasks).toHaveCount(3); // 1 pending + 2 graded
 
-    // Click "pending" filter
-    await page.click('button:has-text("pending")');
+    // Click "tertunda" filter
+    await page.click('button:has-text("tertunda")');
     await page.waitForTimeout(300);
 
-    // Only pending tasks are shown (verify PENDING badge exists)
-    const pendingBadges = page.locator('text=PENDING');
+    // Only pending tasks are shown (verify TERTUNDA badge exists)
+    const pendingBadges = page.locator('text=TERTUNDA');
     await expect(pendingBadges.first()).toBeVisible();
 
     // Verify no graded badges are shown (mock data has graded tasks with grades 85 and 90)
-    const grade85Badge = page.locator('text=GRADE: 85');
+    const grade85Badge = page.locator('text=NILAI: 85');
     await expect(grade85Badge).toHaveCount(0);
 
-    // Click "graded" filter
-    await page.click('button:has-text("graded")');
+    // Click "dinilai" filter
+    await page.click('button:has-text("dinilai")');
     await page.waitForTimeout(300);
 
     // Only graded tasks are shown - should see 2 graded task cards
@@ -113,11 +113,11 @@ test.describe('Task Submission Flow', () => {
     const visibleCards = await taskCards.count();
     expect(visibleCards).toBe(2); // Only 2 graded tasks should be visible
 
-    // Verify GRADE badges exist for graded tasks
-    const grade85 = page.locator('text=GRADE: 85').first();
+    // Verify NILAI badges exist for graded tasks
+    const grade85 = page.locator('text=NILAI: 85').first();
     await expect(grade85).toBeVisible();
     
-    const grade90 = page.locator('text=GRADE: 90').first();
+    const grade90 = page.locator('text=NILAI: 90').first();
     await expect(grade90).toBeVisible();
   });
 });

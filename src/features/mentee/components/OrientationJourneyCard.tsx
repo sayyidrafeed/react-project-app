@@ -27,14 +27,14 @@ const OrientationJourneyCard: React.FC<OrientationJourneyCardProps> = ({
             <div className="flex items-start justify-between gap-4">
                 <div>
                     <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/70">
-                        ORIENTATION JOURNEY
+                        PERJALANAN ORIENTASI
                     </p>
-                    <h2 className="text-xl sm:text-2xl font-black mt-1">Your Progress</h2>
+                    <h2 className="text-xl sm:text-2xl font-black mt-1">Progres Anda</h2>
                     <p className="text-xs sm:text-sm text-white/80 mt-2 font-medium">
-                        {completedStages} of {totalStages} stages complete
+                        {completedStages} dari {totalStages} tahapan selesai
                     </p>
                     <p className="text-[10px] sm:text-xs text-white/70 font-medium mt-1">
-                        Next: {nextStageName}
+                        Berikutnya: {nextStageName}
                     </p>
                 </div>
                 <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-white/20 relative">
@@ -51,10 +51,10 @@ const OrientationJourneyCard: React.FC<OrientationJourneyCardProps> = ({
             <div className="flex justify-between items-center mt-5 pt-4 border-t border-white/20">
                 <div className="flex items-center gap-2">
                     <Star size={14} className="text-white/80" />
-                    <span className="text-[10px] sm:text-xs font-bold text-white/80">Keep going!</span>
+                    <span className="text-[10px] sm:text-xs font-bold text-white/80">Tetap semangat!</span>
                 </div>
                 <div className="px-3 py-1 bg-white/15 rounded-full text-[10px] font-black text-white uppercase">
-                    DAY {currentDay}
+                    HARI {currentDay}
                 </div>
             </div>
         </button>
