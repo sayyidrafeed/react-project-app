@@ -136,6 +136,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Masukkan nama lengkap"
                                         required
                                         icon={UserIcon}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="email"
@@ -144,6 +145,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="nama@upnvj.ac.id"
                                         required
                                         icon={Mail}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="group"
@@ -151,6 +153,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Contoh: 21 - PATRIBERA"
                                         required
                                         icon={Users}
+                                        className="pl-12"
                                     />
                                 </FormSection>
 
@@ -193,6 +196,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Masukkan password saat ini"
                                         required
                                         icon={KeyRound}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="newPassword"
@@ -201,6 +205,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Masukkan password baru"
                                         required
                                         icon={ShieldCheck}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="confirmPassword"
@@ -209,6 +214,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Ulangi password baru"
                                         required
                                         icon={ShieldCheck}
+                                        className="pl-12"
                                     />
                                 </FormSection>
 
