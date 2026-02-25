@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert } from 'lucide-react';
+import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert, ClipboardList } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -21,6 +21,10 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
         return userRole === 'panitia' && name === 'Keamanan';
     };
 
+    const shouldShowPPMBadge = (name: string) => {
+        return userRole === 'panitia' && name === 'Manajemen Tugas';
+    };
+
     const menuItems = {
         admin: [
             { name: 'Ringkasan', icon: Home, path: '/admin' },
@@ -32,6 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
             { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
             { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
             { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
+            { name: 'Manajemen Tugas', icon: ClipboardList, path: '/panitia/ppm' },
             { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
             { name: 'Profil', icon: User, path: '/panitia/profile' },
         ],
@@ -50,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
         <aside className={`${isCollapsed ? 'w-20' : 'w-64'} bg-white border-r border-slate-200 shadow-sm transition-all duration-300 flex flex-col z-20`}>
             <div className="p-6 flex items-center justify-between border-b border-slate-50">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-upn-green rounded-lg flex items-center justify-center text-upn-gold font-bold flex-shrink-0 shadow-lg shadow-green-900/10">S</div>
+                    <div className="w-8 h-8 bg-upn-green rounded-lg flex items-center justify-center text-upn-gold font-bold shrink-0 shadow-lg shadow-green-900/10">S</div>
                     {!isCollapsed && <span className="font-extrabold text-upn-green tracking-tight">SIERA</span>}
                 </div>
                 <button
@@ -61,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                 </button>
             </div>
 
-            <nav className="flex-grow p-4 space-y-1.5 mt-4 overflow-y-auto">
+            <nav className="grow p-4 space-y-1.5 mt-4 overflow-y-auto">
                 {currentMenu.map((item) => {
                     const isActive = location.pathname === item.path;
                     return (
@@ -91,6 +96,14 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                                             : 'border-red-200 bg-red-50 text-red-600'
                                             }`}>
                                             K3
+                                        </span>
+                                    )}
+                                    {shouldShowPPMBadge(item.name) && (
+                                        <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${isActive
+                                            ? 'border-blue-300 bg-blue-100 text-blue-700'
+                                            : 'border-blue-200 bg-blue-50 text-blue-600'
+                                            }`}>
+                                            PPM
                                         </span>
                                     )}
                                 </div>
