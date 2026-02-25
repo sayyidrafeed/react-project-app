@@ -14,7 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
     const location = useLocation();
 
     const shouldShowMentorBadge = (name: string) => {
-        return userRole === 'panitia' && ['Daftar Mentee', 'Statistik Grup', 'Validasi Tugas'].includes(name);
+        return userRole === 'panitia' && ['Ringkasan', 'Daftar Mentee', 'Statistik Grup', 'Validasi Tugas'].includes(name);
     };
 
     const shouldShowK3Badge = (name: string) => {
