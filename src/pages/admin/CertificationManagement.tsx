@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
-import { Award, CheckCircle2, XCircle } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { GraduationDecision, GraduationStudent, INITIAL_GRADUATIONS } from './graduationData';
+import { GraduationStudent, INITIAL_GRADUATIONS } from './graduationData';
 
 const buildDecisionMessage = (decision: GraduationDecision) => {
     if (decision === 'Lulus') {
@@ -47,13 +47,6 @@ const AdminCertificationManagementPage: React.FC = () => {
         [graduations],
     );
 
-    const handleDecision = (id: string, decision: GraduationDecision) => {
-        setGraduations((prev) => prev.map((item) => {
-            if (item.id !== id) return item;
-            return { ...item, decision };
-        }));
-    };
-
     const handleRowClick = (student: GraduationStudent) => {
         navigate(`/admin/kelulusan/${student.id}`, { state: { student } });
     };
@@ -95,7 +88,6 @@ const AdminCertificationManagementPage: React.FC = () => {
                                     <th className="text-left text-[11px] uppercase tracking-wider text-slate-500 font-black px-4 py-3">Progress Tugas</th>
                                     <th className="text-left text-[11px] uppercase tracking-wider text-slate-500 font-black px-4 py-3">Indikator</th>
                                     <th className="text-left text-[11px] uppercase tracking-wider text-slate-500 font-black px-4 py-3">Keputusan</th>
-                                    <th className="text-left text-[11px] uppercase tracking-wider text-slate-500 font-black px-4 py-3">Aksi Admin</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,26 +126,6 @@ const AdminCertificationManagementPage: React.FC = () => {
                                                     {student.decision}
                                                 </span>
                                                 <p className="text-[11px] text-slate-500 mt-1 max-w-57.5">{buildDecisionMessage(student.decision)}</p>
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <div className="flex items-center gap-2" onClick={(event) => event.stopPropagation()}>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => handleDecision(student.id, 'Lulus')}
-                                                        className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 text-[10px] font-black uppercase text-emerald-700 hover:bg-emerald-100"
-                                                    >
-                                                        <CheckCircle2 size={12} />
-                                                        ACC
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => handleDecision(student.id, 'Tidak Lulus')}
-                                                        className="inline-flex items-center gap-1 rounded-lg border border-red-200 bg-red-50 px-2.5 py-1.5 text-[10px] font-black uppercase text-red-700 hover:bg-red-100"
-                                                    >
-                                                        <XCircle size={12} />
-                                                        Tolak
-                                                    </button>
-                                                </div>
                                             </td>
                                         </tr>
                                     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Award, CheckCircle2, XCircle } from 'lucide-react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
@@ -27,9 +27,15 @@ const GraduationDetailPage: React.FC = () => {
     const location = useLocation();
 
     const stateStudent = (location.state as { student?: GraduationStudent } | null)?.student;
-    const student = stateStudent && stateStudent.id === studentId
-        ? stateStudent
-        : INITIAL_GRADUATIONS.find((item) => item.id === studentId);
+    const fallbackStudent = INITIAL_GRADUATIONS.find((item) => item.id === studentId);
+    const selectedStudent = stateStudent && stateStudent.id === studentId ? stateStudent : fallbackStudent;
+    const student = selectedStudent
+        ? {
+            ...selectedStudent,
+            k3Violations: selectedStudent.k3Violations ?? [],
+        }
+        : undefined;
+    const [decision, setDecision] = useState<GraduationStudent['decision']>(student?.decision ?? 'Belum Diputuskan');
 
     return (
         <DashboardLayout>
@@ -60,8 +66,8 @@ const GraduationDetailPage: React.FC = () => {
                                 <p className="text-sm text-slate-500 mt-1">NIM: {student.nim}</p>
                                 <p className="text-sm text-slate-500">Kelompok: {student.group}</p>
                             </div>
-                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-black uppercase ${getDecisionClass(student.decision)}`}>
-                                {student.decision}
+                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-black uppercase ${getDecisionClass(decision)}`}>
+                                {decision}
                             </span>
                         </div>
 
@@ -71,9 +77,64 @@ const GraduationDetailPage: React.FC = () => {
                             <MetricCard label="Persentase" value={`${Math.round((student.completedTasks / student.totalTasks) * 100)}%`} />
                         </div>
 
-                        <div className={`rounded-lg border px-3 py-2 text-sm ${getDecisionClass(student.decision)}`}>
-                            {student.decision === 'Tidak Lulus' ? <XCircle size={16} className="inline mr-2" /> : <CheckCircle2 size={16} className="inline mr-2" />}
-                            {buildDecisionMessage(student.decision)}
+                        <div className="rounded-xl border border-slate-100 bg-slate-50 p-4 space-y-3">
+                            <div className="flex items-center justify-between gap-2">
+                                <p className="text-sm font-black text-slate-800">Laporan Pelanggaran K3</p>
+                                <span className={`inline-flex rounded-full px-2 py-1 text-[10px] font-black uppercase ${student.k3Violations.length > 0
+                                    ? 'bg-red-100 text-red-700'
+                                    : 'bg-emerald-100 text-emerald-700'
+                                    }`}>
+                                    {student.k3Violations.length > 0 ? `${student.k3Violations.length} Pelanggaran` : 'Tidak Ada Pelanggaran'}
+                                </span>
+                            </div>
+
+                            {student.k3Violations.length === 0 ? (
+                                <p className="text-xs text-slate-600">Mahasiswa ini tidak memiliki laporan pelanggaran dari divisi K3.</p>
+                            ) : (
+                                <div className="space-y-2">
+                                    {student.k3Violations.map((violation) => (
+                                        <div key={violation.id} className="rounded-lg border border-red-100 bg-red-50 px-3 py-2">
+                                            <div className="flex items-center justify-between gap-2">
+                                                <p className="text-xs font-black text-red-700">{violation.category}</p>
+                                                <span className="text-[10px] font-black uppercase text-red-700">{violation.points} poin</span>
+                                            </div>
+                                            <p className="text-xs text-red-700 mt-1">{violation.description}</p>
+                                            <p className="text-[10px] text-red-600 mt-1">Tanggal laporan: {violation.date}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className={`rounded-lg border px-3 py-2 text-sm ${getDecisionClass(decision)}`}>
+                            {decision === 'Tidak Lulus' ? <XCircle size={16} className="inline mr-2" /> : <CheckCircle2 size={16} className="inline mr-2" />}
+                            {buildDecisionMessage(decision)}
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                            <button
+                                type="button"
+                                onClick={() => setDecision('Lulus')}
+                                className="inline-flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-wide text-emerald-700 hover:bg-emerald-100"
+                            >
+                                <CheckCircle2 size={14} />
+                                Lulus
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setDecision('Tidak Lulus')}
+                                className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-wide text-red-700 hover:bg-red-100"
+                            >
+                                <XCircle size={14} />
+                                Tidak Lulus
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setDecision('Belum Diputuskan')}
+                                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-1.5 text-[11px] font-black uppercase tracking-wide text-slate-600 hover:bg-slate-100"
+                            >
+                                Reset
+                            </button>
                         </div>
 
                         <div>
