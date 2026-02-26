@@ -30,7 +30,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) =>
                         </div>
                     </Link>
                     <p className="text-sm sm:text-base text-slate-600 font-medium tracking-wide border-t border-slate-100 pt-3 uppercase">
-                        Sistem Informasi <span className="text-upn-gold font-bold">PATRIBERA 2025</span>
+                        Sistem Informasi <span className="text-upn-gold font-bold">PATRIBERA 2026</span>
                     </p>
                     {title && (
                         <h2 className="mt-4 text-xl sm:text-2xl font-bold text-slate-800">
