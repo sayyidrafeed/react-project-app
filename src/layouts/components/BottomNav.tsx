@@ -1,14 +1,15 @@
 import React from 'react';
 import { Users, Calendar, Home, FileText, BarChart3, Camera, Eye, User, ShieldAlert, ClipboardList, Award } from 'lucide-react';
-import { UserRole } from '../../context/AuthContext';
+import { AdminSubRole, PanitiaSubRole, UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
 interface BottomNavProps {
     userRole: UserRole;
+    userSubRole?: PanitiaSubRole | AdminSubRole;
     onLogout: () => void;
 }
 
-const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) => {
+const BottomNav: React.FC<BottomNavProps> = ({ userRole, userSubRole, onLogout: _onLogout }) => {
     const location = useLocation();
 
     const menuItems = {
@@ -37,7 +38,47 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
         ]
     };
 
-    const currentMenu = menuItems[userRole];
+    const getCurrentMenu = () => {
+        if (userRole === 'panitia') {
+            if (userSubRole === 'k3') {
+                return [
+                    { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
+                    { name: 'Profil', icon: User, path: '/panitia/profile' },
+                ];
+            }
+
+            if (userSubRole === 'ppm') {
+                return [
+                    { name: 'PPM', icon: ClipboardList, path: '/panitia/ppm' },
+                    { name: 'Profil', icon: User, path: '/panitia/profile' },
+                ];
+            }
+
+            return menuItems.panitia;
+        }
+
+        if (userRole === 'admin') {
+            if (userSubRole === 'project-officer') {
+                return [
+                    { name: 'Event', icon: Calendar, path: '/admin/events' },
+                    { name: 'Profil', icon: User, path: '/admin/profile' },
+                ];
+            }
+
+            if (userSubRole === 'univ-kemahasiswaan') {
+                return [
+                    { name: 'Lulus', icon: Award, path: '/admin/kelulusan' },
+                    { name: 'Profil', icon: User, path: '/admin/profile' },
+                ];
+            }
+
+            return menuItems.admin;
+        }
+
+        return menuItems.mentee;
+    };
+
+    const currentMenu = getCurrentMenu();
 
     return (
         <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface border-t border-slate-200 dark:border-dark-border md:hidden z-50 safe-area-bottom">

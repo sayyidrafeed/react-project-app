@@ -1,29 +1,18 @@
 import React from 'react';
 import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert, ClipboardList, Award } from 'lucide-react';
-import { UserRole } from '../../context/AuthContext';
+import { AdminSubRole, PanitiaSubRole, UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
 interface SidebarProps {
     userRole: UserRole;
+    userSubRole?: PanitiaSubRole | AdminSubRole;
     isCollapsed: boolean;
     setIsCollapsed: (value: boolean) => void;
     onLogout: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed, onLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ userRole, userSubRole, isCollapsed, setIsCollapsed, onLogout }) => {
     const location = useLocation();
-
-    const shouldShowMentorBadge = (name: string) => {
-        return userRole === 'panitia' && ['Ringkasan', 'Daftar Mentee', 'Statistik Grup', 'Validasi Tugas'].includes(name);
-    };
-
-    const shouldShowK3Badge = (name: string) => {
-        return userRole === 'panitia' && name === 'Keamanan';
-    };
-
-    const shouldShowPPMBadge = (name: string) => {
-        return userRole === 'panitia' && name === 'Manajemen Tugas';
-    };
 
     const menuItems = {
         admin: [
@@ -50,7 +39,47 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
         ]
     };
 
-    const currentMenu = menuItems[userRole];
+    const getCurrentMenu = () => {
+        if (userRole === 'panitia') {
+            if (userSubRole === 'k3') {
+                return [
+                    { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
+                    { name: 'Profil', icon: User, path: '/panitia/profile' },
+                ];
+            }
+
+            if (userSubRole === 'ppm') {
+                return [
+                    { name: 'Manajemen Tugas', icon: ClipboardList, path: '/panitia/ppm' },
+                    { name: 'Profil', icon: User, path: '/panitia/profile' },
+                ];
+            }
+
+            return menuItems.panitia;
+        }
+
+        if (userRole === 'admin') {
+            if (userSubRole === 'project-officer') {
+                return [
+                    { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
+                    { name: 'Profil', icon: User, path: '/admin/profile' },
+                ];
+            }
+
+            if (userSubRole === 'univ-kemahasiswaan') {
+                return [
+                    { name: 'Manajemen Kelulusan', icon: Award, path: '/admin/kelulusan' },
+                    { name: 'Profil', icon: User, path: '/admin/profile' },
+                ];
+            }
+
+            return menuItems.admin;
+        }
+
+        return menuItems.mentee;
+    };
+
+    const currentMenu = getCurrentMenu();
 
     return (
         <aside className={`${isCollapsed ? 'w-20' : 'w-64'} bg-white border-r border-slate-200 shadow-sm transition-all duration-300 flex flex-col z-20`}>
@@ -81,33 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                         >
                             <item.icon size={20} className={isActive ? 'text-upn-gold' : 'text-slate-400 group-hover:text-upn-green'} />
                             {!isCollapsed && (
-                                <div className="flex items-center justify-between grow gap-2 min-w-0">
-                                    <span className="font-semibold text-sm truncate">{item.name}</span>
-                                    {shouldShowMentorBadge(item.name) && (
-                                        <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${isActive
-                                            ? 'border-upn-gold/40 bg-upn-gold/15 text-upn-gold'
-                                            : 'border-upn-gold/30 bg-upn-gold/10 text-upn-green'
-                                            }`}>
-                                            Mentor
-                                        </span>
-                                    )}
-                                    {shouldShowK3Badge(item.name) && (
-                                        <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${isActive
-                                            ? 'border-red-400 bg-red-100 text-red-700'
-                                            : 'border-red-200 bg-red-50 text-red-600'
-                                            }`}>
-                                            K3
-                                        </span>
-                                    )}
-                                    {shouldShowPPMBadge(item.name) && (
-                                        <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${isActive
-                                            ? 'border-blue-300 bg-blue-100 text-blue-700'
-                                            : 'border-blue-200 bg-blue-50 text-blue-600'
-                                            }`}>
-                                            PPM
-                                        </span>
-                                    )}
-                                </div>
+                                <span className="font-semibold text-sm truncate">{item.name}</span>
                             )}
                         </Link>
                     );

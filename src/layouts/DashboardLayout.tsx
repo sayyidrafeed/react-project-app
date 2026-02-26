@@ -23,6 +23,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             <div className="hidden md:flex h-full">
                 <Sidebar
                     userRole={user.role}
+                    userSubRole={user.subRole}
                     isCollapsed={isSidebarCollapsed}
                     setIsCollapsed={setIsSidebarCollapsed}
                     onLogout={logout}
@@ -30,7 +31,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-grow flex flex-col overflow-hidden">
+            <div className="grow flex flex-col overflow-hidden">
                 <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-8 shrink-0 relative z-10">
                     <div className="flex items-center gap-4">
                         <Link
@@ -62,7 +63,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                     </div>
                 </header>
 
-                <main className="flex-grow overflow-auto bg-slate-50/30 p-4 md:p-8 pb-24 md:pb-8">
+                <main className="grow overflow-auto bg-slate-50/30 p-4 md:p-8 pb-24 md:pb-8">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={location.pathname}
@@ -78,7 +79,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 </main>
 
                 {/* Bottom Navigation for Mobile */}
-                <BottomNav userRole={user.role} onLogout={logout} />
+                <BottomNav userRole={user.role} userSubRole={user.subRole} onLogout={logout} />
             </div>
         </div>
     );

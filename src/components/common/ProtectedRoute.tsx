@@ -28,6 +28,31 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
         return <Navigate to={`/${user.role}`} replace />;
     }
 
+    if (user) {
+        const isPanitiaRoot = location.pathname === '/panitia';
+        const isAdminRoot = location.pathname === '/admin';
+
+        if (isPanitiaRoot && user.role === 'panitia') {
+            if (user.subRole === 'k3') {
+                return <Navigate to="/panitia/k3" replace />;
+            }
+
+            if (user.subRole === 'ppm') {
+                return <Navigate to="/panitia/ppm" replace />;
+            }
+        }
+
+        if (isAdminRoot && user.role === 'admin') {
+            if (user.subRole === 'project-officer') {
+                return <Navigate to="/admin/events" replace />;
+            }
+
+            if (user.subRole === 'univ-kemahasiswaan') {
+                return <Navigate to="/admin/kelulusan" replace />;
+            }
+        }
+    }
+
     return <>{children}</>;
 };
 
