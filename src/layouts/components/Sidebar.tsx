@@ -1,47 +1,27 @@
 import React from 'react';
-import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3 } from 'lucide-react';
-import { UserRole } from '../../context/AuthContext';
+import { LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import { AdminSubRole, PanitiaSubRole, UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
+import { getNavigationMenu } from './navigationMenu';
 
 interface SidebarProps {
     userRole: UserRole;
+    userSubRole?: PanitiaSubRole | AdminSubRole;
     isCollapsed: boolean;
     setIsCollapsed: (value: boolean) => void;
     onLogout: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed, onLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ userRole, userSubRole, isCollapsed, setIsCollapsed, onLogout }) => {
     const location = useLocation();
 
-    const menuItems = {
-        admin: [
-            { name: 'Ringkasan', icon: Home, path: '/admin' },
-            { name: 'Manajemen User', icon: User, path: '/admin/users' },
-            { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
-        ],
-        mentor: [
-            { name: 'Ringkasan', icon: Home, path: '/mentor' },
-            { name: 'Daftar Mentee', icon: Users, path: '/mentor/group' },
-            { name: 'Statistik Grup', icon: BarChart3, path: '/mentor/statistik-grup' },
-            { name: 'Validasi Tugas', icon: FileText, path: '/mentor/tasks' },
-            { name: 'Profil', icon: User, path: '/mentor/profile' },
-        ],
-        mentee: [
-            { name: 'Home', icon: Home, path: '/mentee' },
-            { name: 'Discover', icon: Eye, path: '/mentee/discover' },
-            { name: 'Presensi', icon: Camera, path: '/mentee/presence' },
-            { name: 'Tasks', icon: FileText, path: '/mentee/tasks' },
-            { name: 'Profile', icon: User, path: '/mentee/profile' },
-        ]
-    };
-
-    const currentMenu = menuItems[userRole];
+    const currentMenu = getNavigationMenu(userRole, userSubRole);
 
     return (
         <aside className={`${isCollapsed ? 'w-20' : 'w-64'} bg-white border-r border-slate-200 shadow-sm transition-all duration-300 flex flex-col z-20`}>
             <div className="p-6 flex items-center justify-between border-b border-slate-50">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-upn-green rounded-lg flex items-center justify-center text-upn-gold font-bold flex-shrink-0 shadow-lg shadow-green-900/10">S</div>
+                    <div className="w-8 h-8 bg-upn-green rounded-lg flex items-center justify-center text-upn-gold font-bold shrink-0 shadow-lg shadow-green-900/10">S</div>
                     {!isCollapsed && <span className="font-extrabold text-upn-green tracking-tight">SIERA</span>}
                 </div>
                 <button
@@ -52,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                 </button>
             </div>
 
-            <nav className="flex-grow p-4 space-y-1.5 mt-4 overflow-y-auto">
+            <nav className="grow p-4 space-y-1.5 mt-4 overflow-y-auto">
                 {currentMenu.map((item) => {
                     const isActive = location.pathname === item.path;
                     return (
@@ -65,7 +45,9 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
                                 }`}
                         >
                             <item.icon size={20} className={isActive ? 'text-upn-gold' : 'text-slate-400 group-hover:text-upn-green'} />
-                            {!isCollapsed && <span className="font-semibold text-sm truncate">{item.name}</span>}
+                            {!isCollapsed && (
+                                <span className="font-semibold text-sm truncate">{item.name}</span>
+                            )}
                         </Link>
                     );
                 })}

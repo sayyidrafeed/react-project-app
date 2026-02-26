@@ -137,7 +137,10 @@ export const EventManagement: React.FC<EventManagementProps> = ({
                         {sortedEvents.length} {sortedEvents.length === 1 ? 'event' : 'events'}
                     </p>
                 </div>
-                <Button onClick={handleCreateEvent}>
+                <Button
+                    onClick={handleCreateEvent}
+                    className="w-full md:w-auto flex items-center justify-center gap-2"
+                >
                     <Plus size={18} />
                     TAMBAH EVENT
                 </Button>

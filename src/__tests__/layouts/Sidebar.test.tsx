@@ -25,11 +25,11 @@ describe('Sidebar Component', () => {
   test('should render mentee menu items', () => {
     renderWithProviders(<Sidebar {...defaultProps} userRole="mentee" />);
 
-    expect(screen.getByText('Home')).toBeTruthy();
-    expect(screen.getByText('Discover')).toBeTruthy();
+    expect(screen.getByText('Beranda')).toBeTruthy();
+    expect(screen.getByText('Jelajah')).toBeTruthy();
     expect(screen.getByText('Presensi')).toBeTruthy();
-    expect(screen.getByText('Tasks')).toBeTruthy();
-    expect(screen.getByText('Profile')).toBeTruthy();
+    expect(screen.getByText('Tugas')).toBeTruthy();
+    expect(screen.getByText('Profil')).toBeTruthy();
   });
 
   test('should render admin menu items', () => {
@@ -40,8 +40,8 @@ describe('Sidebar Component', () => {
     expect(screen.getByText('Manajemen Event')).toBeTruthy();
   });
 
-  test('should render mentor menu items', () => {
-    renderWithProviders(<Sidebar {...defaultProps} userRole="mentor" />);
+  test('should render panitia menu items', () => {
+    renderWithProviders(<Sidebar {...defaultProps} userRole="panitia" />);
 
     expect(screen.getByText('Statistik Grup')).toBeTruthy();
     expect(screen.getByText('Daftar Mentee')).toBeTruthy();
@@ -68,13 +68,13 @@ describe('Sidebar Component', () => {
   test('should hide menu text when collapsed', () => {
     renderWithProviders(<Sidebar {...defaultProps} isCollapsed={true} />);
 
-    const menuTexts = screen.queryAllByText('Home');
+    const menuTexts = screen.queryAllByText('Beranda');
     expect(menuTexts.length).toBe(0);
   });
 
   test('should show menu text when not collapsed', () => {
     renderWithProviders(<Sidebar {...defaultProps} isCollapsed={false} />);
 
-    expect(screen.getByText('Home')).toBeTruthy();
+    expect(screen.getByText('Beranda')).toBeTruthy();
   });
 });

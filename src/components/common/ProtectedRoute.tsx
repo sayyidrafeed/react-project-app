@@ -1,11 +1,22 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth, UserRole } from '../../context/AuthContext';
+import { useAuth, UserRole, UserSubRole } from '../../context/AuthContext';
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
     allowedRoles?: UserRole[];
 }
+
+const subRoleRedirects: Partial<Record<UserRole, Partial<Record<UserSubRole, string>>>> = {
+    panitia: {
+        k3: '/panitia/k3',
+        ppm: '/panitia/ppm',
+    },
+    admin: {
+        'project-officer': '/admin/events',
+        'univ-kemahasiswaan': '/admin/kelulusan',
+    },
+};
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles }) => {
     const { user, isAuthenticated, isLoading } = useAuth();
@@ -26,6 +37,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
     if (allowedRoles && user && !allowedRoles.includes(user.role)) {
         // Redirect to their default dashboard if role is unauthorized
         return <Navigate to={`/${user.role}`} replace />;
+    }
+
+    if (user) {
+        const isRootPath = location.pathname === `/${user.role}`;
+        const redirectPath = user.subRole ? subRoleRedirects[user.role]?.[user.subRole] : undefined;
+
+        if (isRootPath && redirectPath) {
+            return <Navigate to={redirectPath} replace />;
+        }
     }
 
     return <>{children}</>;

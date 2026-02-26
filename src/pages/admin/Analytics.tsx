@@ -54,7 +54,7 @@ const AnalyticsPage: React.FC = () => {
 
     const userActivityData: UserActivityItem[] = [
         { label: 'Mentee', value: 4, change: 12, isUp: true },
-        { label: 'Mentor', value: 2, change: 5, isUp: true },
+        { label: 'Panitia', value: 2, change: 5, isUp: true },
         { label: 'Admin', value: 2, change: 0, isUp: false },
     ];
 
@@ -78,7 +78,7 @@ const AnalyticsPage: React.FC = () => {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800">Macro Analytics</h1>
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-800">Analitik Makro</h1>
                         <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
                             Pantau performa seluruh platform PKKMB-U
                         </p>

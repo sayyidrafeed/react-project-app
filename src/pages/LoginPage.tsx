@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth, UserRole } from '../context/AuthContext';
+import { AdminSubRole, PanitiaSubRole, useAuth, UserRole } from '../context/AuthContext';
 import AuthLayout from '../layouts/AuthLayout';
 import { Mail, Lock, LogIn, ShieldCheck } from 'lucide-react';
 
@@ -8,12 +8,16 @@ const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState<UserRole>('mentee');
+    const [panitiaSubRole, setPanitiaSubRole] = useState<PanitiaSubRole>('mentor');
+    const [adminSubRole, setAdminSubRole] = useState<AdminSubRole>('project-officer');
     const { login, isLoading } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await login(email, role);
+        const selectedSubRole = role === 'panitia' ? panitiaSubRole : role === 'admin' ? adminSubRole : undefined;
+
+        await login(email, role, selectedSubRole);
         navigate(`/${role}`);
     };
 
@@ -29,7 +33,7 @@ const LoginPage: React.FC = () => {
                         Pilih Peran (Simulasi)
                     </label>
                     <div className="grid grid-cols-3 gap-2 p-1 bg-slate-100 rounded-lg">
-                        {(['mentee', 'mentor', 'admin'] as UserRole[]).map((r) => (
+                        {(['mentee', 'panitia', 'admin'] as UserRole[]).map((r) => (
                             <button
                                 key={r}
                                 type="button"
@@ -47,6 +51,39 @@ const LoginPage: React.FC = () => {
                         <ShieldCheck size={12} /> Gunakan simulasi peran untuk testing (0-backend)
                     </p>
                 </div>
+
+                {role === 'panitia' && (
+                    <div>
+                        <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
+                            Divisi Panitia
+                        </label>
+                        <select
+                            value={panitiaSubRole}
+                            onChange={(event) => setPanitiaSubRole(event.target.value as PanitiaSubRole)}
+                            className="w-full px-3 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 text-slate-800"
+                        >
+                            <option value="mentor">Mentor</option>
+                            <option value="k3">K3</option>
+                            <option value="ppm">PPM</option>
+                        </select>
+                    </div>
+                )}
+
+                {role === 'admin' && (
+                    <div>
+                        <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-2">
+                            Fungsi Admin
+                        </label>
+                        <select
+                            value={adminSubRole}
+                            onChange={(event) => setAdminSubRole(event.target.value as AdminSubRole)}
+                            className="w-full px-3 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 text-slate-800"
+                        >
+                            <option value="project-officer">Project Officer (Manajemen Event)</option>
+                            <option value="univ-kemahasiswaan">Univ/Kemahasiswaan (Manajemen Kelulusan)</option>
+                        </select>
+                    </div>
+                )}
 
                 {/* Form Fields */}
                 <div className="space-y-3 sm:space-y-4">

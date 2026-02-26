@@ -81,19 +81,19 @@ describe('ProtectedRoute', () => {
   it.skip('should allow access with multiple allowed roles', () => {
     const mockUser = {
       id: '4',
-      name: 'Mentor',
-      email: 'mentor@example.com',
-      role: 'mentor',
+      name: 'Panitia',
+      email: 'panitia@example.com',
+      role: 'panitia',
     };
     localStorage.setItem('siera_user', JSON.stringify(mockUser));
 
     renderWithProviders(
-      <ProtectedRoute allowedRoles={['admin', 'mentor']}>
-        <div>Admin or Mentor</div>
+      <ProtectedRoute allowedRoles={['admin', 'panitia']}>
+        <div>Admin or Panitia</div>
       </ProtectedRoute>
     );
 
-    const content = screen.queryByText('Admin or Mentor');
+    const content = screen.queryByText('Admin or Panitia');
     expect(content).toBeTruthy();
   });
 

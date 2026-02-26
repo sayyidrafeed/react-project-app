@@ -86,7 +86,7 @@ describe('AuthContext', () => {
     const TestComponent = () => {
       authState = useAuth();
       return (
-        <button onClick={() => authState.login('mentor@example.com', 'mentor')}>
+        <button onClick={() => authState.login('panitia@example.com', 'panitia')}>
           Login
         </button>
       );
@@ -109,8 +109,8 @@ describe('AuthContext', () => {
 
     const storedUser = localStorage.getItem('siera_user');
     const parsed = JSON.parse(storedUser!);
-    expect(parsed.email).toBe('mentor@example.com');
-    expect(parsed.role).toBe('mentor');
+    expect(parsed.email).toBe('panitia@example.com');
+    expect(parsed.role).toBe('panitia');
   });
 
   test('login sets mentee-specific fields when role is mentee', async () => {

@@ -25,7 +25,7 @@ const StatistikGrupPage: React.FC = () => {
                 <div className="flex items-center justify-between">
                     <div>
                         <Link 
-                            to="/mentor/group" 
+                            to="/panitia/group" 
                             className="flex items-center gap-2 text-sm text-slate-500 dark:text-dark-text-muted hover:text-upn-green dark:hover:text-upn-gold transition-colors mb-2"
                         >
                             <ArrowLeft size={16} />

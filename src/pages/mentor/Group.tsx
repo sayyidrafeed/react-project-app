@@ -101,7 +101,7 @@ const MentorGroupPage: React.FC = () => {
                         </p>
                     </div>
                     <Link
-                        to="/mentor/statistik-grup"
+                        to="/panitia/statistik-grup"
                         className="flex items-center gap-2 px-4 py-2.5 bg-upn-green/10 dark:bg-upn-gold/10 text-upn-green dark:text-upn-gold rounded-xl font-semibold text-sm hover:bg-upn-green/20 dark:hover:bg-upn-gold/20 transition-colors"
                     >
                         <span>Lihat Statistik Grup</span>

@@ -15,13 +15,13 @@ const MenteeStatsRow: React.FC<MenteeStatsRowProps> = ({
 }) => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Tasks Left Card */}
+            {/* Kartu Sisa Tugas */}
             <div className="card p-6 bg-white">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tasks Left</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Sisa Tugas</p>
                 <div className="flex items-baseline gap-3">
                     <span className="text-4xl font-black text-slate-800">{tasksLeft}</span>
                     <span className="text-sm font-bold text-red-500">
-                        {tasksToday > 0 ? `-${tasksToday} today` : '0 today'}
+                        {tasksToday > 0 ? `-${tasksToday} hari ini` : '0 hari ini'}
                     </span>
                 </div>
             </div>

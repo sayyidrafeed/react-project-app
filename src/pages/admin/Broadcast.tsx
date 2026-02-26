@@ -14,7 +14,7 @@ interface Alert {
 const BroadcastPage: React.FC = () => {
     const [message, setMessage] = useState('');
     const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
-    const [targetAudience, setTargetAudience] = useState<'all' | 'mentee' | 'mentor' | 'admin'>('all');
+    const [targetAudience, setTargetAudience] = useState<'all' | 'mentee' | 'panitia' | 'admin'>('all');
     const [isSending, setIsSending] = useState(false);
     const [activeAlerts, setActiveAlerts] = useState<Alert[]>([
         { id: 1, title: 'Jadwal Tambahan', message: 'Jadwal kegiatan PKKMB Day 2 telah diperbarui', priority: 'medium', time: '5 menit yang lalu', active: true },
@@ -56,7 +56,7 @@ const BroadcastPage: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Broadcast Form */}
+                    {/* Form Siaran */}
                     <div className="card p-4 sm:p-6">
                         <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                             <Send size={18} className="text-upn-green" />
@@ -133,11 +133,11 @@ const BroadcastPage: React.FC = () => {
                                         <input
                                             type="radio"
                                             name="audience"
-                                            checked={targetAudience === 'mentor'}
-                                            onChange={() => setTargetAudience('mentor')}
+                                            checked={targetAudience === 'panitia'}
+                                            onChange={() => setTargetAudience('panitia')}
                                             className="accent-upn-green w-4 h-4"
                                         />
-                                        <span className="text-sm font-semibold text-slate-700">Mentor</span>
+                                        <span className="text-sm font-semibold text-slate-700">Panitia</span>
                                     </label>
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input
@@ -180,19 +180,19 @@ const BroadcastPage: React.FC = () => {
                                 ) : (
                                     <>
                                         <Send size={18} />
-                                        <span>Kirim Broadcast</span>
+                                        <span>Kirim Siaran</span>
                                     </>
                                 )}
                             </button>
                         </div>
                     </div>
 
-                    {/* Live Pulse Feed */}
+                    {/* Umpan Notifikasi Langsung */}
                     <div className="card p-4 sm:p-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
                                 <Bell size={18} className="text-upn-green animate-pulse" />
-                                Live Pulse - Alert Aktif
+                                Notifikasi Langsung - Peringatan Aktif
                             </h3>
                             <span className="text-xs text-slate-500">
                                 {activeAlerts.length} notifikasi aktif

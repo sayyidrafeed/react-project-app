@@ -43,23 +43,23 @@ test.describe('Route Protection', () => {
   });
 
   test('Session persists across page refresh', async ({ page }) => {
-    // Given: User is logged in as mentor
-    await loginAs(page, 'mentor');
+    // Given: User is logged in as panitia
+    await loginAs(page, 'panitia');
     
-    // Verify user is on mentor dashboard
-    await expect(page).toHaveURL(/\/mentor/);
+    // Verify user is on panitia dashboard
+    await expect(page).toHaveURL(/\/panitia/);
     
     // Wait for dashboard content to load
-    await page.waitForSelector('text=/Dashboard|Mentor|Group/i', { timeout: 5000 });
+    await page.waitForSelector('text=/Dashboard|Panitia|Group/i', { timeout: 5000 });
     
     // When: User refreshes the page
     await page.reload();
     
-    // Then: User remains on /mentor dashboard
-    await expect(page).toHaveURL(/\/mentor/);
-    expect(page.url()).toContain('/mentor');
+    // Then: User remains on /panitia dashboard
+    await expect(page).toHaveURL(/\/panitia/);
+    expect(page.url()).toContain('/panitia');
     
     // And: Dashboard content is still displayed (session restored)
-    await expect(page.locator('text=/Dashboard|Mentor|Group/i').first()).toBeVisible();
+    await expect(page.locator('text=/Dashboard|Panitia|Group/i').first()).toBeVisible();
   });
 });

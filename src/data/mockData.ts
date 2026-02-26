@@ -32,7 +32,7 @@ export interface UserAccount {
     name: string;
     email: string;
     password: string;
-    role: 'admin' | 'mentor' | 'mentee';
+    role: 'admin' | 'panitia' | 'mentee';
     status: 'Active' | 'Inactive';
     createdAt: string;
     lastLogin?: string;
@@ -229,20 +229,20 @@ export const MOCK_USERS: UserAccount[] = [
     },
     {
         id: 'u2',
-        name: 'Kak Mentor Budi',
-        email: 'mentor1@upnvj.ac.id',
+        name: 'Kak Panitia Budi',
+        email: 'panitia1@upnvj.ac.id',
         password: 'pass_mentor456',
-        role: 'mentor',
+        role: 'panitia',
         status: 'Active',
         createdAt: '2026-07-15T00:00:00Z',
         lastLogin: '2026-08-10T07:30:00Z'
     },
     {
         id: 'u3',
-        name: 'Kak Mentor Siti',
-        email: 'mentor2@upnvj.ac.id',
+        name: 'Kak Panitia Siti',
+        email: 'panitia2@upnvj.ac.id',
         password: 'pass_mentor789',
-        role: 'mentor',
+        role: 'panitia',
         status: 'Active',
         createdAt: '2026-07-15T00:00:00Z',
         lastLogin: '2026-08-09T16:45:00Z'

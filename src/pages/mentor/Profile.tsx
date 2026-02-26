@@ -136,6 +136,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Masukkan nama lengkap"
                                         required
                                         icon={UserIcon}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="email"
@@ -144,6 +145,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="nama@upnvj.ac.id"
                                         required
                                         icon={Mail}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="group"
@@ -151,6 +153,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Contoh: 21 - PATRIBERA"
                                         required
                                         icon={Users}
+                                        className="pl-12"
                                     />
                                 </FormSection>
 
@@ -193,6 +196,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Masukkan password saat ini"
                                         required
                                         icon={KeyRound}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="newPassword"
@@ -201,6 +205,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Masukkan password baru"
                                         required
                                         icon={ShieldCheck}
+                                        className="pl-12"
                                     />
                                     <FormField
                                         name="confirmPassword"
@@ -209,6 +214,7 @@ const MentorProfilePage: React.FC = () => {
                                         placeholder="Ulangi password baru"
                                         required
                                         icon={ShieldCheck}
+                                        className="pl-12"
                                     />
                                 </FormSection>
 
@@ -229,24 +235,6 @@ const MentorProfilePage: React.FC = () => {
 
                     <div className="card p-4 sm:p-6 h-fit">
                         <div className="space-y-5">
-                            <div className="flex items-center gap-4">
-                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-upn-green/15 dark:bg-upn-gold/15 border border-upn-green/25 dark:border-upn-gold/35 flex items-center justify-center">
-{profileState.avatarPreview ? (
-                                        <img src={profileState.avatarPreview} alt={profileState.data.name} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <span className="text-3xl sm:text-4xl font-black text-upn-green dark:text-upn-gold">{mentorInitial}</span>
-                                    )}
-                                </div>
-                                <div className="min-w-0">
-                                    <p className="text-base sm:text-lg font-black text-slate-800 dark:text-dark-text truncate">
-                                        {profileState.data.name}
-                                    </p>
-                                    <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted truncate">
-                                        {profileState.data.email}
-                                    </p>
-                                </div>
-                            </div>
-
                             <input
                                 ref={fileInputRef}
                                 type="file"
@@ -254,16 +242,44 @@ const MentorProfilePage: React.FC = () => {
                                 className="hidden"
                                 onChange={handleAvatarUpload}
                             />
-                            <Button
-                                type="button"
-                                variant="secondary"
-                                size="md"
-                                className="w-full rounded-xl"
-                                icon={Camera}
-                                onClick={() => fileInputRef.current?.click()}
-                            >
-                                Ubah Foto
-                            </Button>
+
+                            <div className="rounded-2xl border border-slate-200 dark:border-dark-border bg-slate-50/70 dark:bg-dark-bg/40 p-4">
+                                <p className="text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-dark-text-muted mb-3">
+                                    Foto Profil
+                                </p>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                                    <div className="mx-auto sm:mx-0 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-upn-green/15 dark:bg-upn-gold/15 border border-upn-green/25 dark:border-upn-gold/35 flex items-center justify-center shrink-0">
+                                        {profileState.avatarPreview ? (
+                                            <img src={profileState.avatarPreview} alt={profileState.data.name} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <span className="text-3xl sm:text-4xl font-black text-upn-green dark:text-upn-gold">{mentorInitial}</span>
+                                        )}
+                                    </div>
+
+                                    <div className="min-w-0 grow text-center sm:text-left space-y-2">
+                                        <p className="text-base sm:text-lg font-black text-slate-800 dark:text-dark-text truncate">
+                                            {profileState.data.name}
+                                        </p>
+                                        <p className="text-xs sm:text-sm text-slate-500 dark:text-dark-text-muted truncate">
+                                            {profileState.data.email}
+                                        </p>
+                                        <p className="text-[11px] text-slate-500 dark:text-dark-text-muted">
+                                            Gunakan foto jelas agar mudah dikenali mentee.
+                                        </p>
+                                        <Button
+                                            type="button"
+                                            variant="secondary"
+                                            size="md"
+                                            className="w-full rounded-xl flex items-center justify-center gap-2"
+                                            icon={Camera}
+                                            onClick={() => fileInputRef.current?.click()}
+                                        >
+                                            Ubah Foto
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className="space-y-3 pt-2 border-t border-slate-200 dark:border-dark-border">
                                 <InfoRow label="Nama Lengkap" value={profileState.data.name} />

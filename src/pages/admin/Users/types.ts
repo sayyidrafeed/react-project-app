@@ -2,7 +2,7 @@ import type { UserAccount } from '../../../data/mockData';
 
 export type { UserAccount };
 
-export type FilterType = 'all' | 'admin' | 'mentor' | 'mentee' | 'active' | 'inactive';
+export type FilterType = 'all' | 'admin' | 'panitia' | 'mentee' | 'active' | 'inactive';
 
 export interface UsersState {
     searchQuery: string;

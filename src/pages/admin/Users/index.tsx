@@ -21,8 +21,8 @@ const UsersPage: React.FC = () => {
             switch (state.filter) {
                 case 'admin':
                     return user.role === 'admin';
-                case 'mentor':
-                    return user.role === 'mentor';
+                case 'panitia':
+                    return user.role === 'panitia';
                 case 'mentee':
                     return user.role === 'mentee';
                 case 'active':

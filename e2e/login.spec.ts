@@ -2,7 +2,7 @@ import { test, expect, loginAs } from './fixtures';
 
 /**
  * E2E Test Suite: Login Flow
- * Tests login functionality for all three user roles (mentee, mentor, admin)
+ * Tests login functionality for all three user roles (mentee, panitia, admin)
  * and verifies correct dashboard rendering after authentication
  */
 
@@ -21,12 +21,12 @@ test.describe('Login Flow', () => {
     await expect(page.locator('text=PATRIVER')).toBeVisible();
   });
 
-  test('Mentor can login and see dashboard', async ({ page }) => {
-    // Login as mentor
-    await loginAs(page, 'mentor');
+  test('Panitia can login and see dashboard', async ({ page }) => {
+    // Login as panitia
+    await loginAs(page, 'panitia');
 
-    // Verify redirect to mentor dashboard
-    await expect(page).toHaveURL(/\/mentor/);
+    // Verify redirect to panitia dashboard
+    await expect(page).toHaveURL(/\/panitia/);
 
     // Verify dashboard shows "Ringkasan Grup" heading
     await expect(page.locator('text=Ringkasan Grup')).toBeVisible();

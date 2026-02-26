@@ -1,12 +1,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type UserRole = 'admin' | 'mentor' | 'mentee';
+export type UserRole = 'admin' | 'panitia' | 'mentee';
+export type PanitiaSubRole = 'mentor' | 'k3' | 'ppm';
+export type AdminSubRole = 'project-officer' | 'univ-kemahasiswaan';
+export type UserSubRole = PanitiaSubRole | AdminSubRole;
 
 export interface UserProfile {
     id: string;
     name: string;
     email: string;
     role: UserRole;
+    subRole?: UserSubRole;
     nim?: string;
     major?: string;
     faculty?: string;
@@ -16,7 +20,7 @@ export interface UserProfile {
 export interface AuthContextType {
     user: UserProfile | null;
     isLoading: boolean;
-    login: (email: string, role: UserRole) => Promise<void>;
+    login: (email: string, role: UserRole, subRole?: UserSubRole) => Promise<void>;
     logout: () => void;
     isAuthenticated: boolean;
 }
@@ -46,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
     }, []);
 
-    const login = async (email: string, role: UserRole) => {
+    const login = async (email: string, role: UserRole, subRole?: UserSubRole) => {
         setIsLoading(true);
         // Simulation delay
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -56,6 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             name: email.split('@')[0],
             email,
             role,
+            subRole,
             nim: role === 'mentee' ? '2010123456' : undefined,
             major: role === 'mentee' ? 'Informatika' : undefined,
             faculty: role === 'mentee' ? 'Teknik' : undefined,

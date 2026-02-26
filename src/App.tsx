@@ -3,8 +3,8 @@ import PublicLayout from './layouts/PublicLayout';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
-import { MenteeHome, AdminHome, MentorHome } from './pages/DashboardPages';
-import MentorTasks from './pages/MentorTasks';
+import { MenteeHome, AdminHome } from './pages/DashboardPages';
+import PanitiaTasksPage from './pages/panitia/Tasks';
 import TaskCatalog from './pages/TaskCatalog';
 import PresencePage from './pages/PresencePage';
 import OrientationJourneyDetail from './pages/mentee/OrientationJourneyDetail';
@@ -14,10 +14,16 @@ import ProfilePage from './pages/mentee/Profile';
 import AdminUsers from './pages/AdminUsers';
 import AdminEvents from './pages/admin/Events';
 import LandingPage from './pages/LandingPage';
-import MentorGroupPage from './pages/mentor/Group';
-import StatistikGrupPage from './pages/mentor/StatistikGrup';
-import MentorProfilePage from './pages/mentor/Profile';
+import PanitiaHome from './pages/panitia/Home';
+import PanitiaGroupPage from './pages/panitia/Group';
+import PanitiaStatistikGrupPage from './pages/panitia/StatistikGrup';
+import PanitiaProfilePage from './pages/panitia/Profile';
 import AdminProfilePage from './pages/admin/Profile';
+import AdminCertificationManagementPage from './pages/admin/CertificationManagement';
+import GraduationDetailPage from './pages/admin/GraduationDetail';
+import K3ViolationsPage from './pages/panitia/K3Violations';
+import PPMTasksPage from './pages/panitia/PPMTasks';
+import PPMTaskDetailPage from './pages/panitia/PPMTaskDetail';
 
 function App() {
     return (
@@ -47,18 +53,23 @@ function App() {
                         <Route path="profile" element={<ProtectedRoute allowedRoles={['mentee']}><ProfilePage /></ProtectedRoute>} />
                     </Route>
 
-                    <Route path="/mentor">
-                        <Route index element={<ProtectedRoute allowedRoles={['mentor']}><MentorHome /></ProtectedRoute>} />
-                        <Route path="group" element={<ProtectedRoute allowedRoles={['mentor']}><MentorGroupPage /></ProtectedRoute>} />
-                        <Route path="statistik-grup" element={<ProtectedRoute allowedRoles={['mentor']}><StatistikGrupPage /></ProtectedRoute>} />
-                        <Route path="tasks" element={<ProtectedRoute allowedRoles={['mentor']}><MentorTasks /></ProtectedRoute>} />
-                        <Route path="profile" element={<ProtectedRoute allowedRoles={['mentor']}><MentorProfilePage /></ProtectedRoute>} />
+                    <Route path="/panitia">
+                        <Route index element={<ProtectedRoute allowedRoles={['panitia']}><PanitiaHome /></ProtectedRoute>} />
+                        <Route path="group" element={<ProtectedRoute allowedRoles={['panitia']}><PanitiaGroupPage /></ProtectedRoute>} />
+                        <Route path="statistik-grup" element={<ProtectedRoute allowedRoles={['panitia']}><PanitiaStatistikGrupPage /></ProtectedRoute>} />
+                        <Route path="tasks" element={<ProtectedRoute allowedRoles={['panitia']}><PanitiaTasksPage /></ProtectedRoute>} />
+                        <Route path="ppm" element={<ProtectedRoute allowedRoles={['panitia']}><PPMTasksPage /></ProtectedRoute>} />
+                        <Route path="ppm/:taskId" element={<ProtectedRoute allowedRoles={['panitia']}><PPMTaskDetailPage /></ProtectedRoute>} />
+                        <Route path="k3" element={<ProtectedRoute allowedRoles={['panitia']}><K3ViolationsPage /></ProtectedRoute>} />
+                        <Route path="profile" element={<ProtectedRoute allowedRoles={['panitia']}><PanitiaProfilePage /></ProtectedRoute>} />
                     </Route>
 
                     <Route path="/admin">
                         <Route index element={<ProtectedRoute allowedRoles={['admin']}><AdminHome /></ProtectedRoute>} />
                         <Route path="users" element={<ProtectedRoute allowedRoles={['admin']}><AdminUsers /></ProtectedRoute>} />
                         <Route path="events" element={<ProtectedRoute allowedRoles={['admin']}><AdminEvents /></ProtectedRoute>} />
+                        <Route path="kelulusan" element={<ProtectedRoute allowedRoles={['admin']}><AdminCertificationManagementPage /></ProtectedRoute>} />
+                        <Route path="kelulusan/:studentId" element={<ProtectedRoute allowedRoles={['admin']}><GraduationDetailPage /></ProtectedRoute>} />
                         <Route path="profile" element={<ProtectedRoute allowedRoles={['admin']}><AdminProfilePage /></ProtectedRoute>} />
                     </Route>
 

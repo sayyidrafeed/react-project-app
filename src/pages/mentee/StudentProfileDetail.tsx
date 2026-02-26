@@ -134,7 +134,7 @@ const StudentProfileDetail: React.FC = () => {
                         onClick={() => navigate('/mentee/discover')}
                         className="mt-6 px-6 py-3 bg-upn-green text-white rounded-xl font-black"
                     >
-                        Kembali ke Discover
+                        Kembali ke Jelajah
                     </button>
                 </div>
             </DashboardLayout>
