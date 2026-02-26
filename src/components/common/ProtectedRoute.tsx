@@ -1,11 +1,22 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth, UserRole } from '../../context/AuthContext';
+import { useAuth, UserRole, UserSubRole } from '../../context/AuthContext';
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
     allowedRoles?: UserRole[];
 }
+
+const subRoleRedirects: Partial<Record<UserRole, Partial<Record<UserSubRole, string>>>> = {
+    panitia: {
+        k3: '/panitia/k3',
+        ppm: '/panitia/ppm',
+    },
+    admin: {
+        'project-officer': '/admin/events',
+        'univ-kemahasiswaan': '/admin/kelulusan',
+    },
+};
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles }) => {
     const { user, isAuthenticated, isLoading } = useAuth();
@@ -29,27 +40,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
     }
 
     if (user) {
-        const isPanitiaRoot = location.pathname === '/panitia';
-        const isAdminRoot = location.pathname === '/admin';
+        const isRootPath = location.pathname === `/${user.role}`;
+        const redirectPath = user.subRole ? subRoleRedirects[user.role]?.[user.subRole] : undefined;
 
-        if (isPanitiaRoot && user.role === 'panitia') {
-            if (user.subRole === 'k3') {
-                return <Navigate to="/panitia/k3" replace />;
-            }
-
-            if (user.subRole === 'ppm') {
-                return <Navigate to="/panitia/ppm" replace />;
-            }
-        }
-
-        if (isAdminRoot && user.role === 'admin') {
-            if (user.subRole === 'project-officer') {
-                return <Navigate to="/admin/events" replace />;
-            }
-
-            if (user.subRole === 'univ-kemahasiswaan') {
-                return <Navigate to="/admin/kelulusan" replace />;
-            }
+        if (isRootPath && redirectPath) {
+            return <Navigate to={redirectPath} replace />;
         }
     }
 

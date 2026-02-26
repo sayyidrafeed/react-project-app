@@ -13,12 +13,14 @@ interface TodaysPriorityCardProps {
     tasks: PriorityTask[];
 }
 
+const statusLabelMap: Record<PriorityTask['status'], string> = {
+    PENDING: 'TERTUNDA',
+    SUBMITTED: 'TERKIRIM',
+    GRADED: 'DINILAI',
+};
+
 const TodaysPriorityCard: React.FC<TodaysPriorityCardProps> = ({ tasks }) => {
-    const getStatusLabel = (status: PriorityTask['status']) => {
-        if (status === 'PENDING') return 'TERTUNDA';
-        if (status === 'SUBMITTED') return 'TERKIRIM';
-        return 'DINILAI';
-    };
+    const getStatusLabel = (status: PriorityTask['status']) => statusLabelMap[status];
 
     return (
         <div className="space-y-4">

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { GraduationStudent, INITIAL_GRADUATIONS } from './graduationData';
+import { GraduationDecision, GraduationStudent, INITIAL_GRADUATIONS } from './graduationData';
 
 const buildDecisionMessage = (decision: GraduationDecision) => {
     if (decision === 'Lulus') {
@@ -29,7 +29,7 @@ const getIndicatorClass = (ratio: number) => {
 };
 
 const AdminCertificationManagementPage: React.FC = () => {
-    const [graduations, setGraduations] = useState<GraduationStudent[]>(INITIAL_GRADUATIONS);
+    const [graduations] = useState<GraduationStudent[]>(INITIAL_GRADUATIONS);
     const navigate = useNavigate();
 
     const totalPassed = useMemo(

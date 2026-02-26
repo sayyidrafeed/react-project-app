@@ -18,33 +18,7 @@ const LoginPage: React.FC = () => {
         const selectedSubRole = role === 'panitia' ? panitiaSubRole : role === 'admin' ? adminSubRole : undefined;
 
         await login(email, role, selectedSubRole);
-
-        if (role === 'panitia') {
-            if (panitiaSubRole === 'k3') {
-                navigate('/panitia/k3');
-                return;
-            }
-
-            if (panitiaSubRole === 'ppm') {
-                navigate('/panitia/ppm');
-                return;
-            }
-
-            navigate('/panitia');
-            return;
-        }
-
-        if (role === 'admin') {
-            if (adminSubRole === 'project-officer') {
-                navigate('/admin/events');
-                return;
-            }
-
-            navigate('/admin/kelulusan');
-            return;
-        }
-
-        navigate('/mentee');
+        navigate(`/${role}`);
     };
 
     return (

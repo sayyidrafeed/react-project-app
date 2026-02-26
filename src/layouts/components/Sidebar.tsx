@@ -1,7 +1,8 @@
 import React from 'react';
-import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert, ClipboardList, Award } from 'lucide-react';
+import { LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AdminSubRole, PanitiaSubRole, UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
+import { getNavigationMenu } from './navigationMenu';
 
 interface SidebarProps {
     userRole: UserRole;
@@ -14,72 +15,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ userRole, userSubRole, isCollapsed, setIsCollapsed, onLogout }) => {
     const location = useLocation();
 
-    const menuItems = {
-        admin: [
-            { name: 'Ringkasan', icon: Home, path: '/admin' },
-            { name: 'Manajemen User', icon: User, path: '/admin/users' },
-            { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
-            { name: 'Manajemen Kelulusan', icon: Award, path: '/admin/kelulusan' },
-        ],
-        panitia: [
-            { name: 'Ringkasan', icon: Home, path: '/panitia' },
-            { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
-            { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
-            { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
-            { name: 'Manajemen Tugas', icon: ClipboardList, path: '/panitia/ppm' },
-            { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
-            { name: 'Profil', icon: User, path: '/panitia/profile' },
-        ],
-        mentee: [
-            { name: 'Beranda', icon: Home, path: '/mentee' },
-            { name: 'Jelajah', icon: Eye, path: '/mentee/discover' },
-            { name: 'Presensi', icon: Camera, path: '/mentee/presence' },
-            { name: 'Tugas', icon: FileText, path: '/mentee/tasks' },
-            { name: 'Profil', icon: User, path: '/mentee/profile' },
-        ]
-    };
-
-    const getCurrentMenu = () => {
-        if (userRole === 'panitia') {
-            if (userSubRole === 'k3') {
-                return [
-                    { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
-                    { name: 'Profil', icon: User, path: '/panitia/profile' },
-                ];
-            }
-
-            if (userSubRole === 'ppm') {
-                return [
-                    { name: 'Manajemen Tugas', icon: ClipboardList, path: '/panitia/ppm' },
-                    { name: 'Profil', icon: User, path: '/panitia/profile' },
-                ];
-            }
-
-            return menuItems.panitia;
-        }
-
-        if (userRole === 'admin') {
-            if (userSubRole === 'project-officer') {
-                return [
-                    { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
-                    { name: 'Profil', icon: User, path: '/admin/profile' },
-                ];
-            }
-
-            if (userSubRole === 'univ-kemahasiswaan') {
-                return [
-                    { name: 'Manajemen Kelulusan', icon: Award, path: '/admin/kelulusan' },
-                    { name: 'Profil', icon: User, path: '/admin/profile' },
-                ];
-            }
-
-            return menuItems.admin;
-        }
-
-        return menuItems.mentee;
-    };
-
-    const currentMenu = getCurrentMenu();
+    const currentMenu = getNavigationMenu(userRole, userSubRole);
 
     return (
         <aside className={`${isCollapsed ? 'w-20' : 'w-64'} bg-white border-r border-slate-200 shadow-sm transition-all duration-300 flex flex-col z-20`}>
