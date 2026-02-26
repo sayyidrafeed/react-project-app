@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Calendar, Home, FileText, BarChart3, Camera, Eye, User, ShieldAlert, ClipboardList } from 'lucide-react';
+import { Users, Calendar, Home, FileText, BarChart3, Camera, Eye, User, ShieldAlert, ClipboardList, Award } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, onLogout: _onLogout }) 
             { name: 'Ringkasan', icon: BarChart3, path: '/admin' },
             { name: 'Manajemen User', icon: Users, path: '/admin/users' },
             { name: 'Manajemen Event', icon: Calendar, path: '/admin/events' },
+            { name: 'Lulus', icon: Award, path: '/admin/kelulusan' },
             { name: 'Profil', icon: User, path: '/admin/profile' },
         ],
         panitia: [

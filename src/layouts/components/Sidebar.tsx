@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert, ClipboardList } from 'lucide-react';
+import { Home, Eye, Camera, FileText, User, LogOut, ChevronLeft, ChevronRight, Users, BarChart3, ShieldAlert, ClipboardList, Award } from 'lucide-react';
 import { UserRole } from '../../context/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -30,6 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, setIsCollapsed
             { name: 'Ringkasan', icon: Home, path: '/admin' },
             { name: 'Manajemen User', icon: User, path: '/admin/users' },
             { name: 'Manajemen Event', icon: Camera, path: '/admin/events' },
+            { name: 'Manajemen Kelulusan', icon: Award, path: '/admin/kelulusan' },
         ],
         panitia: [
             { name: 'Ringkasan', icon: Home, path: '/panitia' },

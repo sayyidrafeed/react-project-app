@@ -46,9 +46,9 @@ export const MenteeHome: React.FC = () => {
                     <TodaysPriorityCard tasks={priorityTasks} />
 
                     <MentorInfoCard
-                        mentorName="Kak Mentor Patribera"
+                        mentorName="Kak Mentor Kelompok 21"
                         groupNumber="21"
-                        groupName="PATRIBERA"
+                        groupName="Kelompok 21"
                     />
                 </div>
 
@@ -86,7 +86,7 @@ export const MentorHome: React.FC = () => {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
                         <h1 className="text-4xl font-black mb-1">Ringkasan Grup</h1>
-                        <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Kelompok 21 - PATRIBERA</p>
+                        <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Kelompok 21</p>
                     </div>
                     <div className="flex gap-2">
                         <button onClick={() => alert('Fitur Unduh Laporan akan segera tersedia!')} className="btn-secondary text-xs">UNDUH LAPORAN</button>
@@ -109,7 +109,7 @@ export const MentorHome: React.FC = () => {
                                     <div className="w-12 h-12 bg-upn-green/10 rounded-lg flex items-center justify-center text-upn-green shrink-0">
                                         <Users size={20} />
                                     </div>
-                                    <div className="flex-grow">
+                                    <div className="grow">
                                         <p className="font-bold text-slate-800">{mentee.name}</p>
                                         <p className="text-[10px] text-slate-500 font-medium">{mentee.nim} • {mentee.major}</p>
                                     </div>

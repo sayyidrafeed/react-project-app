@@ -18,6 +18,8 @@ import MentorGroupPage from './pages/mentor/Group';
 import StatistikGrupPage from './pages/mentor/StatistikGrup';
 import MentorProfilePage from './pages/mentor/Profile';
 import AdminProfilePage from './pages/admin/Profile';
+import AdminCertificationManagementPage from './pages/admin/CertificationManagement';
+import GraduationDetailPage from './pages/admin/GraduationDetail';
 import K3ViolationsPage from './pages/panitia/K3Violations';
 import PPMTasksPage from './pages/panitia/PPMTasks';
 import PPMTaskDetailPage from './pages/panitia/PPMTaskDetail';
@@ -65,6 +67,8 @@ function App() {
                         <Route index element={<ProtectedRoute allowedRoles={['admin']}><AdminHome /></ProtectedRoute>} />
                         <Route path="users" element={<ProtectedRoute allowedRoles={['admin']}><AdminUsers /></ProtectedRoute>} />
                         <Route path="events" element={<ProtectedRoute allowedRoles={['admin']}><AdminEvents /></ProtectedRoute>} />
+                        <Route path="kelulusan" element={<ProtectedRoute allowedRoles={['admin']}><AdminCertificationManagementPage /></ProtectedRoute>} />
+                        <Route path="kelulusan/:studentId" element={<ProtectedRoute allowedRoles={['admin']}><GraduationDetailPage /></ProtectedRoute>} />
                         <Route path="profile" element={<ProtectedRoute allowedRoles={['admin']}><AdminProfilePage /></ProtectedRoute>} />
                     </Route>
 
