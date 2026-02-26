@@ -49,7 +49,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) =>
             {/* Footer */}
             <div className="absolute bottom-4 left-0 right-0 text-center z-10">
                 <p className="text-xs text-white/60">
-                    © 2025 UPN "Veteran" Jakarta. All rights reserved.
+                    © 2026 UPN "Veteran" Jakarta. All rights reserved.
                 </p>
             </div>
         </div>
