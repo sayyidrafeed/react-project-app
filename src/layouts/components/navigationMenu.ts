@@ -38,6 +38,13 @@ const subRoleMenuByRole: {
     admin: Partial<Record<AdminSubRole, NavigationMenuItem[]>>;
 } = {
     panitia: {
+        mentor: [
+            { name: 'Ringkasan', icon: Home, path: '/panitia' },
+            { name: 'Daftar Mentee', icon: Users, path: '/panitia/group' },
+            { name: 'Statistik Grup', icon: BarChart3, path: '/panitia/statistik-grup' },
+            { name: 'Validasi Tugas', icon: FileText, path: '/panitia/tasks' },
+            { name: 'Profil', icon: User, path: '/panitia/profile' },
+        ],
         k3: [
             { name: 'Keamanan', icon: ShieldAlert, path: '/panitia/k3' },
             { name: 'Profil', icon: User, path: '/panitia/profile' },

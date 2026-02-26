@@ -33,19 +33,43 @@ export const StatsCard: React.FC<StatsCardProps> = ({
         gold: 'bg-upn-gold text-upn-green border-transparent'
     };
 
+    const titleTextColor = {
+        white: 'text-slate-400',
+        green: 'text-white/70',
+        gold: 'text-upn-green/80',
+    };
+
+    const valueTextColor = {
+        white: 'text-slate-900',
+        green: 'text-white',
+        gold: 'text-upn-green',
+    };
+
+    const iconWrapperStyles = {
+        white: 'bg-upn-green/10 text-upn-green',
+        green: 'bg-white/20 text-white',
+        gold: 'bg-white/35 text-upn-green',
+    };
+
+    const descriptionTextColor = {
+        white: 'text-slate-500',
+        green: 'text-white/90',
+        gold: 'text-upn-green/80',
+    };
+
     return (
         <div className={cn("card relative overflow-hidden flex flex-col gap-1", variants[variant])}>
             <div className="flex justify-between items-start">
-                <span className={cn("text-xs font-extrabold uppercase tracking-wider opacity-70", variant !== 'white' ? 'text-white/80' : 'text-slate-400')}>
+                <span className={cn('text-xs font-extrabold uppercase tracking-wider', titleTextColor[variant])}>
                     {title}
                 </span>
-                <div className={cn("p-2 rounded-lg bg-opacity-10", variant === 'white' ? 'bg-upn-green text-upn-green' : 'bg-white text-inherit')}>
+                <div className={cn('p-2 rounded-lg', iconWrapperStyles[variant])}>
                     <Icon size={18} />
                 </div>
             </div>
 
             <div className="mt-2 flex items-baseline gap-2">
-                <h4 className="text-3xl font-black">{value}</h4>
+                <p className={cn('text-3xl font-black leading-none', valueTextColor[variant])}>{value}</p>
                 {trend && (
                     <span className={cn("text-xs font-bold", trend.isUp ? 'text-green-500' : 'text-red-500')}>
                         {trend.isUp ? '↑' : '↓'} {trend.value}%
@@ -54,7 +78,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
             </div>
 
             {description && (
-                <p className={cn("text-[10px] mt-1 font-medium italic opacity-80")}>
+                <p className={cn('text-[10px] mt-1 font-medium italic', descriptionTextColor[variant])}>
                     {description}
                 </p>
             )}

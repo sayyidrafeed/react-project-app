@@ -47,15 +47,13 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, userSubRole, onLogout: 
                             <Link
                                 key={item.name}
                                 to={item.path}
+                                aria-label={item.name}
                                 className={`flex flex-col items-center justify-center flex-1 h-full py-1 transition-all duration-200 ${isActive
                                     ? 'text-upn-green dark:text-upn-gold'
                                     : 'text-slate-400 dark:text-dark-text-muted hover:text-slate-600'
                                     }`}
                             >
                                 <item.icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-                                <span className={`text-[9px] font-semibold mt-1 ${isActive ? 'text-upn-green' : ''}`}>
-                                    {item.name}
-                                </span>
                             </Link>
                         );
                     }
@@ -66,15 +64,13 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, userSubRole, onLogout: 
                             <Link
                                 key={item.name}
                                 to={item.path}
+                                aria-label={item.name}
                                 className={`flex flex-col items-center justify-center flex-1 h-full py-1 transition-all duration-200 ${isActive
                                     ? 'text-upn-green dark:text-upn-gold'
                                     : 'text-slate-400 dark:text-dark-text-muted hover:text-slate-600'
                                     }`}
                             >
                                 <item.icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-                                <span className={`text-[9px] font-semibold mt-1 ${isActive ? 'text-upn-green' : ''}`}>
-                                    {item.name}
-                                </span>
                             </Link>
                         );
                     }
@@ -84,15 +80,13 @@ const BottomNav: React.FC<BottomNavProps> = ({ userRole, userSubRole, onLogout: 
                         <Link
                             key={item.name}
                             to={item.path}
+                            aria-label={item.name}
                             className={`flex flex-col items-center justify-center flex-1 h-full py-1 transition-all duration-200 ${isActive
                                 ? 'text-upn-green dark:text-upn-gold'
                                 : 'text-slate-400 dark:text-dark-text-muted'
                                 }`}
                         >
                             <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-                            <span className={`text-[10px] font-medium mt-0.5 ${isActive ? 'font-semibold' : ''}`}>
-                                {item.name}
-                            </span>
                         </Link>
                     );
                 })}
