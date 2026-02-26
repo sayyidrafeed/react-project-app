@@ -111,11 +111,14 @@ const MentorGroupPage: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                     <div className="relative flex-grow">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-dark-text-muted" size={18} />
+                        <Search
+                            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-dark-text-muted pointer-events-none"
+                            size={18}
+                        />
                         <input
                             type="text"
                             placeholder="Cari nama, NIM, atau jurusan..."
-                            className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted"
+                            className="w-full pl-11 pr-4 py-3 border border-slate-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-upn-green focus:border-transparent outline-none transition-all bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-dark-text placeholder:text-slate-400 dark:placeholder:text-dark-text-muted"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -335,7 +338,7 @@ const FilterButton: React.FC<{
             onClick={onClick}
             className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shrink-0 ${active ? getActiveClass() : getInactiveClass()}`}
         >
-            <Filter size={14} className="sm:size-16" />
+            <Filter size={14} className="w-4 h-4 shrink-0" />
             <span>{label}</span>
             <span className={`px-2 py-0.5 rounded-full text-[10px] ${active ? 'bg-white/20' : 'bg-slate-200 dark:bg-dark-surface'}`}>
                 {count}
